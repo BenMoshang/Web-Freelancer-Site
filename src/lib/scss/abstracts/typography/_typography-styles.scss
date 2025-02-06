@@ -92,7 +92,7 @@ $typography-color: (
 	font-weight: tf.get-fw('body');
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
-	color: get-typography-color('secondary');
+	color: get-typography-color('secondary'); //or tertiary
 	text-wrap: pretty;
 	max-inline-size: 65ch;
 }
@@ -135,19 +135,16 @@ $typography-color: (
 %global__heading--h2 {
 	@include heading-overview;
 	font-size: map.get($responsive-font-size, 'heading--h2');
-	color: get-typography-color('secondary');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
 
 	font-size: map.get($responsive-font-size, 'heading--h3');
-	color: get-typography-color('secondary');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
-	color: get-typography-color('secondary');
 
 	font-size: map.get($responsive-font-size, 'heading--h4');
 }
@@ -160,14 +157,12 @@ $typography-color: (
 	@include body-overview;
 
 	font-size: map.get($responsive-font-size, 'body--lg');
-	color: get-typography-color('secondary');
 }
 
 %global__body--md {
 	@include body-overview;
 
 	font-size: map.get($responsive-font-size, 'body--md');
-	color: get-typography-color('secondary');
 }
 
 /*=============================================
