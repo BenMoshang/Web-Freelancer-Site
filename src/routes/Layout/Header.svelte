@@ -98,6 +98,7 @@
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
+		max-inline-size: $section-max-width;
 
 		// Remove text decoration from all links in header
 		a {
@@ -106,7 +107,7 @@
 
 		// Desktop: limit header width
 		@include respond-to('desktop') {
-			inline-size: 85.5%; //to fit along the grid
+			// inline-size: 85.5%; //to fit along the grid
 			margin-inline: auto;
 		}
 
@@ -199,7 +200,7 @@
 		width: 100%;
 		justify-content: space-evenly;
 		align-items: center;
-		gap: get-responsive-sp('3xl');
+		gap: get-static-sp('5xl');
 		list-style: none;
 		& > * {
 			flex-basis: 1;

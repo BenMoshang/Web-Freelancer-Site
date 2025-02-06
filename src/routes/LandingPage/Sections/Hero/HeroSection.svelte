@@ -331,7 +331,9 @@
 				align-items: center;
 				list-style: none;
 				padding-bottom: get-static-sp('sm');
-				inline-size: 84%; //to stay in line with the grid
+				inline-size: 100%; //to stay in line with the grid
+				max-inline-size: $section-max-width;
+
 				& > * {
 					flex-basis: 23%;
 				}
