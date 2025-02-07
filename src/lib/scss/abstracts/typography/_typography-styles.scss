@@ -7,14 +7,14 @@
 @use 'sass:map';
 
 $responsive-font-size: (
-	'display--h1': fsz.get-fsz('x7', 'x13'),
-	'display--h2': fsz.get-fsz('x10', 'x12'),
-	'heading--h2': fsz.get-fsz('x8', 'x9'),
-	'heading--h3': fsz.get-fsz('x4', 'x7'),
-	'heading--h4': fsz.get-fsz('x4', 'x5'),
-	'body--lg': fsz.get-fsz('x4', 'x5'),
-	'body--md': fsz.get-fsz('x3', 'x4'),
-	'label': fsz.get-fsz('x1', 'x2')
+	'display--h1': fsz.get-fsz('x7', 'x9'),
+	'display--h2': fsz.get-fsz('x6', 'x8'),
+	'heading--h2': fsz.get-fsz('x5', 'x7'),
+	'heading--h3': fsz.get-fsz('x4', 'x6'),
+	'heading--h4': fsz.get-fsz('x3', 'x5'),
+	'body--lg': fsz.get-fsz('x2', 'x4'),
+	'body--md': fsz.get-fsz('x1', 'x2'),
+	'label': fsz.get-fsz('x1', 'x1')
 );
 
 @function get-fsz-range($key) {
@@ -93,7 +93,7 @@ $typography-color: (
 	line-height: tf.get-lh('normal');
 	letter-spacing: tf.get-ls('normal');
 	color: cf.get-light-dark('dark', 'light');
-
+	font-size: map.get($responsive-font-size, 'body--md');
 	text-wrap: pretty;
 	max-inline-size: 65ch;
 }

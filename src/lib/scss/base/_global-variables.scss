@@ -1,8 +1,10 @@
 /*=============================================
 =            Global Variables                =
 =============================================*/
-$section-max-width: 90rem;
-
+$page-max-inline: 90rem;
+@mixin apply-page-max-inline {
+	max-inline-size: $page-max-inline;
+}
 /*=============================================
 =            Hero Section              =
 =============================================*/

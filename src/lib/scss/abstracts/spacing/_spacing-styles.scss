@@ -4,7 +4,7 @@
   Helper mixin to set padding with type options: 'all', 'inline',
   or 'block'. Returns the proper CSS property.
 -----------------------------------------------------------------*/
-@mixin apply-padding($size, $static, $type) {
+@mixin apply-padding($size, $type, $static: false) {
 	$value: sf.spacing($size, $static);
 	@if $type == 'all' {
 		padding: $value;
@@ -16,37 +16,10 @@
 		@error "Invalid padding type. Use 'all', 'inline', or 'block'.";
 	}
 }
-
 /*-----------------------------------------------------------------
-  Page-level spacing mixins
+  Helper mixin for setting gap property
 -----------------------------------------------------------------*/
-@mixin page-padding($size: 'xl', $type: 'all', $static: false) {
-	@include apply-padding($size, $static, $type);
-}
-
-@mixin page-gap($size: 'xl', $static: false) {
-	gap: sf.spacing($size, $static);
-}
-
-/*-----------------------------------------------------------------
-  Section-level spacing mixins
------------------------------------------------------------------*/
-@mixin section-padding($size: 'xl', $type: 'all', $static: false) {
-	@include apply-padding($size, $static, $type);
-}
-
-@mixin section-gap($size: '4xl', $static: false) {
-	gap: sf.spacing($size, $static);
-}
-
-/*-----------------------------------------------------------------
-  Component-level spacing mixins
------------------------------------------------------------------*/
-@mixin component-padding($size: 'md', $type: 'all', $static: false) {
-	@include apply-padding($size, $static, $type);
-}
-
-@mixin component-gap($size: 'md', $static: false) {
+@mixin apply-gap($size, $static: false) {
 	gap: sf.spacing($size, $static);
 }
 

@@ -1,3 +1,5 @@
+@use 'sass:map';
+@use '../../../abstracts/colors/colors-functions' as cf;
 /*=============================================
 =          TEXT HOVER Animations            =
 =============================================*/
@@ -16,7 +18,7 @@
 		inset: 0;
 		background: currentColor;
 		opacity: 0;
-		filter: blur(15px);
+		filter: blur(0.9375rem);
 		transform: translateY(10px);
 		transition: all $hover-duration $hover-timing;
 	}
@@ -65,6 +67,36 @@
 	&:active {
 		&::before {
 			transform: scaleX(0.95);
+		}
+	}
+}
+@mixin link-effect {
+	position: relative;
+	text-decoration: none;
+	transition: color 0.3s ease;
+
+	// Underline effect on hover/focus
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -0.25rem;
+		width: 0;
+		height: 0.125rem;
+		background: cf.get-light-dark('darkest', 'lightest');
+		transition: width 0.3s ease;
+	}
+	&:active,
+	&:hover,
+	&:focus {
+		color: cf.get-light-dark('darkest', 'lightest');
+		transform: translateY(-0.125rem);
+
+		&::after {
+			width: 100%;
+		}
+		&:active {
+			transform: translateY(0);
 		}
 	}
 }

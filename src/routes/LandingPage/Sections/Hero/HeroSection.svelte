@@ -332,7 +332,7 @@
 				list-style: none;
 				padding-bottom: get-static-sp('sm');
 				inline-size: 100%; //to stay in line with the grid
-				max-inline-size: $section-max-width;
+				max-inline-size: $page-max-inline;
 
 				& > * {
 					flex-basis: 23%;

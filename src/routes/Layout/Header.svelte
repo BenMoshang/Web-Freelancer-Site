@@ -81,7 +81,6 @@
     HEADER & CHILD COMPONENTS
   ==========================*/
 	.header {
-		// Use design tokens and mixins from the design system.
 		--header-height: #{$page-header-height};
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -92,15 +91,15 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		margin-top: get-static-sp('sm');
 		inline-size: 100%;
 		border-radius: $br-rounded;
-		min-block-size: var(--header-height);
-		padding: 1.25rem get-static-sp('md');
+		block-size: var(--header-height);
+		padding-block: get-static-sp('lg');
+		padding-inline: get-static-sp('md');
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
-		max-inline-size: $section-max-width;
+		max-inline-size: $page-max-inline;
 
 		// Remove text decoration from all links in header
 		a {
@@ -135,9 +134,7 @@
 			grid-area: content;
 			justify-self: end;
 			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: get-responsive-sp('sm');
+			gap: get-responsive-sp('md');
 		}
 
 		//==========================
@@ -159,20 +156,20 @@
 			}
 
 			svg {
-				@include realism-shadow;
-
-				width: 2rem;
-				height: 2rem;
-				padding: get-static-sp('xs');
+				width: 100%;
+				height: 100%;
+				max-width: 2rem;
+				max-height: 2rem;
 				object-fit: cover;
-				background: get-light-dark('darkest', 'lightest');
+				// background: get-light-dark('darkest', 'lightest');
 				border-radius: $br-rounded;
 				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
 			.line {
+				$color: get-light-dark('darker', 'lighter');
 				fill: none;
-				stroke: get-light-dark('lighter', 'dark');
+				stroke: $color;
 				stroke-linecap: round;
 				stroke-linejoin: round;
 				stroke-width: 2;
@@ -212,38 +209,9 @@
 
 	.nav__link {
 		@include body-overview;
+		@include link-effect;
 		font-family: get-ff('display');
-		position: relative;
-		font-size: get-static-fsz('x2');
 		line-height: 1;
 		font-weight: get-fw('emphasis');
-		text-decoration: none;
-		transition: color 0.3s ease;
-
-		// Underline effect on hover/focus
-		&::after {
-			content: '';
-			position: absolute;
-			left: 0;
-			bottom: -0.25rem;
-			width: 0;
-			height: 0.125rem;
-			background: get-light-dark('darker', 'lighter');
-			transition: width 0.3s ease;
-		}
-
-		&:hover,
-		&:focus {
-			color: get-light-dark('darker', 'lighter');
-			transform: translateY(-1px);
-
-			&::after {
-				width: 100%;
-			}
-		}
-
-		&:active {
-			transform: translateY(0);
-		}
 	}
 </style>

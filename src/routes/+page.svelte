@@ -6,6 +6,7 @@
 	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
+	import SecondHero from './LandingPage/Sections/Hero/SecondHero.svelte';
 
 	let cards = [
 		{ id: 'card1', title: 'About Section', component: AboutSection },
@@ -28,9 +29,10 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
+<SecondHero />
 
-<HeroSection />
-<AboutSection />
+<!-- <HeroSection /> -->
+<!-- <AboutSection /> -->
 
 <!-- {#each cards as card, index}
 	<section

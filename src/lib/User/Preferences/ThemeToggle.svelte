@@ -56,20 +56,21 @@
 	}
 	svg {
 		$color: get-light-dark('medium', 'light');
-		inline-size: 1.5rem;
-		block-size: 1.5rem;
-		fill: $color;
+		width: 100%;
+		height: 100%;
+		max-width: 1.5rem;
+		max-height: 1.5rem;
+		stroke: $color;
 		object-fit: cover;
-		// @include margin('right', 'sm', false);
-		& path {
-			fill: $color;
-		}
+		fill: none;
 	}
 	.sun {
 		animation: rotate 15s linear infinite;
+		stroke-width: 0.0313rem;
 	}
 	.moon {
 		animation: tilt 5s linear infinite;
+		stroke-width: 0.5rem;
 	}
 
 	@keyframes rotate {
