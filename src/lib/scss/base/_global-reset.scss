@@ -51,6 +51,7 @@
 :global([role='button']),
 :global(select) {
 	cursor: pointer;
+	touch-action: manipulation;
 }
 
 /* Form Elements */
