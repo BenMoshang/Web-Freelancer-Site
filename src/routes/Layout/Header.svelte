@@ -15,11 +15,9 @@
 	}
 
 	const navItems = [
-		{ href: '/', text: 'HOME' },
-		{ href: '/about', text: 'ABOUT' },
-		{ href: '/services', text: 'SERVICES' },
-		{ href: '/work', text: 'PORTFOLIO' },
-		{ href: '/contact', text: 'CONTACT' }
+		{ href: '/about', text: 'Overview' },
+		{ href: '/about', text: 'Work' },
+		{ href: '/contact', text: 'Pricing' }
 	];
 
 	onMount(() => {
@@ -55,7 +53,7 @@
 	</nav>
 	<div class="header__content-wrapper">
 		<ThemeToggle />
-		<EmailButton />
+		<!-- <EmailButton /> -->
 		<!-- MOBILE: Menu Toggle -->
 		<label for="menu-toggle" class="header__burger">
 			<input
@@ -85,7 +83,11 @@
 	.header {
 		// Use design tokens and mixins from the design system.
 		--header-height: #{$page-header-height};
-		@include flex-between;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		justify-content: center;
+		align-items: center;
+		grid-template-areas: 'logo nav content';
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -130,6 +132,8 @@
 		// Header Content Wrapper
 		//==========================
 		&__content-wrapper {
+			grid-area: content;
+			justify-self: end;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -186,7 +190,7 @@
 	//==========================
 	// Hide burger menu on larger screens
 	//==========================
-	@include respond-to('tablet') {
+	@include respond-to('desktop') {
 		.header__burger {
 			display: none;
 		}
@@ -196,15 +200,14 @@
     NAVIGATION LINKS & LIST
   ==========================*/
 	.nav__list {
+		grid-area: nav;
 		display: flex;
+
 		width: 100%;
 		justify-content: space-evenly;
 		align-items: center;
-		gap: get-static-sp('5xl');
+		gap: get-static-sp('2xl');
 		list-style: none;
-		& > * {
-			flex-basis: 1;
-		}
 	}
 
 	.nav__link {
