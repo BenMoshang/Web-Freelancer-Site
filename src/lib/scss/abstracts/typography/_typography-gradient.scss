@@ -4,30 +4,30 @@
 *FOR GRADIENT TEXT:
 *example:
 *   USAGE: 1. @include gradient-text();
-*          2. @include set-gradient('darkest', 'dark', 'dark', 'darkest', 360deg);
+*          2. @include set-gradient('900', '700', '700', '900', 360deg);
 */
 
 @mixin gradient-text(
-	$light-start: 'lightest',
-	$light-end: 'medium',
-	$dark-start: 'lightest',
-	$dark-end: 'light',
+	$light-start: '50',
+	$light-end: '500',
+	$dark-start: '50',
+	$dark-end: '300',
 	$direction: 145deg
 ) {
 	background-image: linear-gradient(
 		$direction,
-		light-dark(cf.get-color($light-start, 'light'), cf.get-color($dark-start, 'dark')),
-		light-dark(cf.get-color($light-end, 'light'), cf.get-color($dark-end, 'dark'))
+		light-dark(cf.get-color($light-start, '300'), cf.get-color($dark-start, '700')),
+		light-dark(cf.get-color($light-end, '300'), cf.get-color($dark-end, '700'))
 	);
 	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent;
 }
 @mixin shimmer(
-	$light-base: 'dark',
-	$light-highlight: 'light',
-	$dark-base: 'medium',
-	$dark-highlight: 'light'
+	$light-base: '700',
+	$light-highlight: '300',
+	$dark-base: '500',
+	$dark-highlight: '300'
 ) {
 	background: linear-gradient(
 		90deg,

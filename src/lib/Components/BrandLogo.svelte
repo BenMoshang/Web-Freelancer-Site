@@ -7,7 +7,7 @@
 		font-family: get-ff('display');
 		font-size: get-static-fsz('x2');
 		font-weight: 600;
-		color: get-light-dark('darkest', 'lightest');
+		color: get-light-dark('900', '50');
 		line-height: 1;
 		text-wrap: balance;
 		cursor: pointer;

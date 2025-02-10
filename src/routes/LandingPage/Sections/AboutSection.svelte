@@ -11,7 +11,7 @@
 
 		&__title {
 			@extend %global__display--h2;
-			color: get-light-dark('lightest', 'darkest');
+			color: get-light-dark('50', '900');
 		}
 	}
 </style>

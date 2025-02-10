@@ -1,34 +1,49 @@
 @use 'colors-variables' as cv;
 @use 'sass:map';
 /**
-* @param {string} $color - The color to get.
-* @param {string} $scale - The scale to get the color from.
-* @return {string} The color from the chosen scale.
+* @param {string} $color - The color weight ('50', '100', '200', etc.).
+* @param {string} $mode - The color mode ('dark-mode' or 'light-mode').
+* @return {string} The color from the chosen mode.
 */
-@function get-color($color, $scale: 'dark') {
-	$selected-scale: if($scale == 'light', cv.$light-scale, cv.$dark-scale);
+@function get-color($color, $mode: 'dark-mode') {
+	$mode-scale: map.get(cv.$color-scale, $mode);
 
-	@return map.get($selected-scale, $color);
+	@if not $mode-scale {
+		@error "Mode '#{$mode}' not found in color scale";
+		@return null;
+	}
+
+	@if not map.has-key($mode-scale, $color) {
+		@error "Color weight '#{$color}' not found in #{$mode} scale";
+		@return null;
+	}
+
+	@return map.get($mode-scale, $color);
 }
 
 /**
-* @param {string} $light-color - The light color to get.
-* @param {string} $dark-color - The dark color to get.
-* @param {number} $light-opacity - The opacity of the light color.
-* @param {number} $dark-opacity - The opacity of the dark color.
-* @return {string} The light-dark color.
+* @param {string} $key - The typography color key ('primary', 'secondary', or 'tertiary').
+* @return {string} The typography color.
+*/
+@function get-typography-color($key) {
+	$typography-scale: map.get(cv.$color-scale, 'typography');
+
+	@return map.get($typography-scale, $key);
+}
+
+/**
+* @param {string} $light-color - The light mode color weight ('50' to '900').
+* @param {string} $dark-color - The dark mode color weight ('50' to '900').
+* @param {number} $light-opacity - The opacity in light mode.
+* @param {number} $dark-opacity - The opacity in dark mode.
+* @return {string} The light-dark color with opacity.
 */
 @function get-light-dark($light-color, $dark-color, $light-opacity: 1, $dark-opacity: 1) {
-	$light: get-color($light-color, cv.$light-scale);
-	$dark: get-color($dark-color, cv.$dark-scale);
+	$light: get-color($light-color, 'light-mode');
+	$dark: get-color($dark-color, 'dark-mode');
 
-	$light-with-light-opacity: hsla(
-		hue($light),
-		saturation($light),
-		lightness($light),
-		$light-opacity
-	);
+	$light-with-opacity: hsla(hue($light), saturation($light), lightness($light), $light-opacity);
+	$dark-with-opacity: hsla(hue($dark), saturation($dark), lightness($dark), $dark-opacity);
 
-	$dark-with-dark-opacity: hsla(hue($dark), saturation($dark), lightness($dark), $dark-opacity);
-	@return light-dark($light-with-light-opacity, $dark-with-dark-opacity);
+	@return light-dark($light-with-opacity, $dark-with-opacity);
 }

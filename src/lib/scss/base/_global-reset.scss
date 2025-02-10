@@ -38,10 +38,10 @@
 :global(html) {
 	min-block-size: 100vh;
 	inline-size: 100%;
-	scrollbar-color: cf.get-light-dark('lightest', 'darkest') cf.get-light-dark('light', 'dark');
+	scrollbar-color: cf.get-light-dark('50', '900') cf.get-light-dark('300', '700');
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
-	background: cf.get-light-dark('lightest', 'darkest');
+	background: cf.get-light-dark('50', '900');
 
 	// scroll-behavior: smooth;
 }

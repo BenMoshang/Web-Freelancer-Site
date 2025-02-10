@@ -20,12 +20,9 @@
 	padding-block: sf.get-static-sp('xs');
 	padding-inline: sf.get-static-sp('sm');
 	border-radius: gv.$br-default;
-	background: cf.get-light-dark('darker', 'lighter');
+	background: cf.get-light-dark('800', '200');
 	@include sh.realism-shadow;
-	color: cf.get-light-dark(
-		'lightest',
-		'darkest'
-	); //because svg is on current color!important keep here
+	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
 
 	& span {
 		font-family: typo.get-ff('body');
@@ -47,8 +44,8 @@
 
 @mixin button-primary($small: false) {
 	@include button-overview;
-	border: 0.0625rem solid cf.get-light-dark('darkest', 'lightest');
-	background: cf.get-light-dark('darkest', 'lightest');
+	border: 0.0625rem solid cf.get-light-dark('900', '50');
+	background: cf.get-light-dark('900', '50');
 
 	@if $small {
 		padding: sf.get-static-sp('sm');

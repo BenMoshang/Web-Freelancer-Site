@@ -1,32 +1,40 @@
-$dark-scale: (
-	// Primary background
-	'darkest': hsla(240, 15%, 6%, 1),
-	// Layered background / cards
-	'darker': hsla(240, 12%, 9%, 1),
-	// Surfaces (e.g., modals, raised elements)
-	'dark': hsla(240, 10%, 12%, 1),
-	// Subtle surfaces or additional layers
-	'medium': hsla(240, 8%, 16%, 1),
-	// Body text color (on darkest/darker/dark/medium)
-	'light': hsla(240, 6%, 60%, 1),
-	// Secondary text, icons
-	'lighter': hsla(240, 6%, 75%, 1),
-	// High-contrast text / highlights on dark backgrounds
-	'lightest': hsla(240, 4%, 95%, 1)
-);
-$light-scale: (
-	// Primary background
-	'darkest': hsla(240, 15%, 6%, 1),
-	// Layered backgrounds / cards
-	'darker': hsla(240, 12%, 10%, 1),
-	// Surfaces (e.g., modals, raised elements)
-	'dark': hsla(240, 10%, 14%, 1),
-	// Subtle backgrounds, well above darkest
-	'medium': hsla(240, 8%, 20%, 1),
-	// Subtle borders, less prominent text
-	'light': hsla(240, 7%, 26%, 1),
-	// Further elevated surfaces or secondary panels
-	'lighter': hsla(240, 6%, 32%, 1),
-	// Kept exactly the same as requested
-	'lightest': hsla(75, 10%, 89%, 1)
+//complimentary colors
+$color-scale: (
+	'dark-mode': (
+		'page-background': hsl(233, 0%, 7%),
+		'900': hsla(233, 17%, 20%, 1),
+		'800': hsla(235, 15%, 29%, 1),
+		'700': hsla(233, 14%, 36%, 1),
+		'600': hsla(231, 14%, 44%, 1),
+		'500': hsla(233, 13%, 51%, 1),
+		// *material design standard colors: any colors 400 <= 50 are suitable for dark backgrounds.
+		'400': hsla(234, 14%, 58%, 1),
+		'300': hsla(234, 16%, 66%, 1),
+		'200': hsla(232, 19%, 76%, 1),
+		'100': hsla(231, 27%, 86%, 1),
+		'50': hsla(245, 50%, 95%, 1),
+		'links': hsla(234, 50%, 50%, 1)
+	),
+
+	'light-mode': (
+		'page-background': hsl(50, 0%, 98%),
+		'900': hsla(54, 53%, 7%, 1),
+		'800': hsla(53, 17%, 20%, 1),
+		'700': hsla(51, 12%, 32%, 1),
+		'600': hsla(51, 10%, 40%, 1),
+		'500': hsla(51, 9%, 55%, 1),
+		// *material design standard colors: any colors 400 <= 50 are suitable for dark backgrounds.
+		'400': hsla(52, 13%, 68%, 1),
+		'300': hsla(52, 25%, 82%, 1),
+		'200': hsla(50, 40%, 88%, 1),
+		'100': hsla(50, 57%, 92%, 1),
+		'50': hsla(50, 86%, 95%, 1),
+		'links': hsla(50, 50%, 50%, 1)
+	),
+
+	'typography': (
+		'primary': get-light-dark('900', '50', 0.87, 0.8),
+		'secondary': get-light-dark('900', '50', 0.6, 0.7),
+		'tertiary': get-light-dark('900', '50', 0.38, 0.5)
+	)
 );

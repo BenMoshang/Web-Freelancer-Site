@@ -156,10 +156,8 @@
 			}
 
 			svg {
-				width: 100%;
-				height: 100%;
-				max-width: 2rem;
-				max-height: 2rem;
+				width: 2em;
+				height: 2em;
 				object-fit: cover;
 				// background: get-light-dark('darkest', 'lightest');
 				border-radius: $br-rounded;
@@ -167,7 +165,7 @@
 			}
 
 			.line {
-				$color: get-light-dark('darker', 'lighter');
+				$color: get-light-dark('800', '200');
 				fill: none;
 				stroke: $color;
 				stroke-linecap: round;

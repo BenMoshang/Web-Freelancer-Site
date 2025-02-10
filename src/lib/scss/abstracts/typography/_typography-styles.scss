@@ -39,7 +39,6 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('display');
 	line-height: typo-fn.get-lh('tight');
 	letter-spacing: typo-fn.get-ls('tight');
-	color: colors.get-typography-color('primary');
 	text-wrap: balance;
 }
 
@@ -57,7 +56,6 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('body');
 	line-height: typo-fn.get-lh('normal');
 	letter-spacing: typo-fn.get-ls('normal');
-	color: colors.get-light-dark('dark', 'light');
 	font-size: get-responsive-fsz-range('body--md');
 	text-wrap: pretty;
 }

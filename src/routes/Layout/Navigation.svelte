@@ -58,7 +58,7 @@
 	</nav>
 {/if}
 
-<style lang="scss">
+<style scoped lang="scss">
 	/*=============================================
 =          Navigation Background         =
 =============================================*/
@@ -107,7 +107,7 @@
 	.nav__list {
 		padding-top: $page-header-height;
 		@include flex-column;
-		gap: get-static-sp('xl');
+		gap: get-static-sp('3xl');
 		align-content: center;
 		justify-content: center;
 		list-style: none;
@@ -142,38 +142,16 @@
 =          Navigation Typography styling         =
 =============================================*/
 	.nav__link {
-		@include display-overview;
-		position: relative;
+		@include body-overview;
+		@include link-effect;
+		font-family: get-ff('display');
+		line-height: 1;
+		font-weight: get-fw('display');
 		font-size: get-static-fsz('x8');
+		color: get-typography-color('primary');
 		text-decoration: none;
-		transition: color 0.3s ease;
 
 		text-align: left;
-		animation: text-pop-up-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-		// Underline effect
-		&::after {
-			content: '';
-			position: absolute;
-			left: 0;
-			bottom: -0.25rem;
-			width: 0;
-			height: 2px;
-			background: get-light-dark('darkest', 'lightest');
-			transition: width 0.3s ease;
-		}
-
-		&:hover {
-			color: get-light-dark('dark', 'light');
-			transform: translateY(-1px);
-
-			&::after {
-				width: 100%;
-			}
-		}
-
-		&:active {
-			transform: translateY(0);
-		}
 	}
 
 	@media (min-width: $mobile-breakpoint) {

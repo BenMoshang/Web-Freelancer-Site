@@ -4,19 +4,19 @@
 @use 'sass:math';
 
 $static-spacing: (
-	'xs': get-base-sp('s4'),
-	'sm': get-base-sp('s8'),
-	'md': get-base-sp('s16'),
-	'lg': get-base-sp('s20'),
-	'xl': get-base-sp('s24'),
-	'2xl': get-base-sp('s32'),
-	'3xl': get-base-sp('s40'),
-	'4xl': get-base-sp('s48'),
-	'5xl': get-base-sp('s64'),
-	'6xl': get-base-sp('s80'),
-	'7xl': get-base-sp('s96'),
-	'8xl': get-base-sp('s112'),
-	'9xl': get-base-sp('s128')
+	'xs': sb.get-base-sp('s4'),
+	'sm': sb.get-base-sp('s8'),
+	'md': sb.get-base-sp('s16'),
+	'lg': sb.get-base-sp('s20'),
+	'xl': sb.get-base-sp('s24'),
+	'2xl': sb.get-base-sp('s32'),
+	'3xl': sb.get-base-sp('s40'),
+	'4xl': sb.get-base-sp('s48'),
+	'5xl': sb.get-base-sp('s64'),
+	'6xl': sb.get-base-sp('s80'),
+	'7xl': sb.get-base-sp('s96'),
+	'8xl': sb.get-base-sp('s112'),
+	'9xl': sb.get-base-sp('s128')
 );
 @function get-static-sp($key) {
 	@return map.get($static-spacing, $key);
