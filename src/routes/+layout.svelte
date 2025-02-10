@@ -5,6 +5,7 @@
 	// import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
 
+<!-- todo: on mobile replace burger with the word menu and pricing how better off is -->
 <!-- todo: add a personality web questionaire -->
 <!-- todo: fix line height variables to match typography ratio -->
 <!-- todo: change highlight color -->
