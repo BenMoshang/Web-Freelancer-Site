@@ -3,24 +3,6 @@
 @use 'sass:map';
 @use 'sass:math';
 
-/**
- * Main spacing function.
- * If $static is true, returns a static spacing value; otherwise returns a responsive value.
- */
-@function spacing($size, $static: false) {
-	@if type-of($size) != 'string' {
-		@error "Spacing size must be a string. Got: #{$size}";
-	}
-	@if $static == true {
-		@return get-static-sp($size);
-	}
-	@return get-responsive-sp($size);
-}
-
-@function get-base-sp($key) {
-	@return map.get(sb.$spacing-scale, $key);
-}
-
 $static-spacing: (
 	'xs': get-base-sp('s4'),
 	'sm': get-base-sp('s8'),
@@ -39,10 +21,22 @@ $static-spacing: (
 @function get-static-sp($key) {
 	@return map.get($static-spacing, $key);
 }
-
+/**
+ * Main spacing function.
+ * If $static is true, returns a static spacing value; otherwise returns a responsive value.
+ */
+@function get-spacing-type($size, $static: false) {
+	@if type-of($size) != 'string' {
+		@error "Spacing size must be a string. Got: #{$size}";
+	}
+	@if $static == true {
+		@return get-static-sp($size);
+	}
+	@return get-responsive-sp($size);
+}
 @function create-responsive-sp($min-size, $max-size) {
-	$min: math-fn.get-map-value(sb.$spacing-scale, $min-size);
-	$max: math-fn.get-map-value(sb.$spacing-scale, $max-size);
+	$min: math-fn.get-map-value(sb.$base-spacing-scale, $min-size);
+	$max: math-fn.get-map-value(sb.$base-spacing-scale, $max-size);
 	@return math-fn.create-clamp($min, $max);
 }
 

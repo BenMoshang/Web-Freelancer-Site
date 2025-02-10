@@ -17,7 +17,7 @@ $base-unit: 0.25rem;
 /**
  * Spacing scale map, using the base unit.
  */
-$spacing-scale: (
+$base-spacing-scale: (
 	's4': spacing-scale(1),
 	// 0.25rem (4px)
 	's8': spacing-scale(2),
@@ -52,3 +52,6 @@ $spacing-scale: (
 	// 7rem (112px)
 	's128': spacing-scale(32) // 9rem (144px)
 );
+@function get-base-sp($key) {
+	@return map.get(sb.$base-spacing-scale, $key);
+}

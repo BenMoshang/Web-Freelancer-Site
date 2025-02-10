@@ -1,5 +1,4 @@
 <script lang="ts">
-	import HeroSection from './LandingPage/Sections/Hero/HeroSection.svelte';
 	import AboutSection from './LandingPage/Sections/AboutSection.svelte';
 	import ServicesSection from './LandingPage/Sections/ServicesSection.svelte';
 	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';

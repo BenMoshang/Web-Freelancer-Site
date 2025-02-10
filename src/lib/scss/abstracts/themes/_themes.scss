@@ -20,24 +20,3 @@
 		}
 	}
 }
-/**
- * Example usage of the theme mixin
- * @example
- * .my-element {
- *    // Default styling
- *    background: black;
- *    color: white;
- *
- *    // Light theme styles (both system preference and explicit selection)
- *    @include theme('light') {
- *      background: white;
- *      color: black;
- *    }
- *
- *    // Dark theme styles (both system preference and explicit selection)
- *    @include theme('dark') {
- *      background: black;
- *      color: white;
- *    }
- * }
- */

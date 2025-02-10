@@ -1,11 +1,11 @@
-@use 'spacing-functions' as sf;
+@use 'spacing-functions' as spacing-fn;
 
 /*-----------------------------------------------------------------
   Helper mixin to set padding with type options: 'all', 'inline',
   or 'block'. Returns the proper CSS property.
 -----------------------------------------------------------------*/
 @mixin apply-padding($size, $type, $static: false) {
-	$value: sf.spacing($size, $static);
+	$value: spacing-fn.get-spacing-type($size, $static);
 	@if $type == 'all' {
 		padding: $value;
 	} @else if $type == 'inline' {
@@ -20,14 +20,14 @@
   Helper mixin for setting gap property
 -----------------------------------------------------------------*/
 @mixin apply-gap($size, $static: false) {
-	gap: sf.spacing($size, $static);
+	gap: spacing-fn.get-spacing-type($size, $static);
 }
 
 /*-----------------------------------------------------------------
   Margin mixin with direction options
 -----------------------------------------------------------------*/
-@mixin margin($direction: 'all', $size: 'md', $static: true) {
-	$sp: sf.spacing($size, $static);
+@mixin apply-margin($size: 'md', $direction: 'all', $static: false) {
+	$sp: spacing-fn.get-spacing-type($size, $static);
 
 	@if $direction == 'all' {
 		margin: $sp;
@@ -48,27 +48,4 @@
 	} @else {
 		@error "Invalid direction. Use 'all', 'top', 'right', 'bottom', 'left', 'inline', 'block', or 'auto'.";
 	}
-}
-
-/*-----------------------------------------------------------------
-  Semantic margin mixins
------------------------------------------------------------------*/
-@mixin margin-most-related($direction: 'all', $static: true) {
-	@include margin($direction, 'xs', $static);
-}
-
-@mixin margin-closely-related($direction: 'all', $static: true) {
-	@include margin($direction, 'sm', $static);
-}
-
-@mixin margin-semi-related($direction: 'all', $static: true) {
-	@include margin($direction, 'md', $static);
-}
-
-@mixin margin-less-related($direction: 'all', $static: true) {
-	@include margin($direction, 'xl', $static);
-}
-
-@mixin margin-not-related($direction: 'all', $static: true) {
-	@include margin($direction, '2xl', $static);
 }

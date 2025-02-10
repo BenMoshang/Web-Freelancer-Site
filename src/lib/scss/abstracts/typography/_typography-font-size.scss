@@ -15,7 +15,7 @@ $typography-scale-ratio: 1.25;
    ---------------------------------------------------------------------------
    Define your typographic scale using the base size and scale ratio.
 --------------------------------------------------------------------------- */
-$typography-scales: (
+$base-typography-scale: (
 	'x-1': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
 	'x0.5': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
 	'x1': $typography-base-size,
@@ -32,14 +32,14 @@ $typography-scales: (
 	'x12': $typography-base-size * math.pow($typography-scale-ratio, 11),
 	'x13': $typography-base-size * math.pow($typography-scale-ratio, 12)
 );
-$typography-scales: () !default;
+$base-typography-scale: () !default;
 /* ---------------------------------------------------------------------------
    3) Static Font-Size Getter
    ---------------------------------------------------------------------------
    Retrieves a static font size from the typographic scale and rounds it.
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
-	$font-size: math-fn.get-map-value($typography-scales, $size);
+	$font-size: math-fn.get-map-value($base-typography-scale, $size);
 	@return math-fn.round-number($font-size, 1); // Round to whole numbers for static sizes
 }
 
@@ -50,7 +50,7 @@ $typography-scales: () !default;
      1) Retrieves the min and max sizes from the scale.
      2) Generates a fluid clamp expression using those values.
 --------------------------------------------------------------------------- */
-@function get-fsz($min-key, $max-key) {
+@function create-responsive-fsz($min-key, $max-key) {
 	$min-size: get-static-fsz($min-key);
 	$max-size: get-static-fsz($max-key);
 	@return math-fn.create-clamp($min-size, $max-size);

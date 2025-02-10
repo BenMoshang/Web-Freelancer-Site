@@ -41,9 +41,12 @@
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
 	$intercept: $min-size - ($slope * $min-viewport);
 
-	// Only round for typography scales if $typography-scales exists and contains either of the keys.
+	// Only round for typography scales if $base-typography-scale exists and contains either of the keys.
 	@if meta.variable-exists(typography-scales) and
-		(map-has-key($typography-scales, $min-size) or map-has-key($typography-scales, $max-size))
+		(
+			map-has-key($base-typography-scale, $min-size) or
+				map-has-key($base-typography-scale, $max-size)
+		)
 	{
 		$slope: round-number($slope, 1);
 		$intercept: round-number($intercept, 1);

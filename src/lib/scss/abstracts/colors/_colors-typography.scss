@@ -1,0 +1,16 @@
+@use 'sass:map';
+
+$typography-color: (
+	'primary': get-light-dark('darkest', 'lightest', 0.87, 0.8),
+	'secondary': get-light-dark('darker', 'lighter', 0.6, 0.7),
+	'tertiary': get-light-dark('dark', 'light', 0.38, 0.5)
+);
+
+@function get-typography-color($key) {
+	@if map-has-key($typography-color, $key) {
+		@return map.get($typography-color, $key);
+	} @else {
+		@error "Key '#{$key}' not found in $typography-color map";
+		@return null;
+	}
+}

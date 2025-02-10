@@ -5,6 +5,9 @@
 	// import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
 
+<!-- todo: add a personality web questionaire -->
+<!-- todo: fix line height variables to match typography ratio -->
+<!-- todo: change highlight color -->
 <!-- <SmoothScroll /> -->
 <svelte:head></svelte:head>
 

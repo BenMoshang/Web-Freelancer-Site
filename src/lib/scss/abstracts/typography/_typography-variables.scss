@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use '../colors/colors-typography' as ct;
 @use '../../base/global-variables' as gv;
 /**
  * @var $
@@ -18,9 +19,9 @@ $font-family: (
  *    Values: Common font-weight values (300,400,500,600,700)
  */
 $font-weights: (
-	'label': 300,
-	'body': 400,
-	'emphasis': 500,
+	'label': 400,
+	'body': 500,
+	'emphasis': 600,
 	'heading': 600,
 	'display': 700
 );
