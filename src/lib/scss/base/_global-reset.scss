@@ -28,8 +28,6 @@
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	-webkit-text-size-adjust: 100% !important; /* Prevents iOS from auto-resizing text */
-
 	@media (min-width: gv.$mobile-breakpoint) {
 		cursor: auto;
 	}
