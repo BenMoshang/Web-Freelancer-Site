@@ -1,0 +1,39 @@
+// Default perspective value (you can adjust this for a stronger/weaker effect)
+$parallax-perspective: 1 !default;
+
+// ---------------------------------------------------------------------
+// Parallax Container Mixin
+// ---------------------------------------------------------------------
+// Use this mixin on the container element that holds your parallax layers.
+// It sets up a fixed perspective and preserves 3D transforms for its children.
+@mixin parallax-container($perspective: $parallax-perspective) {
+	// The perspective is multiplied by 1px to work with our depth values.
+	perspective: $perspective * 1px;
+	// Hide overflow (you might use auto for scrolling containers)
+	overflow: hidden;
+	// Ensure that child transforms maintain their 3D space.
+	transform-style: preserve-3d;
+	position: relative;
+	height: 100vh;
+}
+
+// ---------------------------------------------------------------------
+// Parallax Item Mixin
+// ---------------------------------------------------------------------
+// Apply this mixin to any child element that you wish to have a parallax effect.
+// $depth: A numeric value (e.g., -0.4, 0.2, etc.) that controls the parallax depth.
+//         Negative values push the element away (background effect),
+//         while positive values pull it forward (foreground effect).
+// $perspective: Should match the value used in the container.
+@mixin parallax-item($depth: 0, $perspective: $parallax-perspective) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: auto;
+	// The transform uses translateZ to move the element in 3D.
+	// The scale (using abs($depth - 1)) corrects the size change caused by perspective.
+	transform: translateZ($depth * $perspective * 1px) scale(abs($depth - 1));
+	// z-index is calculated so that negative depths yield lower (or even negative) values.
+	// Adjust this as needed for your stacking order.
+	z-index: $depth * 1000;
+}

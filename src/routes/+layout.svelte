@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from './Layout/Header.svelte';
 	import Footer from './Layout/Footer.svelte';
+	import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 	// import Cursor from '../lib/Components/Cursor.svelte';
 	// import SmoothScroll from '../lib/Components/SmoothScroll.svelte';
 </script>
@@ -9,10 +10,9 @@
 <!-- todo: add a personality web questionaire -->
 <!-- todo: fix line height variables to match typography ratio -->
 <!-- todo: change highlight color -->
-<!-- <SmoothScroll /> -->
 <svelte:head></svelte:head>
-
 <Header />
+<!-- <SmoothScroll /> -->
 <!-- ADDED GRAIN OVERLAY -->
 <!-- <img
 	src="/static/Images/nnnoise.svg"

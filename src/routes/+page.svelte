@@ -31,7 +31,10 @@
 <SecondHero />
 
 <!-- <HeroSection /> -->
-<!-- <AboutSection /> -->
+<AboutSection />
+<ServicesSection />
+<PortfolioSection />
+<ContactSection />
 
 <!-- {#each cards as card, index}
 	<section

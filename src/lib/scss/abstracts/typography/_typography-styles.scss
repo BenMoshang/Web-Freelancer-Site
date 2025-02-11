@@ -81,21 +81,23 @@ $responsive-font-sizes: (
 %global__display--h1 {
 	@include display-overview;
 	font-size: get-responsive-fsz-range('display--h1');
-	text-align: center;
-	text-wrap: balance;
 	color: colors.get-typography-color('primary');
 }
 
 %global__display--h2 {
 	@include display-overview;
 	font-size: get-responsive-fsz-range('display--h2');
-	text-align: center;
 	color: colors.get-typography-color('primary');
 }
 
 /*=============================================
 =            Heading Typography              =
 =============================================*/
+%global__heading--h1 {
+	@include heading-overview;
+	font-size: get-responsive-fsz-range('heading--h2');
+	color: colors.get-typography-color('primary');
+}
 
 %global__heading--h2 {
 	@include heading-overview;

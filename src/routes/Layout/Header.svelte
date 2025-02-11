@@ -81,6 +81,7 @@
     HEADER & CHILD COMPONENTS
   ==========================*/
 	.header {
+		@include apply-page-max-inline;
 		--header-height: #{$page-header-height};
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
@@ -92,6 +93,7 @@
 		left: 0;
 		right: 0;
 		inline-size: 100%;
+
 		border-radius: $br-rounded;
 		block-size: var(--header-height);
 		padding-block: get-static-sp('lg');
@@ -99,7 +101,6 @@
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
-		max-inline-size: $page-max-inline;
 
 		// Remove text decoration from all links in header
 		a {
@@ -108,7 +109,6 @@
 
 		// Desktop: limit header width
 		@include respond-to('desktop') {
-			// inline-size: 85.5%; //to fit along the grid
 			margin-inline: auto;
 		}
 
