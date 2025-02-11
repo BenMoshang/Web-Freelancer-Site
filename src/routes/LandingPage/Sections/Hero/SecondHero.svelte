@@ -35,7 +35,7 @@
 
 		&__title-container {
 			@include apply-padding('md', 'inline', false);
-			@include apply-page-max-inline;
+
 			grid-area: title;
 			display: grid;
 			grid-template-columns: subgrid;
@@ -50,6 +50,7 @@
 		&__title {
 			@extend %global__display--h1;
 			text-align: left;
+			writing-mode: sideways-lr;
 			color: get-light-dark('900', '50');
 			&--first {
 				grid-area: title-first;
@@ -57,7 +58,6 @@
 
 			&--second {
 				grid-area: title-second;
-				text-align: right;
 			}
 
 			&--third {
