@@ -12,6 +12,7 @@
 		text-wrap: balance;
 		cursor: pointer;
 		display: flex;
+		inline-size: fit-content;
 		flex-direction: column;
 
 		& span {
