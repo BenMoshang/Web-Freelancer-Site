@@ -41,7 +41,7 @@
 	scrollbar-color: cf.get-light-dark('50', '900') cf.get-light-dark('300', '700');
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
-	background: cf.get-light-dark('50', '900');
+	background: cf.get-light-dark('page-background', 'page-background');
 
 	// scroll-behavior: smooth;
 }

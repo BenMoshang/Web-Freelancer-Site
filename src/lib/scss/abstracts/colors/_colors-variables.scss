@@ -1,7 +1,7 @@
 //complimentary colors
 $color-scale: (
 	'dark-mode': (
-		'page-background': hsl(233, 0%, 7%),
+		'page-background': hsla(233, 0%, 7%, 1),
 		'900': hsla(233, 17%, 20%, 1),
 		'800': hsla(235, 15%, 29%, 1),
 		'700': hsla(233, 14%, 36%, 1),
@@ -17,7 +17,7 @@ $color-scale: (
 	),
 
 	'light-mode': (
-		'page-background': hsl(50, 0%, 98%),
+		'page-background': hsla(25, 0%, 97%, 1),
 		'900': hsla(54, 53%, 7%, 1),
 		'800': hsla(53, 17%, 20%, 1),
 		'700': hsla(51, 12%, 32%, 1),
