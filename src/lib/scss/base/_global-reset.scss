@@ -13,6 +13,10 @@
 	margin: 0;
 	padding: 0;
 }
+::selection {
+	background: cf.get-light-dark('800', '800');
+	color: white;
+}
 
 :global(body) {
 	min-block-size: 100vh;
@@ -40,8 +44,6 @@
 	scrollbar-width: thin;
 	scroll-behavior: smooth;
 	background: cf.get-light-dark('page-background', 'page-background');
-
-	// scroll-behavior: smooth;
 }
 
 /* Interactive Elements */
