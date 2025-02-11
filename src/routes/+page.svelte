@@ -29,7 +29,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
 <SecondHero />
-<a href="/about">About</a>
 
 <!-- <HeroSection /> -->
 <!-- <AboutSection /> -->

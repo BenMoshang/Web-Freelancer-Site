@@ -30,6 +30,7 @@
 	});
 </script>
 
+<!-- todo: redo this styling  -->
 <!-- todo: import header navitems here -->
 {#if shouldShow}
 	<nav
