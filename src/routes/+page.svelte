@@ -29,6 +29,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
 <SecondHero />
+<a href="/about">About</a>
 
 <!-- <HeroSection /> -->
 <!-- <AboutSection /> -->
@@ -48,6 +49,10 @@
 		--cards: 5;
 		--cardHeight: 90vh;
 		--cardMargin: 4vw;
+	}
+
+	a {
+		font-size: 10rem;
 	}
 	// .hero-wrapper {
 	// 	width: 100%;

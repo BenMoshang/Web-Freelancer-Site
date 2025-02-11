@@ -14,7 +14,7 @@
 		document.body.style.overflow = isNavOpen ? 'hidden' : '';
 	}
 
-	const navItems = [
+	export const navItems = [
 		{ href: '/about', text: 'Overview' },
 		{ href: '/about', text: 'Work' },
 		{ href: '/contact', text: 'Pricing' }

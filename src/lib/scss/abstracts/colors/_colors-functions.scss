@@ -25,11 +25,6 @@
 * @param {string} $key - The typography color key ('primary', 'secondary', or 'tertiary').
 * @return {string} The typography color.
 */
-@function get-typography-color($key) {
-	$typography-scale: map.get(cv.$color-scale, 'typography');
-
-	@return map.get($typography-scale, $key);
-}
 
 /**
 * @param {string} $light-color - The light mode color weight ('50' to '900').

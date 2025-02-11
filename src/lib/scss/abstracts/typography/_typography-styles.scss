@@ -39,6 +39,8 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('display');
 	line-height: typo-fn.get-lh('tight');
 	letter-spacing: typo-fn.get-ls('tight');
+	color: colors.get-typography-color('primary');
+
 	text-wrap: balance;
 }
 
@@ -47,7 +49,7 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('heading');
 	line-height: typo-fn.get-lh('snug');
 	letter-spacing: typo-fn.get-ls('snug');
-	color: colors.get-typography-color('secondary');
+	color: colors.get-typography-color('primary');
 	text-wrap: balance;
 }
 
@@ -58,6 +60,7 @@ $responsive-font-sizes: (
 	letter-spacing: typo-fn.get-ls('normal');
 	font-size: get-responsive-fsz-range('body--md');
 	text-wrap: pretty;
+	color: colors.get-typography-color('secondary');
 }
 
 @mixin label-overview {

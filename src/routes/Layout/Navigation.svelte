@@ -7,11 +7,9 @@
 
 	// Navigation items
 	const navItems = [
-		{ href: '/', text: 'Home'.toUpperCase() },
-		{ href: '/about', text: 'About'.toUpperCase() },
-		{ href: '/about', text: 'Services'.toUpperCase() },
-		{ href: '/work', text: 'Portfolio'.toUpperCase() },
-		{ href: '/contact', text: 'Contact'.toUpperCase() }
+		{ href: '/overview', text: 'Overview'.toUpperCase() },
+		{ href: '/work', text: 'Work'.toUpperCase() },
+		{ href: '/pricing', text: 'Pricing'.toUpperCase() }
 	];
 
 	// Handle animation states
@@ -32,6 +30,7 @@
 	});
 </script>
 
+<!-- todo: import header navitems here -->
 {#if shouldShow}
 	<nav
 		class="nav"
@@ -59,6 +58,9 @@
 {/if}
 
 <style scoped lang="scss">
+	a {
+		color: red;
+	}
 	/*=============================================
 =          Navigation Background         =
 =============================================*/
@@ -142,16 +144,19 @@
 =          Navigation Typography styling         =
 =============================================*/
 	.nav__link {
-		@include body-overview;
 		@include link-effect;
 		font-family: get-ff('display');
 		line-height: 1;
 		font-weight: get-fw('display');
-		font-size: get-static-fsz('x8');
-		color: get-typography-color('primary');
+		font-size: get-static-fsz('x7');
 		text-decoration: none;
 
 		text-align: left;
+
+		& span {
+			color: get-typography-color('secondary');
+			color: get-typography-color('primary');
+		}
 	}
 
 	@media (min-width: $mobile-breakpoint) {
