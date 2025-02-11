@@ -22,41 +22,38 @@
 
 <main class="page-container">
 	<SecondHero />
-
 	<div class="page-container__background--text">{backgroundInjectable.aside}</div>
 </main>
 
 <style lang="scss">
 	.page-container {
 		@extend %page-grid-container;
-		@include parallax-container(1);
-		// @include apply-page-max-inline;
+		@include parallax-container;
 		width: 100%;
 		overflow-y: auto;
+		overflow-x: clip;
 		padding-inline: get-static-sp('md');
 		padding-top: calc(#{$page-header-height} + 1.25rem);
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
+		position: relative;
 		z-index: 2;
 		&__background--text {
 			position: absolute;
 			top: 0;
-			left: 0;
-			margin-inline: auto;
+			right: 0;
+			margin: auto;
 			@extend %global__display--h1;
-			@include parallax-item(-0.8);
+			@include parallax-item(-0.4);
 			z-index: -2;
 			font-size: get-static-fsz('x10');
 			line-height: 1;
-			color: get-light-dark('50', '900');
-			opacity: 0.2;
-			writing-mode: vertical-rl;
-			text-align: right;
+			color: get-light-dark('300', '900', 0.38, 0.2);
+			writing-mode: vertical-lr;
 			text-wrap: nowrap;
-			text-orientation: sideways-left;
+			text-orientation: sideways;
 			user-select: none;
 			pointer-events: none;
-			transform-origin: center left;
 		}
 	}
 </style>

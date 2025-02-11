@@ -1,7 +1,7 @@
 <script lang="ts">
 	const heroInjectable = {
 		aside: 'MODERN WEB DEVELOPMENT',
-		description: `Brand tailored premium digital experiences that connect your audience.`
+		description: `Tailored premium digital experiences for brands that connect your audience.`
 	};
 </script>
 
@@ -15,42 +15,20 @@
 <style scoped lang="scss">
 	.hero {
 		@extend %page-grid-item;
-		@include apply-page-max-inline;
 		width: 100%;
-
+		margin: 0 auto;
 		// overscroll-behavior: contain;
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		// padding-inline: get-static-sp('md');
 
 		&__description {
+			margin-right: auto;
 			@extend %global__body--lg;
 			@include apply-max-ch('body');
-			grid-area: description;
-			place-self: center;
 			z-index: 1;
-			outline: 1px dashed red;
-		}
-
-		&__background {
-			position: absolute;
-			top: 0;
-			left: 0;
-			@extend %global__display--h1;
-			@include parallax-item(-0.4);
-			grid-area: aside;
-			z-index: -2;
-			font-size: get-static-fsz('x10');
-			line-height: 0;
-			color: get-light-dark('50', '900');
-			opacity: 0.2;
-			writing-mode: vertical-rl;
-			text-align: right;
-			text-wrap: nowrap;
-			text-orientation: sideways-left;
-			user-select: none;
-			pointer-events: none;
-			transform-origin: center left;
 		}
 	}
 

@@ -1,5 +1,5 @@
 // Default perspective value (you can adjust this for a stronger/weaker effect)
-$parallax-perspective: 1 !default;
+$parallax-perspective: 2 !default;
 
 // ---------------------------------------------------------------------
 // Parallax Container Mixin
@@ -13,6 +13,8 @@ $parallax-perspective: 1 !default;
 	// Ensure that child transforms maintain their 3D space.
 	transform-style: preserve-3d;
 	position: relative;
+	overflow-y: auto;
+	scroll-behavior: smooth;
 	min-height: 100vh;
 	-webkit-transform-style: preserve-3d; // iOS support
 	-webkit-perspective: $perspective * 0.0625rem; // iOS support
@@ -34,9 +36,10 @@ $parallax-perspective: 1 !default;
 // $perspective: Should match the value used in the container.
 @mixin parallax-item($depth: 0, $perspective: $parallax-perspective) {
 	// The transform uses translateZ to move the element in 3D.
-	// The scale (using abs($depth - 1)) corrects the size change caused by perspective.
-	transform: translateZ($depth * $perspective * 1px) scale(abs($depth - 1));
+	// The scale corrects the size change caused by perspective.
+	// Scale = 1 + abs($depth) to ensure proper scaling
+	transform: translateZ(#{$depth * $perspective * 1px}) scale(#{1 + abs($depth)});
 	// z-index is calculated so that negative depths yield lower (or even negative) values.
 	// Adjust this as needed for your stacking order.
-	z-index: $depth * 1000;
+	z-index: floor($depth * 1000);
 }
