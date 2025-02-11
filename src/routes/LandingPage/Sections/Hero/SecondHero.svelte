@@ -50,7 +50,7 @@
 		&__title {
 			@extend %global__display--h1;
 			text-align: left;
-			color: get-light-dark('darkest', 'lightest');
+			color: get-light-dark('900', '50');
 			&--first {
 				grid-area: title-first;
 			}
