@@ -2,7 +2,7 @@
 // 2. Breakpoints Map & Mixin
 //-------------------------------------
 @use 'sass:map';
-
+@use '../../../base/global-variables' as *;
 $breakpoints: (
 	'mobile': 30rem,
 	// 480px
@@ -24,12 +24,13 @@ $breakpoints: (
 	$gutter: get-static-sp($gutter-key);
 	display: grid;
 	grid-template-columns: repeat($columns, minmax(0, 1fr));
+	grid-template-rows: 1fr;
 	column-gap: $gutter;
 	row-gap: $gutter;
 	place-content: center;
 	margin: 0 auto;
-	block-size: 100%;
 	inline-size: 100%;
+	scrollbar-width: thin;
 }
 
 //-------------------------------------
@@ -58,9 +59,10 @@ $breakpoints: (
 }
 
 %page-grid-item {
+	@include apply-page-max-inline;
 	// Each item spans full width by default
 	@include grid-item(4);
-
+	place-content: center;
 	// Tablet variation: span more columns
 	@include respond-to('tablet') {
 		@include grid-item(8);

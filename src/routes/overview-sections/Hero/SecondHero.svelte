@@ -7,76 +7,50 @@
 
 <section class="hero">
 	<!-- <div class="hero__title-container"> -->
-	<aside class="hero__aside">
-		<div class="hero__aside-background">{heroInjectable.aside}</div>
-	</aside>
-	<div class="hero__content">
-		<h2 class="hero__content-description">{heroInjectable.description}</h2>
-	</div>
+
+	<h2 class="hero__description">{heroInjectable.description}</h2>
 	<!-- </div> -->
 </section>
 
 <style scoped lang="scss">
 	.hero {
-		@include parallax-container(1);
-		@include apply-page-max-inline;
-		scroll-behavior: smooth;
 		@extend %page-grid-item;
-		inline-size: 100%;
-		display: grid;
-		overflow-y: hidden;
-		place-content: center;
-		grid-template-columns: subgrid;
-		grid-template-areas: 'aside content';
-		margin: 0 auto;
+		@include apply-page-max-inline;
+		width: 100%;
+
 		// overscroll-behavior: contain;
-		padding-inline: get-static-sp('md');
+		display: flex;
+		flex-direction: column;
+		// padding-inline: get-static-sp('md');
 
-		& > * {
-			// outline: 1px dashed yellow;
+		&__description {
+			@extend %global__body--lg;
+			@include apply-max-ch('body');
+			grid-area: description;
+			place-self: center;
+			z-index: 1;
+			outline: 1px dashed red;
 		}
 
-		@include respond-to('desktop') {
-			margin-inline: auto;
-		}
-		&__content {
-			@include parallax-item(0.5);
+		&__background {
 			position: absolute;
-			inset: 0;
-			margin: auto;
-			inline-size: fit-content;
-			block-size: fit-content;
-			&-description {
-				@extend %global__display--h1;
-				text-align: right;
-				text-wrap: nowrap;
-				grid-area: title;
-				z-index: 1;
-				opacity: 0.95;
-				transform-origin: center right;
-			}
-		}
-		&__aside {
-			@include parallax-item(-0.5);
-			display: grid;
-			grid-template-columns: subgrid;
+			top: 0;
+			left: 0;
+			@extend %global__display--h1;
+			@include parallax-item(-0.4);
 			grid-area: aside;
 			z-index: -2;
-
-			&-background {
-				@extend %global__display--h1;
-				font-size: get-static-fsz('x12');
-				line-height: 0.6;
-				color: get-light-dark('50', '900');
-				opacity: 0.3;
-				writing-mode: vertical-rl;
-				text-align: right;
-				text-wrap: nowrap;
-				text-orientation: sideways-left;
-				user-select: none;
-				pointer-events: none;
-				transform-origin: center left;
-			}
+			font-size: get-static-fsz('x10');
+			line-height: 0;
+			color: get-light-dark('50', '900');
+			opacity: 0.2;
+			writing-mode: vertical-rl;
+			text-align: right;
+			text-wrap: nowrap;
+			text-orientation: sideways-left;
+			user-select: none;
+			pointer-events: none;
+			transform-origin: center left;
 		}
 	}
 

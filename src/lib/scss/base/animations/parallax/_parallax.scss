@@ -10,11 +10,18 @@ $parallax-perspective: 1 !default;
 	// The perspective is multiplied by 1px to work with our depth values.
 	perspective: $perspective * 1px;
 	// Hide overflow (you might use auto for scrolling containers)
-	overflow: hidden;
 	// Ensure that child transforms maintain their 3D space.
 	transform-style: preserve-3d;
 	position: relative;
-	height: 100vh;
+	min-height: 100vh;
+	-webkit-transform-style: preserve-3d; // iOS support
+	-webkit-perspective: $perspective * 0.0625rem; // iOS support
+	-webkit-backface-visibility: hidden; // iOS support
+
+	// Enable touch scrolling on mobile devices
+	-webkit-overflow-scrolling: touch;
+	// Prevent overscroll bounce effects
+	overscroll-behavior: contain;
 }
 
 // ---------------------------------------------------------------------
@@ -26,10 +33,6 @@ $parallax-perspective: 1 !default;
 //         while positive values pull it forward (foreground effect).
 // $perspective: Should match the value used in the container.
 @mixin parallax-item($depth: 0, $perspective: $parallax-perspective) {
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin: auto;
 	// The transform uses translateZ to move the element in 3D.
 	// The scale (using abs($depth - 1)) corrects the size change caused by perspective.
 	transform: translateZ($depth * $perspective * 1px) scale(abs($depth - 1));

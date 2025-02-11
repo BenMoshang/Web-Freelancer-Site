@@ -12,28 +12,10 @@
 <!-- todo: change highlight color -->
 <svelte:head></svelte:head>
 <Header />
-<!-- <SmoothScroll /> -->
-<!-- ADDED GRAIN OVERLAY -->
-<!-- <img
-	src="/static/Images/nnnoise.svg"
-	alt="Grain"
-	class="grain-overlay"
-	loading="eager"
-	decoding="async"
-/> -->
 
-<main class="page-container">
-	<slot />
-</main>
-
-<!-- <img src="/images/grain.svg" alt="Grain" class="grain-overlay" loading="eager" decoding="async" /> -->
+<slot />
 
 <!-- <Footer /> -->
 
 <style global lang="scss">
-	@use '$lib/scss/main.scss' as *;
-
-	.page-container {
-		@extend %page-grid-container;
-	}
 </style>

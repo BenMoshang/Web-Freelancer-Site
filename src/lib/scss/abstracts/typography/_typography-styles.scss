@@ -22,7 +22,7 @@ $responsive-font-sizes: (
 		@return null;
 	}
 }
-@mixin max-ch-inline-size($type) {
+@mixin apply-max-ch($type: 'body') {
 	@if $type == 'display' {
 		max-inline-size: 35ch;
 	} @else if $type == 'heading' {

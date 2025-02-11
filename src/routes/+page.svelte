@@ -1,18 +1,9 @@
 <script lang="ts">
-	import AboutSection from './LandingPage/Sections/AboutSection.svelte';
-	import ServicesSection from './LandingPage/Sections/ServicesSection.svelte';
-	import PortfolioSection from './LandingPage/Sections/PortfolioSection.svelte';
-	import ContactSection from './LandingPage/Sections/ContactSection.svelte';
-	import { fly } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
-	import SecondHero from './LandingPage/Sections/Hero/SecondHero.svelte';
-
-	let cards = [
-		{ id: 'card1', title: 'About Section', component: AboutSection },
-		{ id: 'card2', title: 'Services Section', component: ServicesSection },
-		{ id: 'card3', title: 'Portfolio Section', component: PortfolioSection },
-		{ id: 'card4', title: 'Contact Section', component: ContactSection }
-	];
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
+	const backgroundInjectable = {
+		aside: 'MODERN WEB DEVELOPMENT'
+	};
 </script>
 
 <svelte:head>
@@ -28,60 +19,44 @@
 	<!-- Options: default, black, black-translucent -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </svelte:head>
-<SecondHero />
 
-<!-- <HeroSection /> -->
-<AboutSection />
-<ServicesSection />
-<PortfolioSection />
-<ContactSection />
+<main class="page-container">
+	<SecondHero />
 
-<!-- {#each cards as card, index}
-	<section
-		class="card"
-		id={card.id}
-		transition:fly={{ y: 50, duration: 500, delay: index * 150, easing: quintOut }}
-	>
-		<svelte:component this={card.component} />
-	</section>
-{/each} -->
+	<div class="page-container__background--text">{backgroundInjectable.aside}</div>
+</main>
 
 <style lang="scss">
-	:root {
-		--cards: 5;
-		--cardHeight: 90vh;
-		--cardMargin: 4vw;
-	}
-
-	a {
-		font-size: 10rem;
-	}
-	// .hero-wrapper {
-	// 	width: 100%;
-	// 	height: 100%;
-	// 	position: absolute;
-	// 	inset: 0;
-	// 	margin: auto;
-	// 	z-index: 100;
-	// }
-
-	// #cards {
-	// 	list-style: none;
-	// 	display: grid;
-	// 	grid-template-columns: 1fr;
-	// 	grid-template-rows: repeat(var(--cards), var(--cardHeight));
-	// 	gap: var(--cardMargin);
-	// }
-
-	@for $i from 1 through 5 {
-		#card#{$i} {
-			--index: #{$i};
+	.page-container {
+		@extend %page-grid-container;
+		@include parallax-container(1);
+		// @include apply-page-max-inline;
+		width: 100%;
+		overflow-y: auto;
+		padding-inline: get-static-sp('md');
+		padding-top: calc(#{$page-header-height} + 1.25rem);
+		// scrollbar-width: none;
+		scroll-behavior: smooth;
+		z-index: 2;
+		&__background--text {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin-inline: auto;
+			@extend %global__display--h1;
+			@include parallax-item(-0.8);
+			z-index: -2;
+			font-size: get-static-fsz('x10');
+			line-height: 1;
+			color: get-light-dark('50', '900');
+			opacity: 0.2;
+			writing-mode: vertical-rl;
+			text-align: right;
+			text-wrap: nowrap;
+			text-orientation: sideways-left;
+			user-select: none;
+			pointer-events: none;
+			transform-origin: center left;
 		}
-	}
-
-	.card {
-		@extend %page-grid-item;
-		position: sticky;
-		top: 0;
 	}
 </style>

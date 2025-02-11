@@ -84,7 +84,7 @@
 		@include apply-page-max-inline;
 		--header-height: #{$page-header-height};
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: repeat(3, 1fr);
 		justify-content: center;
 		align-items: center;
 		grid-template-areas: 'logo nav content';
