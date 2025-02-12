@@ -28,7 +28,7 @@ $responsive-font-sizes: (
 	} @else if $type == 'heading' {
 		max-inline-size: 45ch;
 	} @else if $type == 'body' {
-		max-inline-size: 65ch;
+		max-inline-size: 60ch;
 	} @else {
 		@error "Invalid type '#{$type}'. Must be 'display', 'heading', or 'body'";
 	}

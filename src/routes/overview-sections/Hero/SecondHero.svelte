@@ -8,7 +8,7 @@
 <section class="hero">
 	<!-- <div class="hero__title-container"> -->
 
-	<h2 class="hero__description">{heroInjectable.description}</h2>
+	<p class="hero__description">{heroInjectable.description}</p>
 	<!-- </div> -->
 </section>
 
@@ -26,8 +26,9 @@
 
 		&__description {
 			margin-right: auto;
+			text-wrap: balance;
 			@extend %global__body--lg;
-			@include apply-max-ch('body');
+			max-width: 65ch; // Reduced max-width to prevent orphaned text
 			z-index: 1;
 		}
 	}
