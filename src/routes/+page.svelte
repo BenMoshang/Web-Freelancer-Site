@@ -41,9 +41,9 @@
 <style lang="scss">
 	.page-container {
 		@extend %page-grid-container;
-		@include parallax-container;
 		width: 100%;
-		overflow-y: auto;
+		margin: 0 auto;
+		place-content: center;
 		overflow-x: clip;
 		padding-inline: get-static-sp('md');
 		padding-top: calc(#{$page-header-height} + 1.25rem);
@@ -68,15 +68,17 @@
 		&__background--text {
 			display: none;
 			position: absolute;
-			top: 0;
-			right: 0;
+			inset: 0;
 			margin: auto;
 			@extend %global__display--h1;
 			@include parallax-item(-0.4);
+
 			z-index: -2;
 			font-size: get-static-fsz('x10');
 			line-height: 1;
-			color: get-light-dark('300', '900', 0.38, 0.2);
+			color: transparent;
+			outline-width: 0.625rem;
+			outline-color: get-light-dark('300', '900', 0.38, 0.2);
 			writing-mode: vertical-lr;
 			text-wrap: nowrap;
 			text-orientation: sideways;

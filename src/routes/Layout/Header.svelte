@@ -15,9 +15,10 @@
 	}
 
 	export const navItems = [
-		{ href: '/about', text: 'About' },
-		{ href: '/projects', text: 'Projects' },
-		{ href: '/contact', text: 'Contact' }
+		{ href: '/services', text: 'SERVICES' },
+		{ href: '/about', text: 'ABOUT' },
+		{ href: '/projects', text: 'PROJECTS' },
+		{ href: '/contact', text: 'CONTACT' }
 	];
 
 	onMount(() => {

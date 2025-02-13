@@ -15,6 +15,9 @@ $hero-initial-entrance-delay: 2s;
 =============================================*/
 
 $br-default: 1.25rem;
+@mixin apply-br($size: $br-default) {
+	border-radius: $size;
+}
 $br-rounded: 2em;
 
 /*=============================================

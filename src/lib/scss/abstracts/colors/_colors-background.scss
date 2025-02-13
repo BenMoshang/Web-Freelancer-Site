@@ -1,0 +1,12 @@
+@use 'sass:map';
+@use 'colors-functions' as cf;
+
+$background-color-scale: (
+	'primary': cf.get-light-dark('50', '900', 0.87, 0.8),
+	'secondary': cf.get-light-dark('100', '800', 0.6, 0.7),
+	'tertiary': cf.get-light-dark('200', '700', 0.38, 0.5)
+);
+
+@function get-background-color($key) {
+	@return map.get($background-color-scale, $key);
+}

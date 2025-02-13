@@ -15,27 +15,21 @@
 	align-items: center;
 	justify-content: center;
 	gap: sf.get-static-sp('xs');
-	block-size: 2rem;
-	inline-size: auto;
-	padding-block: sf.get-static-sp('xs');
-	padding-inline: sf.get-static-sp('sm');
+	inline-size: fit-content;
+	padding-block: sf.get-static-sp('sm');
+	padding-inline: sf.get-static-sp('md');
 	border-radius: gv.$br-default;
 	background: cf.get-light-dark('800', '200');
-	@include sh.realism-shadow;
+	font-family: typo.get-ff('body');
+	font-weight: typo.get-fw('heading');
+	font-size: typo.get-static-fsz('x2');
+	line-height: 1;
 	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
-
-	& span {
-		font-family: typo.get-ff('body');
-		font-weight: typo.get-fw('heading');
-		font-size: typo.get-static-fsz('x2');
-		line-height: 1;
-		color: inherit;
-	}
 
 	& svg {
 		--icon-size: 1em;
 		display: block;
-
+		color: inherit;
 		object-fit: cover;
 		block-size: var(--icon-size);
 		inline-size: var(--icon-size);
@@ -46,28 +40,87 @@
 	@include button-overview;
 	border: 0.0625rem solid cf.get-light-dark('900', '50');
 	background: cf.get-light-dark('900', '50');
+	display: block;
 
-	@if $small {
-		padding: sf.get-static-sp('sm');
-		& span {
-			display: none;
+	font-family: typo.get-ff('body');
+	font-weight: typo.get-fw('display');
+}
+// Optimized CTA Button SCSS Mixin
+// Parameters allow for theme adjustments without modifying the mixin.
+@mixin cta-styles(
+	$color: cf.get-light-dark('900', '50'),
+	// Primary color for text and underline
+	$underline-height: 0.125rem,
+	// Underline thickness
+	$underline-duration: 0.25s,
+	// Duration of underline transition
+	$underline-padding-bottom: 20px,
+	// Additional padding for underline effect
+	$svg-initial-offset: -8px,
+	// Initial translateX offset for the svg
+	$svg-transition-duration: 0.3s // Transition duration for the svg
+) {
+	// Base button styles
+	border: none;
+	background: none;
+	cursor: pointer;
+	width: fit-content;
 
-			font-family: typo.get-ff('body');
-			font-weight: typo.get-fw('display');
-		}
-		@include pg.respond-to('mobile') {
-			& span {
-				display: block;
+	// Text styles for span elements inside the button
+	& span {
+		@include typo.body-overview;
+		padding-bottom: 7px;
+		letter-spacing: 4px;
+		font-size: 14px;
+		padding-right: 15px;
+		text-transform: uppercase;
+
+		// Underline animation specific styles
+		&.hover-underline-animation {
+			position: relative;
+			color: $color;
+			padding-bottom: $underline-padding-bottom;
+
+			// Underline effect using pseudo-element
+			&:after {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: $underline-height;
+				bottom: 0;
+				left: 0;
+				background-color: $color;
+				transform: scaleX(0);
+				transform-origin: bottom right;
+				transition: transform $underline-duration ease-out;
 			}
 		}
-	} @else {
-		display: block;
+	}
 
-		padding-inline: sf.get-static-sp('sm');
-		padding-block: sf.get-static-sp('md');
-		& span {
-			font-family: typo.get-ff('body');
-			font-weight: typo.get-fw('display');
+	// SVG styles within the button
+	svg {
+		fill: currentColor;
+		transform: translateX($svg-initial-offset);
+		transition: transform $svg-transition-duration ease;
+	}
+
+	// Hover state for interactive animations
+	&:hover {
+		svg {
+			transform: translateX(0);
+		}
+		span.hover-underline-animation {
+			&:after {
+				transform: scaleX(1);
+				transform-origin: bottom left;
+			}
+		}
+	}
+
+	// Active state for a pressed button effect
+	&:active {
+		svg {
+			transform: scale(0.9);
 		}
 	}
 }
