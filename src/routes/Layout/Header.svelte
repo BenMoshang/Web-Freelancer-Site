@@ -15,9 +15,9 @@
 	}
 
 	export const navItems = [
-		{ href: '/about', text: 'Overview' },
-		{ href: '/about', text: 'Work' },
-		{ href: '/contact', text: 'Pricing' }
+		{ href: '/about', text: 'About' },
+		{ href: '/projects', text: 'Projects' },
+		{ href: '/contact', text: 'Contact' }
 	];
 
 	onMount(() => {
@@ -74,7 +74,7 @@
 		</label>
 	</div>
 </header>
-<Navigation isOpen={isNavOpen} />
+<Navigation {navItems} isOpen={isNavOpen} />
 
 <style lang="scss">
 	/*==========================

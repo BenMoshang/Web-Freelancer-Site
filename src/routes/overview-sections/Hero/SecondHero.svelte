@@ -7,7 +7,9 @@
 
 <section class="hero">
 	<!-- <div class="hero__title-container"> -->
-
+	<h1 class="hero__title hero__title--first">MY</h1>
+	<h1 class="hero__title hero__title--second">MODERN</h1>
+	<h1 class="hero__title hero__title--third">SITE</h1>
 	<p class="hero__description">{heroInjectable.description}</p>
 	<!-- </div> -->
 </section>
@@ -15,16 +17,45 @@
 <style scoped lang="scss">
 	.hero {
 		@extend %page-grid-item;
+		display: grid;
+		place-items: center;
+		grid-template-columns: 1fr;
+		grid-template-areas: 'title-first' 'title-second' 'title-third';
+		grid-template-rows: subgrid;
 		width: 100%;
-		margin: 0 auto;
-		// overscroll-behavior: contain;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		// padding-inline: get-static-sp('md');
+		min-height: 100dvh;
+		overflow: hidden;
+		overscroll-behavior: contain;
 
+		padding-inline: get-static-sp('md');
+
+		&__title {
+			@extend %global__display--h1;
+			// @include gradient-text('700', '900', '100', '300', 145deg);
+
+			position: relative;
+			letter-spacing: -0.05em;
+			text-align: center;
+			&--first {
+				grid-area: title-first;
+			}
+			&--second {
+				grid-area: title-second;
+			}
+			&--third {
+				grid-area: title-third;
+			}
+			&::after {
+				@include text-pop-up-top;
+				content: attr(data-text);
+				position: absolute;
+				inset: 0;
+				margin: auto;
+				z-index: -1;
+			}
+		}
 		&__description {
+			display: none;
 			margin-right: auto;
 			text-wrap: balance;
 			@extend %global__body--lg;

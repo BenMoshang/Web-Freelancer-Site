@@ -45,16 +45,16 @@ $breakpoints: (
 //-------------------------------------
 %page-grid-container {
 	// Base layout for mobile
-	@include grid-container(4, 'md');
+	@include grid-container(4, 'md'); //16px
 
 	// Tablet: increase gutter & columns
 	@include respond-to('tablet') {
-		@include grid-container(8, 'lg');
+		@include grid-container(8, 'lg'); //20px
 	}
 
 	// Desktop: further adjustments
 	@include respond-to('desktop') {
-		@include grid-container(12, 'xl');
+		@include grid-container(12, 'xl'); //24PX
 	}
 }
 
@@ -62,7 +62,6 @@ $breakpoints: (
 	@include apply-page-max-inline;
 	// Each item spans full width by default
 	@include grid-item(4);
-	place-content: center;
 	// Tablet variation: span more columns
 	@include respond-to('tablet') {
 		@include grid-item(8);

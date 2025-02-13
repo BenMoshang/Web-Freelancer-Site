@@ -1,16 +1,11 @@
 <script lang="ts">
-	let { isOpen } = $props();
+	let { isOpen, navItems } = $props();
 
 	// Track whether animations have completed and if element should be shown
 	let isTransitionComplete = $state(false);
 	let shouldShow = $state(false);
 
-	// Navigation items
-	const navItems = [
-		{ href: '/overview', text: 'Overview'.toUpperCase() },
-		{ href: '/work', text: 'Work'.toUpperCase() },
-		{ href: '/pricing', text: 'Pricing'.toUpperCase() }
-	];
+	// Handle animation states
 
 	// Handle animation states
 	$effect(() => {

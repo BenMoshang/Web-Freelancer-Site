@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import OpeningSection from './overview-sections/Hero/OpeningSection.svelte';
 	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
 	const backgroundInjectable = {
 		aside: 'MODERN WEB DEVELOPMENT'
@@ -22,8 +22,21 @@
 
 <main class="page-container">
 	<SecondHero />
+	<!-- <OpeningSection /> -->
+
 	<div class="page-container__background--text">{backgroundInjectable.aside}</div>
 </main>
+<svg>
+	<filter id="noiseFilter">
+		<feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" />
+	</filter>
+</svg>
+
+<svg>
+	<filter id="noiseFilter2">
+		<feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" />
+	</filter>
+</svg>
 
 <style lang="scss">
 	.page-container {
@@ -38,7 +51,22 @@
 		scroll-behavior: smooth;
 		position: relative;
 		z-index: 2;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			margin: auto;
+			inline-size: 100%;
+			min-block-size: 100vh;
+			z-index: 2;
+			opacity: 20%;
+			background: get-light-dark('page-background', 'page-background');
+			filter: url(#noiseFilter2);
+			pointer-events: none;
+		}
 		&__background--text {
+			display: none;
 			position: absolute;
 			top: 0;
 			right: 0;

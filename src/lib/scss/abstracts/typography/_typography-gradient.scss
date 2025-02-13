@@ -16,8 +16,8 @@
 ) {
 	background-image: linear-gradient(
 		$direction,
-		light-dark(cf.get-color($light-start, '300'), cf.get-color($dark-start, '700')),
-		light-dark(cf.get-color($light-end, '300'), cf.get-color($dark-end, '700'))
+		get-light-dark($light-start, $dark-start),
+		get-light-dark($light-end, $dark-end)
 	);
 	background-clip: text;
 	-webkit-background-clip: text;

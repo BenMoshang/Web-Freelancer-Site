@@ -16,10 +16,11 @@ import { onMount, onDestroy } from 'svelte';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// ---------------------------------------------------
-// 1) Register the ScrollTrigger plugin globally
-// ---------------------------------------------------
-gsap.registerPlugin(ScrollTrigger);
+// Only register plugins in browser environment
+const isBrowser = typeof window !== 'undefined';
+if (isBrowser) {
+	gsap.registerPlugin(ScrollTrigger);
+}
 
 /**
  * Initialize or configure GSAP's ScrollTrigger defaults.
@@ -35,7 +36,9 @@ gsap.registerPlugin(ScrollTrigger);
  * });
  */
 export function initGsapScroll(options: gsap.plugins.ScrollTriggerConfigVars = {}) {
-	ScrollTrigger.config(options);
+	if (isBrowser) {
+		ScrollTrigger.config(options);
+	}
 }
 
 /* -------------------------------------------------------------------
