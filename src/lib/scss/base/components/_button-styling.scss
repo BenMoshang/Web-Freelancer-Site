@@ -7,38 +7,26 @@
 @use '../../base/shadows/shadows' as sh;
 
 @mixin button-overview {
+	@include typo.heading-overview;
 	@include ha.button-effect;
 	// Optional: @include shadow-high('darkest', 'lightest');
 	position: relative;
 	overflow: hidden;
 	display: flex;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
 	gap: sf.get-static-sp('xs');
 	inline-size: fit-content;
 	padding-block: sf.get-static-sp('sm');
 	padding-inline: sf.get-static-sp('md');
-	border-radius: gv.$br-default;
-	background: cf.get-light-dark('800', '200');
-	font-family: typo.get-ff('body');
-	font-weight: typo.get-fw('heading');
-	font-size: typo.get-static-fsz('x2');
+
 	line-height: 1;
 	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
-
-	& svg {
-		--icon-size: 1em;
-		display: block;
-		color: inherit;
-		object-fit: cover;
-		block-size: var(--icon-size);
-		inline-size: var(--icon-size);
-	}
 }
 
 @mixin button-primary($small: false) {
 	@include button-overview;
-	border: 0.0625rem solid cf.get-light-dark('900', '50');
+	border: 1px solid cf.get-light-dark('900', '50');
 	background: cf.get-light-dark('900', '50');
 	display: block;
 
@@ -49,18 +37,12 @@
 // Parameters allow for theme adjustments without modifying the mixin.
 @mixin cta-styles(
 	$color: cf.get-light-dark('900', '50'),
-	// Primary color for text and underline
-	$underline-height: 0.125rem,
-	// Underline thickness
+	$underline-height: 2px,
 	$underline-duration: 0.25s,
-	// Duration of underline transition
-	$underline-padding-bottom: 20px,
-	// Additional padding for underline effect
+	$underline-padding-bottom: 12px,
 	$svg-initial-offset: -8px,
-	// Initial translateX offset for the svg
 	$svg-transition-duration: 0.3s // Transition duration for the svg
 ) {
-	// Base button styles
 	border: none;
 	background: none;
 	cursor: pointer;
@@ -68,13 +50,10 @@
 
 	// Text styles for span elements inside the button
 	& span {
-		@include typo.body-overview;
-		padding-bottom: 7px;
-		letter-spacing: 4px;
-		font-size: 14px;
-		padding-right: 15px;
+		@include typo.heading-overview;
+		letter-spacing: typo.get-ls('loose');
 		text-transform: uppercase;
-
+		margin-right: sf.get-static-sp('sm');
 		// Underline animation specific styles
 		&.hover-underline-animation {
 			position: relative;
@@ -99,7 +78,7 @@
 
 	// SVG styles within the button
 	svg {
-		fill: currentColor;
+		fill: $color;
 		transform: translateX($svg-initial-offset);
 		transition: transform $svg-transition-duration ease;
 	}

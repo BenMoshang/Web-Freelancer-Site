@@ -19,7 +19,7 @@
 }
 
 :global(body) {
-	min-block-size: 100vh;
+	block-size: 100%;
 	inline-size: 100%;
 	overflow-x: clip;
 

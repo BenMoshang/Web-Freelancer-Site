@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ShadowTesting from '$lib/Testing/ShadowTesting.svelte';
 	import OpeningSection from './overview-sections/Hero/OpeningSection.svelte';
 	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
 	const backgroundInjectable = {
@@ -22,9 +23,6 @@
 
 <main class="page-container">
 	<SecondHero />
-	<!-- <OpeningSection /> -->
-
-	<div class="page-container__background--text">{backgroundInjectable.aside}</div>
 </main>
 <svg>
 	<filter id="noiseFilter">
@@ -42,6 +40,7 @@
 	.page-container {
 		@extend %page-grid-container;
 		width: 100%;
+		block-size: 100%;
 		margin: 0 auto;
 		place-content: center;
 		overflow-x: clip;
@@ -49,41 +48,24 @@
 		padding-top: calc(#{$page-header-height} + 1.25rem);
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
-		position: relative;
 		z-index: 2;
 
-		&::before {
+		&::after {
 			content: '';
-			position: absolute;
+			position: fixed; // Changed to fixed for better performance
 			inset: 0;
 			margin: auto;
 			inline-size: 100%;
-			min-block-size: 100vh;
-			z-index: 2;
-			opacity: 20%;
+			block-size: 100%;
+			opacity: 0.08; // Reduced opacity for subtlety
 			background: get-light-dark('page-background', 'page-background');
-			filter: url(#noiseFilter2);
+			filter: url(#noiseFilter2) contrast(300%) // Increased contrast
+				brightness(120%) // Normalized brightness
+				opacity(1); // Additional opacity control
 			pointer-events: none;
-		}
-		&__background--text {
-			display: none;
-			position: absolute;
-			inset: 0;
-			margin: auto;
-			@extend %global__display--h1;
-			@include parallax-item(-0.4);
-
 			z-index: -2;
-			font-size: get-static-fsz('x10');
-			line-height: 1;
-			color: transparent;
-			outline-width: 0.625rem;
-			outline-color: get-light-dark('300', '900', 0.38, 0.2);
-			writing-mode: vertical-lr;
-			text-wrap: nowrap;
-			text-orientation: sideways;
-			user-select: none;
-			pointer-events: none;
+			will-change: filter; // Optimize for animation
+			transform: translateZ(0); // Force GPU acceleration
 		}
 	}
 </style>

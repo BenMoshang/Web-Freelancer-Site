@@ -6,12 +6,11 @@
 </script>
 
 <section class="hero">
-	<div class="hero__background--text">01</div>
 	<!-- <div class="hero__title-container"> -->
 	<div class="hero__title-container">
-		<h1 class="hero__title hero__title--first">DESIGN</h1>
-		<h1 class="hero__title hero__title--second">DEVELOP</h1>
-		<h1 class="hero__title hero__title--third">DELIVER</h1>
+		<h1 data-text="DESIGN" class="hero__title hero__title--first">DESIGN</h1>
+		<h1 data-text="DEVELOP" class="hero__title hero__title--second">DEVELOP</h1>
+		<h1 data-text="DEPLOY" class="hero__title hero__title--third">DEPLOY</h1>
 	</div>
 	<div class="hero__description-container">
 		<p class="hero__description-container-description">{heroInjectable.description}</p>
@@ -44,22 +43,24 @@
 		// outline: 1px solid red;
 		@extend %page-grid-item;
 		@include apply-br;
+		@include apply-padding('md', 'block', false);
 		position: relative;
-
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-content: center;
 		@include apply-gap('3xl');
 		width: 100%;
-		min-height: 100vh;
+		height: 100svh;
 
 		&__background--text {
 			position: absolute;
 			bottom: 0;
 			right: 0;
 			margin: auto;
+
+			transform: translateY(-5rem) translateX(1rem);
+			@include apply-padding('md', 'block', false);
 			@extend %global__display--h1;
 			color: get-light-dark('50', '900');
 			opacity: 50%;
@@ -82,26 +83,30 @@
 			@include apply-gap('md');
 
 			// @include apply-br;
-			border-inline-start: 0.25rem solid get-light-dark('400', '800', 0.38, 0.5);
+			border-inline-start: 0.25rem dashed get-light-dark('400', '800', 0.38, 0.5);
 			// background: get-background-color('primary');
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr;
-			mix-blend-mode: difference;
 			align-content: center;
-			position: relative; // Added to create stacking context
-			z-index: 1; // Added to ensure content stays above background text
 		}
 		&__title {
 			@extend %global__display--h1;
-			@include text-pop-up-top;
-			// font-size: get-static-fsz('x8');
-			color: get-light-dark('900', '50');
 			@include apply-margin('xs', 'left');
+			@include gradient-text;
+
 			position: relative;
-			block-size: fit-content;
-			inline-size: fit-content;
-			isolation: isolate;
+
+			&::after {
+				isolation: isolate;
+
+				@include text-pop-up-top;
+				content: attr(data-text);
+				position: absolute;
+				inset: 0;
+				margin: auto;
+				z-index: -1;
+			}
 			&--first {
 				justify-self: start;
 			}
@@ -111,14 +116,6 @@
 			}
 			&--third {
 				justify-self: start;
-			}
-			&::after {
-				@include text-pop-up-top;
-				content: attr(data-text);
-				position: absolute;
-				inset: 0;
-				margin: auto;
-				z-index: -1;
 			}
 		}
 

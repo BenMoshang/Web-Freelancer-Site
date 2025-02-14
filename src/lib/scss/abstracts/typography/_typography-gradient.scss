@@ -8,21 +8,24 @@
 */
 
 @mixin gradient-text(
-	$light-start: '50',
-	$light-end: '500',
+	$light-start: '900',
+	$light-end: '800',
 	$dark-start: '50',
-	$dark-end: '300',
-	$direction: 145deg
+	$dark-end: '200',
+	$direction: 135deg
 ) {
-	background-image: linear-gradient(
+	color: transparent;
+	filter: saturate(-100%);
+	background: linear-gradient(
 		$direction,
-		get-light-dark($light-start, $dark-start),
-		get-light-dark($light-end, $dark-end)
+		cf.get-light-dark($light-start, $dark-start),
+		cf.get-light-dark($light-end, $dark-end)
 	);
+	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	-webkit-background-clip: text;
-	color: transparent;
 }
+
 @mixin shimmer(
 	$light-base: '700',
 	$light-highlight: '300',

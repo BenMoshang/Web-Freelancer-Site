@@ -15,19 +15,28 @@
 /*--------------------------------------------------
   Example text pop-up shadow (uses light-dark helper)
 -----------------------------------------------------*/
-$text-pop-up-top-color: cf.get-light-dark('400', '800');
+// Configuration map for text pop-up shadow
+$text-pop-up-config: (
+	base-color: cf.get-light-dark('600', '800'),
+	steps: 8,
+	start-offset: 0.01em,
+	increment: 0.01em,
+	opacity: 1
+);
 
-@mixin text-pop-up-top {
-	text-shadow:
-		0 0.0625rem 0 $text-pop-up-top-color,
-		0 0.125rem 0 $text-pop-up-top-color,
-		0 0.1875rem 0 $text-pop-up-top-color,
-		0 0.25rem 0 $text-pop-up-top-color,
-		0 0.3125rem 0 $text-pop-up-top-color,
-		0 0.375rem 0 $text-pop-up-top-color,
-		0 0.4375rem 0 $text-pop-up-top-color,
-		0 0.5rem 0 $text-pop-up-top-color,
-		0 0.5625rem 0 $text-pop-up-top-color;
+@mixin text-pop-up-top($config: $text-pop-up-config) {
+	$shadows: ();
+	$color: map.get($config, 'base-color');
+	$steps: map.get($config, 'steps');
+	$offset: map.get($config, 'start-offset');
+	$increment: map.get($config, 'increment');
+
+	@for $i from 1 through $steps {
+		$current-offset: $offset * $i;
+		$shadows: append($shadows, 0 $current-offset 0 $color, comma);
+	}
+
+	text-shadow: $shadows;
 }
 
 $shadow-low: (
