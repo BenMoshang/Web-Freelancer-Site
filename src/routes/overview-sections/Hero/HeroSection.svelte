@@ -210,17 +210,16 @@
 
 <style scoped lang="scss">
 	.hero {
-		@include apply-page-max-inline;
-
 		position: relative;
 		display: grid;
+		place-content: center;
 		grid-template-areas:
 			'top'
 			'bottom';
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr 1fr;
 		width: 100%;
-		height: 100dvh; /* One full viewport height */
+		height: 100vh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
 		place-content: center;
 		overscroll-behavior: contain;
@@ -265,6 +264,7 @@
 
 			@extend %global__display--h1;
 			@include apply-gradient-text;
+			font-kerning: none;
 
 			&::after {
 				position: absolute;

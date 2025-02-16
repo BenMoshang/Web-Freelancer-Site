@@ -37,11 +37,8 @@ $line-heights: (
 );
 
 $letter-spacing: (
-	'tight': -0.03em,
-	// ideal for headings or all‑caps where you want the letters to appear more compact
+	'tight': -0.05em,
 	'snug': -0.01em,
-	// a gentle negative spacing for subheadings or display text with a high x‑height
 	'normal': 0,
-	// standard for body copy—most text is best at its default tracking
-	'loose': 0.2em // for special cases that benefit from a bit of extra space, such as decorative tags or emphasized all‑caps text
+	'loose': 0.2em
 );

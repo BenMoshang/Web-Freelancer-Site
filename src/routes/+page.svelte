@@ -22,9 +22,8 @@
 </svelte:head>
 
 <main class="page-container">
-	<!-- <HeroSection /> -->
-	<div class="card"></div>
-	<!-- <SecondHero /> -->
+	<HeroSection />
+	<SecondHero />
 </main>
 <svg>
 	<filter id="noiseFilter">
@@ -39,22 +38,16 @@
 </svg>
 
 <style lang="scss">
-	.card {
-		@extend %page-grid-item;
-		width: 12.25rem;
-		height: 12.25rem;
-		@include apply-shadow('high');
-		background: red;
-	}
 	.page-container {
+		@include apply-page-max-inline;
+		@include apply-padding('md', 'inline');
+
 		@extend %page-grid-container;
-		width: 100%;
+		inline-size: 100%;
 		block-size: 100%;
 		margin: 0 auto;
 		place-content: center;
 		overflow-x: clip;
-		padding-inline: get-static-sp('md');
-		margin-top: calc(#{$PAGE_HEADER_HEIGHT} + 1.25rem);
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
 		z-index: 2;
