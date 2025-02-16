@@ -218,7 +218,7 @@
 			z-index: -1;
 			width: 100vw;
 			height: 100vh;
-			color: get-light-dark('300', '900');
+			color: get-light-dark('800', '600', 0.38, 0.2);
 			mix-blend-mode: overlay;
 			object-fit: cover;
 			will-change: opacity, transform;
@@ -290,17 +290,20 @@
 
 		&__benefits-item {
 			@include flex-center;
-			gap: get-static-sp('xs');
+			gap: get-static-sp('sm');
 		}
 
 		&__benefits-icon {
 			color: get-typography-color('tertiary');
 			flex-shrink: 0;
+			width: 1em;
+
+			height: 1em;
 		}
 
 		&__benefits-text {
 			text-wrap: nowrap;
-			line-height: 1;
+			line-height: 0;
 			@extend %global__label;
 			display: inline-flex;
 			align-items: center;

@@ -54,20 +54,26 @@
 
 		&::after {
 			content: '';
-			position: fixed; // Changed to fixed for better performance
+			position: fixed;
 			inset: 0;
 			margin: auto;
 			inline-size: 100%;
 			block-size: 100%;
-			opacity: 0.08; // Reduced opacity for subtlety
 			background: get-light-dark('page-background', 'page-background');
-			filter: url(#noiseFilter2) contrast(300%) // Increased contrast
-				brightness(120%) // Normalized brightness
-				opacity(1); // Additional opacity control
+			opacity: 0.08;
+			@media (prefers-color-scheme: dark) {
+				filter: url(#noiseFilter2) contrast(300%) brightness(120%) opacity(1);
+			}
+
+			@media (prefers-color-scheme: light) {
+				filter: url(#noiseFilter) contrast(300%) brightness(50%) opacity(1);
+				opacity: unset;
+			}
+
 			pointer-events: none;
 			z-index: -2;
-			will-change: filter; // Optimize for animation
-			transform: translateZ(0); // Force GPU acceleration
+			will-change: filter;
+			transform: translateZ(0);
 		}
 	}
 </style>
