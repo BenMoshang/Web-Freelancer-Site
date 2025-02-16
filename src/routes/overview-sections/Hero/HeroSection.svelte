@@ -1,6 +1,6 @@
 <script lang="ts">
 	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { initGsapScroll } from '$lib/animations/scroll.svelte';
 	const heroInjectable = {
 		titleFirstHalf: 'MODERN WEB',
 		titleSecondHalf: 'DEVELOPMENT',
@@ -22,19 +22,19 @@
 	];
 	// If your scroll.svelte.ts already registers the plugin,
 	// you can omit these two lines. Otherwise:
-	gsap.registerPlugin(ScrollTrigger);
 	import { onMount, onDestroy } from 'svelte';
 
 	/* Refs to the top & bottom door panels */
 	let topPanel: HTMLElement;
 	let bottomPanel: HTMLElement;
 	let heroSection: HTMLElement;
-	let heroBackground: HTMLElement;
+	let heroBackground: SVGSVGElement;
 
 	/* We'll store the timeline so we can kill it onDestroy. */
 	let doorTimeline: gsap.core.Timeline;
 
 	onMount(() => {
+		initGsapScroll();
 		// Create a pinned scroll effect on the hero container
 		doorTimeline = gsap.timeline({
 			scrollTrigger: {
@@ -95,7 +95,7 @@
 </script>
 
 <section class="hero" bind:this={heroSection}>
-	<!-- TODO: animate text how the website better off has it!!! -->
+	<!-- TODO: Animate text for improved presentation -->
 	<!-- Top panel (door) -->
 	<svg
 		class="hero__background"
@@ -103,59 +103,40 @@
 		xmlns="http://www.w3.org/2000/svg"
 		version="1.1"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
-		xmlns:svgjs="http://svgjs.dev/svgjs"
 		viewBox="0 0 800 800"
-		><defs
-			><radialGradient id="cccircular-grad" r="50%" cx="50%" cy="50%">
+	>
+		<defs>
+			<radialGradient id="cccircular-grad" r="50%" cx="50%" cy="50%">
 				<stop offset="15%" stop-color="currentColor" stop-opacity="0.5"></stop>
 				<stop offset="75%" stop-color="currentColor" stop-opacity="1"></stop>
 				<stop offset="100%" stop-color="currentColor" stop-opacity="1"></stop>
-			</radialGradient></defs
-		><g fill="currentColor"
-			><circle r="352" cx="400" cy="400" opacity="0.05"></circle><circle
-				r="320"
-				cx="400"
-				cy="400"
-				opacity="0.15"
-			></circle><circle r="288" cx="400" cy="400" opacity="0.24"></circle><circle
-				r="256"
-				cx="400"
-				cy="400"
-				opacity="0.33"
-			></circle><circle r="224" cx="400" cy="400" opacity="0.43"></circle><circle
-				r="192"
-				cx="400"
-				cy="400"
-				opacity="0.53"
-			></circle><circle r="160" cx="400" cy="400" opacity="0.62"></circle><circle
-				r="128"
-				cx="400"
-				cy="400"
-				opacity="0.71"
-			></circle><circle r="96" cx="400" cy="400" opacity="0.81"></circle><circle
-				r="64"
-				cx="400"
-				cy="400"
-				opacity="0.91"
-			></circle></g
-		></svg
-	>
+			</radialGradient>
+		</defs>
+		<g fill="currentColor">
+			<circle r="352" cx="400" cy="400" opacity="0.05"></circle>
+			<circle r="320" cx="400" cy="400" opacity="0.15"></circle>
+			<circle r="288" cx="400" cy="400" opacity="0.24"></circle>
+			<circle r="256" cx="400" cy="400" opacity="0.33"></circle>
+			<circle r="224" cx="400" cy="400" opacity="0.43"></circle>
+			<circle r="192" cx="400" cy="400" opacity="0.53"></circle>
+			<circle r="160" cx="400" cy="400" opacity="0.62"></circle>
+			<circle r="128" cx="400" cy="400" opacity="0.71"></circle>
+			<circle r="96" cx="400" cy="400" opacity="0.81"></circle>
+			<circle r="64" cx="400" cy="400" opacity="0.91"></circle>
+		</g>
+	</svg>
 	<div class="hero__panel hero__panel--top" bind:this={topPanel}>
 		<h1 data-text={heroInjectable.titleFirstHalf} class="hero__title hero__title--top">
 			{heroInjectable.titleFirstHalf}
 		</h1>
 	</div>
-
-	<!-- Bottom panel (door) -->
 	<div class="hero__panel hero__panel--bottom" bind:this={bottomPanel}>
 		<h1 data-text={heroInjectable.titleSecondHalf} class="hero__title hero__title--bottom">
 			{heroInjectable.titleSecondHalf}
 		</h1>
-
 		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
-
 		<ul class="hero__benefits">
-			<!-- Remote / Work -->
+			<!-- Benefit items -->
 			<li class="hero__benefits-item">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -229,15 +210,22 @@
 
 <style scoped lang="scss">
 	.hero {
-		@extend %page-grid-item;
+		@include apply-page-max-inline;
+
 		position: relative;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		display: grid;
+		grid-template-areas:
+			'top'
+			'bottom';
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
 		width: 100%;
-		min-height: 100dvh; /* One full viewport height */
+		height: 100dvh; /* One full viewport height */
 		overflow: hidden; /* No scroll bars inside hero itself */
+		place-content: center;
 		overscroll-behavior: contain;
+		@extend %page-grid-item;
+
 		& > * {
 			flex: 1;
 		}
@@ -245,79 +233,59 @@
 		&__background {
 			position: absolute;
 			inset: 0;
-			color: get-light-dark('500', '700');
-			object-fit: cover;
+			z-index: -1;
 			width: 100vw;
 			height: 100vh;
-			z-index: -1;
+			color: get-light-dark('500', '700');
+			object-fit: cover;
 			opacity: 0.38;
 		}
+
 		&__panel {
 			display: flex;
 			flex-direction: column;
-			// outline: 1px solid yellow;
-			display: flex;
-			transform: translateY(0%); /* default position */
 			width: 100%;
 			height: 100%;
+			transform: translateY(0%); // default position
 
 			&--top {
+				grid-area: top;
 				justify-content: flex-end;
 			}
+
 			&--bottom {
+				grid-area: bottom;
 			}
 		}
 
 		&__title {
-			@extend %global__display--h1;
-
-			letter-spacing: -0.05em;
-			@include gradient-text('dark', 'darkest', 'lightest', 'light', 145deg);
 			position: relative;
-			// Keep the text itself visible so the shadow works
-			&::after {
-				@include text-pop-up-top;
+			text-align: center;
+			text-wrap: nowrap;
 
-				content: attr(data-text);
+			@extend %global__display--h1;
+			@include gradient-text;
+
+			&::after {
 				position: absolute;
 				inset: 0;
-				margin: auto;
 				z-index: -1;
+				margin: auto;
+				content: attr(data-text);
+				isolation: isolate;
 
-				// Make sure font-size, font-family, etc match the parent
-			}
-
-			&--top {
-				// &::before {
-				// 	content: '';
-				// 	position: absolute;
-				// 	top: 0;
-				// 	left: 0;
-				// 	right: 0;
-				// 	margin-inline: auto;
-				// 	border: none;
-				// 	height: 0;
-				// 	border-top: 0.0625rem solid get-light-dark('dark', 'light');
-				// 	width: 50%;
-				// }
-			}
-
-			&--bottom {
+				@include text-pop-up-top;
 			}
 		}
 
 		&__subtitle {
-			@extend %global__heading--h3;
-			@include margin-not-related('top');
 			margin-inline: auto;
 			text-align: center;
-			font-weight: get-fw('emphasis');
 			text-transform: uppercase;
-			text-wrap: pretty;
 
-			@include respond-to('mobile') {
-				word-spacing: get-responsive-sp('2xl');
-			}
+			@extend %global__body--lg;
+			@include apply-margin('md', 'top');
+			@include apply-typography-color('secondary');
 		}
 
 		&__benefits {
@@ -327,23 +295,26 @@
 				display: flex;
 				margin-top: auto;
 				margin-inline: auto;
-				justify-content: space-between;
-				align-items: center;
-				list-style: none;
 				padding-bottom: get-static-sp('sm');
+				align-items: center;
+				justify-content: space-between;
 				inline-size: 100%; //to stay in line with the grid
-				max-inline-size: $section-max-width;
+				list-style: none;
+
+				@include apply-page-max-inline;
 
 				& > * {
 					flex-basis: 23%;
 				}
 			}
+
 			& svg {
 				--icon-size: #{get-fsz-range('label')};
-				@include margin-closely-related('right');
 				display: block;
 				width: var(--icon-size);
 				height: var(--icon-size);
+
+				@include apply-margin('sm', 'right');
 
 				& path {
 					fill: get-typography-color('tertiary');
@@ -356,16 +327,18 @@
 		}
 
 		&__benefits-text {
-			@extend %global__label;
 			font-family: get-ff('display');
-
 			text-wrap: nowrap;
 			line-height: none;
 
+			@extend %global__label;
+
 			&--first-half {
 			}
+
 			&--seperator {
 			}
+
 			&--second-half {
 			}
 		}

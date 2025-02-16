@@ -35,7 +35,7 @@
 @function create-clamp(
 	$min-size,
 	$max-size,
-	$min-viewport: 23.4375rem,
+	$min-viewport: 20rem,
 	$max-viewport: gv.$page-max-inline
 ) {
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);

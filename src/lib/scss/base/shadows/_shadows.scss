@@ -1,19 +1,37 @@
-/**
- * @file Shadow System - Provides a comprehensive shadow management system with dark/light mode support
- * @module shadows
- * @description
- * This module implements a flexible shadow system with three elevation levels (low, medium, high)
- * and an optional inset style. It handles color scheme changes automatically using the 
- * colors-functions (including a light-dark helper) and the theme mixin.
- */
-
 @use '../../abstracts/colors/colors-functions' as cf;
 @use '../../abstracts/colors/colors-variables' as cv;
 @use '../../abstracts/themes/themes' as themes;
 @use 'sass:map';
 
+/**
+* *mixins used in the shadow system:
+*
+* *@mixin apply-shadow($elevation: 'low', $inset: false)
+* @param {String} $elevation - The elevation level to apply (low, medium, high)
+* @param {Boolean} $inset - Whether to apply an inset shadow (default: false)
+*
+* Example:
+* .card {
+*   @include apply-shadow('medium');
+* }
+*
+* .inset-card {
+*   @include apply-shadow('low', true);
+* }
+*
+* USED FOR SVGS IF NEEDED:
+* *@mixin shadow-drop($level: 'low')
+* Creates a drop shadow effect based on the specified level
+* @param {String} $level - The shadow level to apply (low, medium, high)
+*
+* Example:
+* .svg-icon {
+*   @include shadow-drop('high');
+* }
+**/
+
 /*--------------------------------------------------
-  Example text pop-up shadow (uses light-dark helper)
+3d text pop-up shadow
 -----------------------------------------------------*/
 // Configuration map for text pop-up shadow
 $text-pop-up-config: (
@@ -23,7 +41,6 @@ $text-pop-up-config: (
 	increment: 0.01em,
 	opacity: 1
 );
-
 @mixin text-pop-up-top($config: $text-pop-up-config) {
 	$shadows: ();
 	$color: map.get($config, 'base-color');
@@ -38,37 +55,39 @@ $text-pop-up-config: (
 
 	text-shadow: $shadows;
 }
-
-$shadow-low: (
+/*==================================================
+  Shadow System
+==================================================*/
+/*------configs-----*/
+$shadow-low-config: (
 	shadows: (
-		0.0187rem 0.0313rem 0.0437rem,
-		0.025rem 0.05rem 0.0625rem -0.075rem,
-		0.0625rem 0.125rem 0.1563rem -0.1563rem
+		0.3px 0.5px 0.7px,
+		0.4px 0.8px 1px -1.2px,
+		1px 2px 2.5px -2.5px
 	),
 	opacities: 0.34
 );
 
-$shadow-medium: (
+$shadow-medium-config: (
 	shadows: (
-		0.0187rem 0.0313rem 0.0437rem,
-		0.05rem 0.1rem 0.125rem -0.05rem,
-		0.1313rem 0.2562rem 0.325rem -0.1062rem,
-		0.3125rem 0.625rem 0.7875rem -0.1563rem
+		0.3px 0.5px 0.7px,
+		0.8px 1.6px 2px -0.8px,
+		2.1px 4.1px 5.2px -1.7px,
+		5px 10px 12.6px -2.5px
 	),
 	opacities: 0.36
 );
 
-$shadow-high: (
+$shadow-high-config: (
 	shadows: (
-		0.0187rem 0.0313rem 0.0437rem,
-		0.0938rem 0.1812rem 0.2313rem -0.025rem,
-		0.1688rem 0.3375rem 0.425rem -0.0437rem,
-		0.2813rem 0.5563rem 0.7rem -0.0688rem,
-		0.4437rem 0.8938rem 1.125rem -0.0875rem,
-		0.7rem 1.3938rem 1.7563rem -0.1125rem,
-		1.0625rem 2.1187rem 2.6688rem -0.1313rem,
-		0.8562rem 1.7188rem 2.1437rem -0.125rem,
-		1.5625rem 3.125rem 3.9312rem -0.1563rem
+		0.3px 0.5px 0.7px,
+		1.5px 2.9px 3.7px -0.4px,
+		2.7px 5.4px 6.8px -0.7px,
+		4.5px 8.9px 11.2px -1.1px,
+		7.1px 14.3px 18px -1.4px,
+		11.2px 22.3px 28.1px -1.8px,
+		17px 33.9px 42.7px -2.1px,
+		25px 50px 62.9px -2.5px
 	),
 	opacities: (
 		0.28,
@@ -83,69 +102,85 @@ $shadow-high: (
 	)
 );
 
-// Added helper mixin for box-shadow generation using config maps and get-light-dark
-@mixin _apply-shadow($cfg, $inset: false) {
+// Updated _set-shadow-config mixin to build a clean dimension string
+@mixin _set-shadow-config($cfg, $inset: false) {
 	$shadows: map.get($cfg, shadows);
 	$opacities: map.get($cfg, opacities);
-	$shadow-list: ();
+	$useList: (type-of($opacities) == 'list');
+	$light-shadow-list: ();
+	$dark-shadow-list: ();
 	@for $i from 1 through length($shadows) {
 		$dim: nth($shadows, $i);
-		@if type-of($opacities) == 'list' {
-			$opacity: nth($opacities, $i);
-		} @else {
-			$opacity: $opacities;
+		$opacity: if($useList, nth($opacities, $i), $opacities);
+		// Manually build a dimension string from the $dim list
+		$dim-str: '';
+		@each $val in $dim {
+			$dim-str: if($dim-str == '', '#{$val}', '#{$dim-str} #{$val}');
 		}
-		$color: cf.get-light-dark('100', '500', $opacity, $opacity);
-		// Using inspect to convert the dimensions list to a string
-		$shadow-value: if($inset, 'inset ', '') + inspect($dim) + ' ' + $color;
-		$shadow-list: append($shadow-list, $shadow-value, comma);
+		$lightBase: cf.get-color('100', 'light-mode');
+		$darkBase: cf.get-color('500', 'dark-mode');
+		$lightColor: hsla(hue($lightBase), saturation($lightBase), lightness($lightBase), $opacity);
+		$darkColor: hsla(hue($darkBase), saturation($darkBase), lightness($darkBase), $opacity);
+		$light-shadow-value: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$lightColor}");
+		$dark-shadow-value: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$darkColor}");
+		$light-shadow-list: append($light-shadow-list, $light-shadow-value, comma);
+		$dark-shadow-list: append($dark-shadow-list, $dark-shadow-value, comma);
 	}
-	box-shadow: $shadow-list;
+	box-shadow: $light-shadow-list;
+	@media (prefers-color-scheme: dark) {
+		box-shadow: $dark-shadow-list;
+	}
+}
+/*--------------------------------------------------
+
+-----------------------------------------------------*/
+// Consolidated shadow mixin with elevation parameter
+@mixin apply-shadow($elevation: 'low', $inset: false) {
+	@if $elevation == 'low' {
+		@include _set-shadow-config($shadow-low-config, $inset);
+	} @else if $elevation == 'medium' {
+		@include _set-shadow-config($shadow-medium-config, $inset);
+	} @else if $elevation == 'high' {
+		@include _set-shadow-config($shadow-high-config, $inset);
+	} @else {
+		@error "Invalid elevation '#{$elevation}'. Use 'low', 'medium', or 'high'.";
+	}
 }
 
-// Updated shadow mixins to use corresponding config and support inset option
-@mixin shadow-low($inset: false) {
-	@include _apply-shadow($shadow-low, $inset);
-}
-
-@mixin shadow-medium($inset: false) {
-	@include _apply-shadow($shadow-medium, $inset);
-}
-
-@mixin shadow-high($inset: false) {
-	@include _apply-shadow($shadow-high, $inset);
-}
-
-// Additional mixin for SVG drop-shadow filter using shadow config
-// This mixin accepts a $level parameter ('low', 'medium', or 'high') to choose the shadow config
+// Modified shadow-drop mixin for light/dark mode separation
 @mixin shadow-drop($level: 'low') {
 	@if $level == 'low' {
-		$cfg: $shadow-low;
+		$cfg: $shadow-low-config;
 	} @else if $level == 'medium' {
-		$cfg: $shadow-medium;
+		$cfg: $shadow-medium-config;
 	} @else if $level == 'high' {
-		$cfg: $shadow-high;
+		$cfg: $shadow-high-config;
 	} @else {
 		@error "Invalid shadow level '#{$level}'. Use 'low', 'medium', or 'high'.";
 	}
 	$shadows: map.get($cfg, shadows);
 	$opacities: map.get($cfg, opacities);
-	$ds-list: ();
+	$useList: (type-of($opacities) == 'list');
+	$light-ds-list: ();
+	$dark-ds-list: ();
 	@for $i from 1 through length($shadows) {
 		$dim: nth($shadows, $i);
 		// Extract first three values for drop-shadow (offset-x, offset-y, blur)
 		$ox: nth($dim, 1);
 		$oy: nth($dim, 2);
 		$blur: nth($dim, 3);
-		@if type-of($opacities) == 'list' {
-			$opacity: nth($opacities, $i);
-		} @else {
-			$opacity: $opacities;
-		}
-		$color: cf.get-light-dark('100', '500', $opacity, $opacity);
-		// Build drop-shadow value; drop-shadow does not support inset
-		$ds: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} #{$color})');
-		$ds-list: append($ds-list, $ds, space);
+		$opacity: if($useList, nth($opacities, $i), $opacities);
+		$lightBase: cf.get-color('100', 'light-mode');
+		$darkBase: cf.get-color('500', 'dark-mode');
+		$lightColor: hsla(hue($lightBase), saturation($lightBase), lightness($lightBase), $opacity);
+		$darkColor: hsla(hue($darkBase), saturation($darkBase), lightness($darkBase), $opacity);
+		$light-ds: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $lightColor + ')');
+		$dark-ds: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $darkColor + ')');
+		$light-ds-list: append($light-ds-list, $light-ds, space);
+		$dark-ds-list: append($dark-ds-list, $dark-ds, space);
 	}
-	filter: $ds-list;
+	filter: $light-ds-list;
+	@media (prefers-color-scheme: dark) {
+		filter: $dark-ds-list;
+	}
 }

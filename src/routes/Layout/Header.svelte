@@ -207,7 +207,7 @@
 	}
 
 	.nav__link {
-		@include body-overview;
+		@extend %global__body--md;
 		@include link-effect;
 		font-family: get-ff('display');
 		line-height: 1;

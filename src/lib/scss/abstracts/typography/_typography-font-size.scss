@@ -7,7 +7,7 @@
    ---------------------------------------------------------------------------
    Adjust these to match your project's design system.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1rem;
+$typography-base-size: 1.125rem;
 $typography-scale-ratio: 1.25;
 
 /* ---------------------------------------------------------------------------
@@ -25,6 +25,7 @@ $base-typography-scale: (
 	'x5': $typography-base-size * math.pow($typography-scale-ratio, 4),
 	'x6': $typography-base-size * math.pow($typography-scale-ratio, 5),
 	'x7': $typography-base-size * math.pow($typography-scale-ratio, 6),
+	'x7.5': $typography-base-size * math.pow($typography-scale-ratio, 6.5),
 	'x8': $typography-base-size * math.pow($typography-scale-ratio, 7),
 	'x9': $typography-base-size * math.pow($typography-scale-ratio, 8),
 	'x10': $typography-base-size * math.pow($typography-scale-ratio, 9),

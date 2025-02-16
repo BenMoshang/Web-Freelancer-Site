@@ -12,6 +12,12 @@
 		padding-inline: $value;
 	} @else if $type == 'block' {
 		padding-block: $value;
+	} @else if $type == 'top' {
+		padding-top: $value;
+	} @else if $type == 'right' {
+		padding-right: $value;
+	} @else if $type == 'bottom' {
+		padding-bottom: $value;
 	} @else {
 		@error "Invalid padding type. Use 'all', 'inline', or 'block'.";
 	}

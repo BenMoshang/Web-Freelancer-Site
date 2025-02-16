@@ -1,23 +1,33 @@
 <script lang="ts">
+	// Define hero content for injection
 	const heroInjectable = {
 		label: 'FREELANCE AGENCY',
-		description: `Premium tailored web application services for brands to connect better with their audiences.`
+		description: `Premium tailored web services for brands to connect better with their audiences.`
 	};
 </script>
 
 <section class="hero">
-	<!-- <div class="hero__title-container"> -->
 	<div class="hero__title-container">
+		<div class="hero__title-container-header">
+			<div class="hero__title-container-header-circle-group">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<small>MODERN WEB DEVELOPMENT</small>
+		</div>
+		<!-- Hero Titles -->
 		<h1 data-text="DESIGN" class="hero__title hero__title--first">DESIGN</h1>
 		<h1 data-text="DEVELOP" class="hero__title hero__title--second">DEVELOP</h1>
 		<h1 data-text="DEPLOY" class="hero__title hero__title--third">DEPLOY</h1>
 	</div>
-	<div class="hero__description-container">
-		<p class="hero__description-container-description">{heroInjectable.description}</p>
 
+	<div class="hero__description-container">
+		<p class="hero__description-container-description">
+			{heroInjectable.description}
+		</p>
 		<button class="hero__description-container-button">
 			<span class="hover-underline-animation">CONTACT US</span>
-
 			<svg
 				id="arrow-horizontal"
 				xmlns="http://www.w3.org/2000/svg"
@@ -34,16 +44,16 @@
 			</svg>
 		</button>
 	</div>
-
-	<!-- </div> -->
 </section>
 
 <style scoped lang="scss">
+	* {
+		box-sizing: border-box;
+	}
 	.hero {
-		// outline: 1px solid red;
 		@extend %page-grid-item;
 		@include apply-br;
-		@include apply-padding('md', 'block', false);
+		@include apply-padding('2xl', 'block', false);
 		position: relative;
 		margin: 0 auto;
 		display: flex;
@@ -53,53 +63,58 @@
 		width: 100%;
 		height: 100svh;
 
-		&__background--text {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			margin: auto;
-
-			transform: translateY(-5rem) translateX(1rem);
-			@include apply-padding('md', 'block', false);
-			@extend %global__display--h1;
-			color: get-light-dark('50', '900');
-			opacity: 50%;
-			isolation: isolate;
-
-			font-size: get-static-fsz('x12');
-			line-height: 1;
-			writing-mode: vertical-lr;
-			text-wrap: nowrap;
-			text-orientation: sideways;
-			user-select: none;
-			pointer-events: none;
-			z-index: -1; // Changed from -10000 to -1 since we just need it behind the content
-		}
-		& > * {
-			// outline: 1px solid yellowgreen;
-		}
-
 		&__title-container {
-			@include apply-gap('md');
-
-			// @include apply-br;
-			border-inline-start: 0.25rem dashed get-light-dark('400', '800', 0.38, 0.5);
-			// background: get-background-color('primary');
+			@include apply-br;
+			@include apply-gap('lg');
+			@include apply-padding('md', 'inline', false);
+			@include apply-padding('md', 'bottom', false);
+			$border-color: get-light-dark('500', '700', 0.38, 0.5);
+			overflow-x: clip;
+			border: 0.25rem dashed $border-color;
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr;
-			align-content: center;
+
+			&-header {
+				@include apply-padding('sm', 'block', false);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 0.125rem dashed $border-color;
+				&-circle-group {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					@include apply-gap('sm');
+					inline-size: min-content;
+				}
+				// Circular indicators styling
+				& span {
+					inline-size: 0.25rem;
+					block-size: 0.25rem;
+					border-radius: 50%;
+					background: $border-color;
+				}
+
+				// Optional small text styling (if needed)
+				& small {
+					@extend %global__label;
+					color: get-light-dark('500', '700');
+					text-transform: small-caps;
+					text-wrap: nowrap;
+					margin-inline: auto;
+					font-size: 0.75rem;
+				}
+			}
 		}
+
 		&__title {
 			@extend %global__display--h1;
-			@include apply-margin('xs', 'left');
 			@include gradient-text;
-
 			position: relative;
 
 			&::after {
 				isolation: isolate;
-
 				@include text-pop-up-top;
 				content: attr(data-text);
 				position: absolute;
@@ -107,28 +122,15 @@
 				margin: auto;
 				z-index: -1;
 			}
-			&--first {
-				justify-self: start;
-			}
-			&--second {
-				// justify-self: end;
-				// text-align: right;
-			}
-			&--third {
-				justify-self: start;
-			}
 		}
 
 		&__description-container {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			position: relative; // Added to create stacking context
-			z-index: 1; // Added to ensure content stays above background text
 
 			&-description {
 				@include apply-margin('lg', 'bottom');
-
 				@extend %global__body--lg;
 				@include apply-typography-color('secondary');
 				text-wrap: pretty;
@@ -142,20 +144,4 @@
 			}
 		}
 	}
-
-	// &__title-container {
-	// 	// @include apply-padding('md', 'inline', false);
-
-	// 	grid-area: title;
-	// 	display: grid;
-	// 	inline-size: min-content;
-	// 	align-items: start;
-	// 	justify-items: center;
-	// 	block-size: min-content;
-	// 	grid-template-columns: repeat(3, 1fr);
-	// 	grid-template-rows: repeat(1, 1fr);
-	// 	grid-template-areas: 'title-first title-second title-third';
-	// 	@include apply-gap('lg');
-	// 	// rotate: -90deg;
-	// }
 </style>

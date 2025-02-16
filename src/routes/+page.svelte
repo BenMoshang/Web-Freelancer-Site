@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ShadowTesting from '$lib/Testing/ShadowTesting.svelte';
-	import OpeningSection from './overview-sections/Hero/OpeningSection.svelte';
+	import HeroSection from './overview-sections/Hero/HeroSection.svelte';
 	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
 	const backgroundInjectable = {
 		aside: 'MODERN WEB DEVELOPMENT'
@@ -22,7 +22,9 @@
 </svelte:head>
 
 <main class="page-container">
-	<SecondHero />
+	<!-- <HeroSection /> -->
+	<div class="card"></div>
+	<!-- <SecondHero /> -->
 </main>
 <svg>
 	<filter id="noiseFilter">
@@ -37,6 +39,13 @@
 </svg>
 
 <style lang="scss">
+	.card {
+		@extend %page-grid-item;
+		width: 12.25rem;
+		height: 12.25rem;
+		@include apply-shadow('high');
+		background: red;
+	}
 	.page-container {
 		@extend %page-grid-container;
 		width: 100%;
@@ -45,7 +54,7 @@
 		place-content: center;
 		overflow-x: clip;
 		padding-inline: get-static-sp('md');
-		padding-top: calc(#{$page-header-height} + 1.25rem);
+		margin-top: calc(#{$page-header-height} + 1.25rem);
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
 		z-index: 2;
