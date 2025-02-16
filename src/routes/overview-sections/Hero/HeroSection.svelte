@@ -43,24 +43,22 @@
 				end: '+=120%',
 				pin: true,
 				pinSpacing: true,
-				scrub: 2, // Reduced scrub time for snappier response
+				scrub: 2,
 				markers: false,
 				anticipatePin: 1,
-
-				preventOverlaps: true, // Prevents overlapping animations
+				preventOverlaps: true,
 				onEnter: () => {
-					// Ensure panels are in correct starting position
 					gsap.set([topPanel, bottomPanel], { clearProps: 'all' });
 				}
 			}
 		});
 
-		// Animate panels with optimized settings
+		// Animate panels with zoom effect
 		doorTimeline
 			.to(topPanel, {
 				yPercent: -120,
-				ease: 'power4.inOut', // Changed to power2 for better fast scroll handling
-				duration: 4, // Reduced duration for snappier animation
+				ease: 'power4.inOut',
+				duration: 4,
 				force3D: true,
 				willChange: 'transform'
 			})
@@ -76,9 +74,21 @@
 				'<'
 			)
 			.to(
+				heroSection,
+				{
+					scale: 1.5,
+					ease: 'power4.inOut',
+					duration: 4,
+					force3D: true,
+					transformOrigin: 'center center'
+				},
+				'<'
+			)
+			.to(
 				heroBackground,
 				{
 					opacity: 0,
+					scale: 1.2,
 					ease: 'power4.inOut',
 					duration: 4
 				},
@@ -223,6 +233,8 @@
 		overflow: hidden; /* No scroll bars inside hero itself */
 		place-content: center;
 		overscroll-behavior: contain;
+		perspective: 1000px; // Add perspective for better 3D effect
+		transform-style: preserve-3d; // Preserve 3D transformations
 		@extend %page-grid-item;
 
 		& > * {
