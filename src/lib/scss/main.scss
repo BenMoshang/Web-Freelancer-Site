@@ -1,2 +1,50 @@
 @forward 'base';
 @forward 'abstracts';
+/* Enable view transitions for history navigations (push/replace) */
+@view-transition {
+	navigation: auto;
+}
+
+/* Set a universal animation duration for view transition groups */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 1s;
+	/* Optional: add an easing function */
+	animation-timing-function: ease-in-out;
+}
+
+/* Define keyframes for the outgoing view (old snapshot) */
+/* This animation slides the view to the left while fading out */
+@keyframes fadeOutSlideLeft {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+}
+
+/* Define keyframes for the incoming view (new snapshot) */
+/* This animation slides the view in from the right while fading in */
+@keyframes fadeInSlideRight {
+	from {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Apply the animation to the outgoing snapshot */
+::view-transition-old(root) {
+	animation-name: fadeOutSlideLeft;
+}
+
+/* Apply the animation to the incoming snapshot */
+::view-transition-new(root) {
+	animation-name: fadeInSlideRight;
+}
