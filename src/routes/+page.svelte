@@ -54,7 +54,7 @@
 		place-content: center;
 		overflow-x: clip;
 		padding-inline: get-static-sp('md');
-		margin-top: calc(#{$page-header-height} + 1.25rem);
+		margin-top: calc(#{$PAGE_HEADER_HEIGHT} + 1.25rem);
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
 		z-index: 2;

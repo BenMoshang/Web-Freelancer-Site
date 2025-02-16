@@ -58,7 +58,7 @@
 
 <style lang="scss">
 	.email-button {
-		@include button-primary(true);
+		@include _set-button-primary(true);
 		text-decoration: none;
 	}
 </style>

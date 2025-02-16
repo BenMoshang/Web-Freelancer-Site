@@ -264,7 +264,7 @@
 			text-wrap: nowrap;
 
 			@extend %global__display--h1;
-			@include gradient-text;
+			@include apply-gradient-text;
 
 			&::after {
 				position: absolute;
@@ -274,7 +274,7 @@
 				content: attr(data-text);
 				isolation: isolate;
 
-				@include text-pop-up-top;
+				@include apply-3d-text-shadow;
 			}
 		}
 
@@ -317,7 +317,7 @@
 				@include apply-margin('sm', 'right');
 
 				& path {
-					fill: get-typography-color('tertiary');
+					fill: _get-typography-color('tertiary');
 				}
 			}
 		}

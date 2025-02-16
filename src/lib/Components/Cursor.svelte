@@ -51,7 +51,7 @@
 		mix-blend-mode: difference;
 	}
 
-	@media (min-width: $mobile-breakpoint) {
+	@media (min-width: $MOBILE_BREAKPOINT) {
 		.cursor {
 			display: none;
 		}

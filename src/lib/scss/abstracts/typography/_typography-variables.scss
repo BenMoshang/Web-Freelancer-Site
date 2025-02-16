@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use '../../base/global-variables' as gv;
+
 /**
  * @var $
  : (map)
@@ -19,8 +20,8 @@ $font-family: (
  */
 $font-weights: (
 	'label': 300,
-	'body': 500,
-	'emphasis': 600,
+	'body': 400,
+	'emphasis': 500,
 	'heading': 600,
 	'display': 700
 );

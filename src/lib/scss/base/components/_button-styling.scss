@@ -6,7 +6,7 @@
 @use '../../base/global-variables' as gv;
 @use '../../base/shadows/shadows' as sh;
 
-@mixin button-overview {
+@mixin _button-overview {
 	@include typo.heading-overview;
 	@include ha.button-effect;
 	// Optional: @include shadow-high('darkest', 'lightest');
@@ -24,8 +24,8 @@
 	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
 }
 
-@mixin button-primary($small: false) {
-	@include button-overview;
+@mixin _set-button-primary($small: false) {
+	@include _button-overview;
 	border: 1px solid cf.get-light-dark('900', '50');
 	background: cf.get-light-dark('900', '50');
 	display: block;
@@ -33,8 +33,22 @@
 	font-family: typo.get-ff('body');
 	font-weight: typo.get-fw('display');
 }
-// Optimized CTA Button SCSS Mixin
-// Parameters allow for theme adjustments without modifying the mixin.
+
+@mixin _set-button-secondary($small: false) {
+	@include _button-overview;
+}
+
+@mixin apply-button($type: 'primary') {
+	@if $type == 'primary' {
+		@include _set-button-primary();
+	} @else if $type == 'secondary' {
+		@include _set-button-secondary();
+	} @else {
+		@error "Invalid button type '#{$type}'. Use 'primary' or 'secondary'.";
+	}
+}
+
+// !ignore im working on this
 @mixin cta-styles(
 	$color: cf.get-light-dark('900', '50'),
 	$underline-height: 2px,

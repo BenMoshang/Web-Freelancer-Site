@@ -52,6 +52,6 @@ $base-spacing-scale: (
 	// 7rem (112px)
 	's128': spacing-scale(32) // 9rem (144px)
 );
-@function get-base-sp($key) {
+@function _get-base-sp($key) {
 	@return map.get($base-spacing-scale, $key);
 }

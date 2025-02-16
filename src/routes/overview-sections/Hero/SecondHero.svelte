@@ -110,12 +110,12 @@
 
 		&__title {
 			@extend %global__display--h1;
-			@include gradient-text;
+			@include apply-gradient-text;
 			position: relative;
 
 			&::after {
 				isolation: isolate;
-				@include text-pop-up-top;
+				@include apply-3d-text-shadow;
 				content: attr(data-text);
 				position: absolute;
 				inset: 0;

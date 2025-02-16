@@ -1,47 +1,23 @@
 /*=============================================
 =            Global Variables                =
 =============================================*/
-$page-max-inline: 90rem;
-@mixin apply-page-max-inline {
-	max-inline-size: $page-max-inline;
-}
-/*=============================================
-=            Hero Section              =
-=============================================*/
-
-$hero-initial-entrance-delay: 2s;
-/*=============================================
-=            Border Radius            =
-=============================================*/
-
-$br-default: 1.25rem;
-@mixin apply-br($size: $br-default) {
-	border-radius: $size;
-}
-$br-rounded: 2em;
+$PAGE_MAX_INLINE: 90rem;
 
 /*=============================================
 =          Breakpoints             =
 =============================================*/
 //min-width Mobile
-$mobile-breakpoint: 64rem; // 1024px
-$desktop-breakpoint: 90rem; // 1440px
+$MOBILE_BREAKPOINT: 64rem; // 1024px
+$DESKTOP_BREAKPOINT: 90rem; // 1440px
 
 /*=============================================
 =            Page            =
 =============================================*/
-$page-header-height: 3rem;
+$PAGE_HEADER_HEIGHT: 3rem;
 
-@mixin small-inset-shadow {
-	@media (prefers-color-scheme: dark) {
-		box-shadow:
-			0 0.125rem 0.25rem hsla(0, 0, 0, 0.1),
-			inset 0 0.0625rem hsla(255, 255, 255, 0.3);
-	}
+/*=============================================
+=            Border Radius            =
+=============================================*/
 
-	@media (prefers-color-scheme: light) {
-		box-shadow:
-			0 0.125rem 0.25rem rgba(0, 0, 0, 0.1),
-			inset 0 0.0625rem hsla(0, 0, 0, 0.3);
-	}
-}
+$BR_DEFAULT: 1.25rem;
+$BR_ROUNDED: 2em;

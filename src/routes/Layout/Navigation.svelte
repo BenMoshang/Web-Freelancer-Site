@@ -103,7 +103,7 @@
 =============================================*/
 
 	.nav__list {
-		padding-top: $page-header-height;
+		padding-top: $PAGE_HEADER_HEIGHT;
 		@include flex-column;
 		gap: get-static-sp('3xl');
 		align-content: center;
@@ -150,12 +150,12 @@
 		text-align: left;
 
 		& span {
-			color: get-typography-color('secondary');
-			color: get-typography-color('primary');
+			color: _get-typography-color('secondary');
+			color: _get-typography-color('primary');
 		}
 	}
 
-	@media (min-width: $mobile-breakpoint) {
+	@media (min-width: $MOBILE_BREAKPOINT) {
 		.nav {
 			display: none;
 		}

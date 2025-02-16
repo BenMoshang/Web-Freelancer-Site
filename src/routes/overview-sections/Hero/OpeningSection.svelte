@@ -25,14 +25,14 @@
 
 		&__title {
 			@extend %global__display--h1;
-			// @include gradient-text('700', '900', '100', '300', 145deg);
+			// @include apply-gradient-text('700', '900', '100', '300', 145deg);
 
 			position: relative;
 			letter-spacing: -0.05em;
 			text-align: center;
 
 			&::after {
-				@include text-pop-up-top;
+				@include apply-3d-text-shadow;
 				content: attr(data-text);
 				position: absolute;
 				inset: 0;

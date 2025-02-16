@@ -3,24 +3,11 @@
 //-------------------------------------
 @use 'sass:map';
 @use '../../../base/global-variables' as *;
-$breakpoints: (
-	'mobile': 30rem,
-	// 480px
-	'tablet': 48rem,
-	// 768px
-	'desktop': 64rem // Base for desktop
-);
-
-@mixin respond-to($breakpoint) {
-	@media (min-width: map.get($breakpoints, $breakpoint)) {
-		@content;
-	}
-}
 
 //-------------------------------------
 // 3. Grid Container Mixin
 //-------------------------------------
-@mixin grid-container($columns: 12, $gutter-key: 'md') {
+@mixin _grid-container($columns: 12, $gutter-key: 'md') {
 	$gutter: get-static-sp($gutter-key);
 	display: grid;
 	grid-template-columns: repeat($columns, minmax(0, 1fr));
@@ -36,7 +23,7 @@ $breakpoints: (
 //-------------------------------------
 // 4. Grid Item Mixin
 //-------------------------------------
-@mixin grid-item($span: 12) {
+@mixin _grid-item($span: 12) {
 	grid-column: span $span;
 }
 
@@ -45,30 +32,30 @@ $breakpoints: (
 //-------------------------------------
 %page-grid-container {
 	// Base layout for mobile
-	@include grid-container(4, 'md'); //16px
+	@include _grid-container(4, 'md'); //16px
 
 	// Tablet: increase gutter & columns
 	@include respond-to('tablet') {
-		@include grid-container(8, 'lg'); //20px
+		@include _grid-container(8, 'lg'); //20px
 	}
 
 	// Desktop: further adjustments
 	@include respond-to('desktop') {
-		@include grid-container(12, 'xl'); //24PX
+		@include _grid-container(12, 'xl'); //24PX
 	}
 }
 
 %page-grid-item {
 	@include apply-page-max-inline;
 	// Each item spans full width by default
-	@include grid-item(4);
+	@include _grid-item(4);
 	// Tablet variation: span more columns
 	@include respond-to('tablet') {
-		@include grid-item(8);
+		@include _grid-item(8);
 	}
 
 	// Desktop: further column span modification
 	@include respond-to('desktop') {
-		@include grid-item(12);
+		@include _grid-item(12);
 	}
 }

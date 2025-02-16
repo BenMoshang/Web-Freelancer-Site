@@ -37,7 +37,7 @@
 		max-block-size: 15.875rem;
 		max-inline-size: 11.875rem;
 		background-color: get-light-dark('lightest', 'darker');
-		border-radius: $br-default;
+		border-radius: $BR_DEFAULT;
 
 		&__icon {
 			--icon-size: 100%;

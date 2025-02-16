@@ -38,34 +38,34 @@
 			flex-direction: column;
 		}
 		&--x1 {
-			gap: get-static-get-spacing-type('x1');
+			gap: get-static-_get-spacing-type('x1');
 		}
 		&--x2 {
-			gap: get-static-get-spacing-type('x2');
+			gap: get-static-_get-spacing-type('x2');
 		}
 		&--x3 {
-			gap: get-static-get-spacing-type('x3');
+			gap: get-static-_get-spacing-type('x3');
 		}
 		&--h1 {
-			gap: get-static-get-spacing-type('x4');
+			gap: get-static-_get-spacing-type('x4');
 		}
 		&--x5 {
-			gap: get-static-get-spacing-type('x5');
+			gap: get-static-_get-spacing-type('x5');
 		}
 		&--x6 {
-			gap: get-static-get-spacing-type('x6');
+			gap: get-static-_get-spacing-type('x6');
 		}
 		&--x7 {
-			gap: get-static-get-spacing-type('x7');
+			gap: get-static-_get-spacing-type('x7');
 		}
 		&--x8 {
-			gap: get-static-get-spacing-type('x8');
+			gap: get-static-_get-spacing-type('x8');
 		}
 		&--x9 {
-			gap: get-static-get-spacing-type('x9');
+			gap: get-static-_get-spacing-type('x9');
 		}
 		&--x10 {
-			gap: get-static-get-spacing-type('x10');
+			gap: get-static-_get-spacing-type('x10');
 		}
 	}
 	.box {

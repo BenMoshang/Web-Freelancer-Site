@@ -20,7 +20,7 @@
 * }
 *
 * USED FOR SVGS IF NEEDED:
-* *@mixin shadow-drop($level: 'low')
+* *@mixin apply-shadow-drop($level: 'low')
 * Creates a drop shadow effect based on the specified level
 * @param {String} $level - The shadow level to apply (low, medium, high)
 *
@@ -41,7 +41,7 @@ $text-pop-up-config: (
 	increment: 0.01em,
 	opacity: 1
 );
-@mixin text-pop-up-top($config: $text-pop-up-config) {
+@mixin apply-3d-text-shadow($config: $text-pop-up-config) {
 	$shadows: ();
 	$color: map.get($config, 'base-color');
 	$steps: map.get($config, 'steps');
@@ -148,7 +148,7 @@ $shadow-high-config: (
 }
 
 // Modified shadow-drop mixin for light/dark mode separation
-@mixin shadow-drop($level: 'low') {
+@mixin apply-shadow-drop($level: 'low') {
 	@if $level == 'low' {
 		$cfg: $shadow-low-config;
 	} @else if $level == 'medium' {

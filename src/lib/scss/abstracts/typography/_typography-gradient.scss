@@ -3,11 +3,11 @@
 /*
 *FOR GRADIENT TEXT:
 *example:
-*   USAGE: 1. @include gradient-text();
+*   USAGE: 1. @include apply-gradient-text();
 *          2. @include set-gradient('900', '700', '700', '900', 360deg);
 */
 
-@mixin gradient-text(
+@mixin apply-gradient-text(
 	$light-start: '900',
 	$light-end: '800',
 	$dark-start: '50',
@@ -25,7 +25,7 @@
 	background-clip: text;
 	-webkit-background-clip: text;
 }
-
+// !legacy
 @mixin shimmer(
 	$light-base: '700',
 	$light-highlight: '300',

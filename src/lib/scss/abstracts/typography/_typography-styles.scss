@@ -3,51 +3,12 @@
 @use '../colors' as colors;
 @use 'sass:map';
 
-$responsive-font-sizes: (
-	'display--h1': typo-fsz.create-responsive-fsz('x8', 'x12'),
-	'display--h2': typo-fsz.create-responsive-fsz('x7', 'x9'),
-	'heading--h2': typo-fsz.create-responsive-fsz('x6', 'x8'),
-	'heading--h3': typo-fsz.create-responsive-fsz('x5', 'x7'),
-	'heading--h4': typo-fsz.create-responsive-fsz('x4', 'x6'),
-	'body--lg': typo-fsz.create-responsive-fsz('x3', 'x5'),
-	'body--md': typo-fsz.create-responsive-fsz('x2', 'x3'),
-	'label': typo-fsz.create-responsive-fsz('x1', 'x2')
-);
-
-@function get-responsive-fsz-range($key) {
-	@if map-has-key($responsive-font-sizes, $key) {
-		@return map.get($responsive-font-sizes, $key);
-	} @else {
-		@error "Key '#{$key}' not found in $responsive-font-sizes map";
-		@return null;
-	}
-}
-@mixin apply-fsz($size) {
-	@if map-has-key($responsive-font-sizes, $size) {
-		font-size: get-responsive-fsz-range($size);
-	} @else {
-		@error "Invalid font size '#{$size}'. Available sizes are: #{map.keys($responsive-font-sizes)}";
-	}
-}
-
-@mixin apply-max-ch($type: 'body') {
-	@if $type == 'display' {
-		max-inline-size: 35ch;
-	} @else if $type == 'heading' {
-		max-inline-size: 45ch;
-	} @else if $type == 'body' {
-		max-inline-size: 60ch;
-	} @else {
-		@error "Invalid type '#{$type}'. Must be 'display', 'heading', or 'body'";
-	}
-}
-
 @mixin display-overview {
 	font-family: typo-fn.get-ff('display');
 	font-weight: typo-fn.get-fw('display');
 	line-height: typo-fn.get-lh('tight');
 	letter-spacing: typo-fn.get-ls('tight');
-	color: colors.get-typography-color('primary');
+	color: colors._get-typography-color('primary');
 
 	text-wrap: balance;
 }
@@ -57,7 +18,7 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('heading');
 	line-height: typo-fn.get-lh('snug');
 	letter-spacing: typo-fn.get-ls('snug');
-	color: colors.get-typography-color('primary');
+	color: colors._get-typography-color('primary');
 	text-wrap: balance;
 }
 
@@ -66,18 +27,18 @@ $responsive-font-sizes: (
 	font-weight: typo-fn.get-fw('body');
 	line-height: typo-fn.get-lh('normal');
 	letter-spacing: typo-fn.get-ls('normal');
-	font-size: get-responsive-fsz-range('body--md');
+	font-size: get-responsive-fsz('body--md');
 	text-wrap: pretty;
-	color: colors.get-typography-color('secondary');
+	color: colors._get-typography-color('secondary');
 }
 
 @mixin label-overview {
 	font-family: typo-fn.get-ff('body');
 	font-weight: typo-fn.get-fw('label');
-	font-size: get-responsive-fsz-range('label');
+	font-size: get-responsive-fsz('label');
 	line-height: typo-fn.get-lh('loose');
 	letter-spacing: typo-fn.get-ls('loose');
-	color: colors.get-typography-color('tertiary');
+	color: colors._get-typography-color('tertiary');
 	text-transform: uppercase;
 	text-wrap: balance;
 }
@@ -88,14 +49,14 @@ $responsive-font-sizes: (
 
 %global__display--h1 {
 	@include display-overview;
-	font-size: get-responsive-fsz-range('display--h1');
-	color: colors.get-typography-color('primary');
+	font-size: get-responsive-fsz('display--h1');
+	color: colors._get-typography-color('primary');
 }
 
 %global__display--h2 {
 	@include display-overview;
-	font-size: get-responsive-fsz-range('display--h2');
-	color: colors.get-typography-color('primary');
+	font-size: get-responsive-fsz('display--h2');
+	color: colors._get-typography-color('primary');
 }
 
 /*=============================================
@@ -103,28 +64,28 @@ $responsive-font-sizes: (
 =============================================*/
 %global__heading--h1 {
 	@include heading-overview;
-	font-size: get-responsive-fsz-range('heading--h2');
-	color: colors.get-typography-color('primary');
+	font-size: get-responsive-fsz('heading--h1');
+	color: colors._get-typography-color('primary');
 }
 
 %global__heading--h2 {
 	@include heading-overview;
-	font-size: get-responsive-fsz-range('heading--h2');
-	color: colors.get-typography-color('secondary');
+	font-size: get-responsive-fsz('heading--h2');
+	color: colors._get-typography-color('secondary');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
 
-	font-size: get-responsive-fsz-range('heading--h3');
-	color: colors.get-typography-color('secondary');
+	font-size: get-responsive-fsz('heading--h3');
+	color: colors._get-typography-color('secondary');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
 	font-weight: typo-fn.get-fw('heading');
-	font-size: get-responsive-fsz-range('heading--h4');
-	color: colors.get-typography-color('secondary');
+	font-size: get-responsive-fsz('heading--h4');
+	color: colors._get-typography-color('secondary');
 }
 
 /*=============================================
@@ -134,15 +95,15 @@ $responsive-font-sizes: (
 %global__body--lg {
 	@include body-overview;
 
-	font-size: get-responsive-fsz-range('body--lg');
-	color: get-typography-color('secondary');
+	font-size: get-responsive-fsz('body--lg');
+	color: _get-typography-color('secondary');
 }
 
 %global__body--md {
 	@include body-overview;
 
-	font-size: get-responsive-fsz-range('body--md');
-	color: get-typography-color('secondary');
+	font-size: get-responsive-fsz('body--md');
+	color: _get-typography-color('secondary');
 }
 
 /*=============================================

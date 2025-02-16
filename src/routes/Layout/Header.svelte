@@ -83,7 +83,7 @@
   ==========================*/
 	.header {
 		@include apply-page-max-inline;
-		--header-height: #{$page-header-height};
+		--header-height: #{$PAGE_HEADER_HEIGHT};
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		justify-content: center;
@@ -95,7 +95,7 @@
 		right: 0;
 		inline-size: 100%;
 
-		border-radius: $br-rounded;
+		border-radius: $BR_ROUNDED;
 		block-size: var(--header-height);
 		padding-block: get-static-sp('lg');
 		padding-inline: get-static-sp('md');
@@ -161,7 +161,7 @@
 				height: 2em;
 				object-fit: cover;
 				// background: get-light-dark('darkest', 'lightest');
-				border-radius: $br-rounded;
+				border-radius: $BR_ROUNDED;
 				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
 			}
 

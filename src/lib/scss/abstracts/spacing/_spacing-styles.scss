@@ -5,7 +5,7 @@
   or 'block'. Returns the proper CSS property.
 -----------------------------------------------------------------*/
 @mixin apply-padding($size, $type, $static: false) {
-	$value: spacing-fn.get-spacing-type($size, $static);
+	$value: spacing-fn._get-spacing-type($size, $static);
 	@if $type == 'all' {
 		padding: $value;
 	} @else if $type == 'inline' {
@@ -26,14 +26,14 @@
   Helper mixin for setting gap property
 -----------------------------------------------------------------*/
 @mixin apply-gap($size, $static: false) {
-	gap: spacing-fn.get-spacing-type($size, $static);
+	gap: spacing-fn._get-spacing-type($size, $static);
 }
 
 /*-----------------------------------------------------------------
   Margin mixin with direction options
 -----------------------------------------------------------------*/
 @mixin apply-margin($size: 'md', $direction: 'all', $static: false) {
-	$sp: spacing-fn.get-spacing-type($size, $static);
+	$sp: spacing-fn._get-spacing-type($size, $static);
 
 	@if $direction == 'all' {
 		margin: $sp;

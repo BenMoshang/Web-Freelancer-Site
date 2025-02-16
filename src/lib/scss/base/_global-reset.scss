@@ -33,7 +33,7 @@
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	@media (min-width: gv.$mobile-breakpoint) {
+	@media (min-width: gv.$MOBILE_BREAKPOINT) {
 		cursor: auto;
 	}
 }

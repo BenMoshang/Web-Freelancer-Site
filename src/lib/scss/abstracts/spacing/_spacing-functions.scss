@@ -4,19 +4,20 @@
 @use 'sass:math';
 
 $static-spacing: (
-	'xs': sb.get-base-sp('s4'),
-	'sm': sb.get-base-sp('s8'),
-	'md': sb.get-base-sp('s16'),
-	'lg': sb.get-base-sp('s20'),
-	'xl': sb.get-base-sp('s24'),
-	'2xl': sb.get-base-sp('s32'),
-	'3xl': sb.get-base-sp('s40'),
-	'4xl': sb.get-base-sp('s48'),
-	'5xl': sb.get-base-sp('s64'),
-	'6xl': sb.get-base-sp('s80'),
-	'7xl': sb.get-base-sp('s96'),
-	'8xl': sb.get-base-sp('s112'),
-	'9xl': sb.get-base-sp('s128')
+	'xs': sb._get-base-sp('s4'),
+	'sm': sb._get-base-sp('s8'),
+	'md': sb._get-base-sp('s16'),
+	'lg': sb._get-base-sp('s20'),
+	'xl': sb._get-base-sp('s24'),
+	'2xl': sb._get-base-sp('s32'),
+	'3xl': sb._get-base-sp('s40'),
+	'4xl': sb._get-base-sp('s48'),
+	'5xl': sb._get-base-sp('s64'),
+	'6xl': sb._get-base-sp('s80'),
+	'7xl': sb._get-base-sp('s96'),
+	'8xl': sb._get-base-sp('s112'),
+	'9xl': sb._get-base-sp('s128'),
+	'10xl': sb._get-base-sp('s144')
 );
 @function get-static-sp($key) {
 	@return map.get($static-spacing, $key);
@@ -25,7 +26,7 @@ $static-spacing: (
  * Main spacing function.
  * If $static is true, returns a static spacing value; otherwise returns a responsive value.
  */
-@function get-spacing-type($size, $static: false) {
+@function _get-spacing-type($size, $static: false) {
 	@if type-of($size) != 'string' {
 		@error "Spacing size must be a string. Got: #{$size}";
 	}
@@ -37,7 +38,7 @@ $static-spacing: (
 @function create-responsive-sp($min-size, $max-size) {
 	$min: math-fn.get-map-value(sb.$base-spacing-scale, $min-size);
 	$max: math-fn.get-map-value(sb.$base-spacing-scale, $max-size);
-	@return math-fn.create-clamp($min, $max);
+	@return math-fn._create-clamp($min, $max);
 }
 
 $responsive-spacing: (
@@ -55,7 +56,8 @@ $responsive-spacing: (
 	'5xl': create-responsive-sp('s64', 's80'),
 	'6xl': create-responsive-sp('s80', 's96'),
 	'7xl': create-responsive-sp('s96', 's112'),
-	'8xl': create-responsive-sp('s112', 's128')
+	'8xl': create-responsive-sp('s112', 's128'),
+	'9xl': create-responsive-sp('s128', 's144')
 );
 
 @function get-responsive-sp($key) {

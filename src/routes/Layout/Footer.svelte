@@ -198,7 +198,7 @@
 
 		&__content {
 			padding: get-static-sp('md');
-			max-inline-size: $desktop-breakpoint;
+			max-inline-size: $DESKTOP_BREAKPOINT;
 			margin-block: 0;
 			margin-inline: auto;
 			display: flex;
@@ -288,7 +288,7 @@
 		}
 
 		&__bottom {
-			max-width: $desktop-breakpoint;
+			max-width: $DESKTOP_BREAKPOINT;
 			margin: get-static-sp('md') auto 0;
 			padding-block-start: get-static-sp('md');
 			border-block-start: 0.0313rem solid get-light-dark('700', '300');

@@ -16,23 +16,20 @@ $typography-scale-ratio: 1.25;
    Define your typographic scale using the base size and scale ratio.
 --------------------------------------------------------------------------- */
 $base-typography-scale: (
-	'x-1': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
-	'x0.5': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-	'x1': $typography-base-size,
-	'x2': $typography-base-size * math.pow($typography-scale-ratio, 1),
-	'x3': $typography-base-size * math.pow($typography-scale-ratio, 2),
-	'x4': $typography-base-size * math.pow($typography-scale-ratio, 3),
-	'x5': $typography-base-size * math.pow($typography-scale-ratio, 4),
-	'x6': $typography-base-size * math.pow($typography-scale-ratio, 5),
-	'x7': $typography-base-size * math.pow($typography-scale-ratio, 6),
-	'x7.5': $typography-base-size * math.pow($typography-scale-ratio, 6.5),
-	'x8': $typography-base-size * math.pow($typography-scale-ratio, 7),
-	'x9': $typography-base-size * math.pow($typography-scale-ratio, 8),
-	'x10': $typography-base-size * math.pow($typography-scale-ratio, 9),
-	'x11': $typography-base-size * math.pow($typography-scale-ratio, 10),
-	'x12': $typography-base-size * math.pow($typography-scale-ratio, 11),
-	'x13': $typography-base-size * math.pow($typography-scale-ratio, 12),
-	'x14': $typography-base-size * math.pow($typography-scale-ratio, 13)
+	'2xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
+	'xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
+	'sm': $typography-base-size,
+	'md': $typography-base-size * math.pow($typography-scale-ratio, 1),
+	'lg': $typography-base-size * math.pow($typography-scale-ratio, 2),
+	'xl': $typography-base-size * math.pow($typography-scale-ratio, 3),
+	'2xl': $typography-base-size * math.pow($typography-scale-ratio, 4),
+	'3xl': $typography-base-size * math.pow($typography-scale-ratio, 5),
+	'4xl': $typography-base-size * math.pow($typography-scale-ratio, 6),
+	'5xl': $typography-base-size * math.pow($typography-scale-ratio, 7),
+	'6xl': $typography-base-size * math.pow($typography-scale-ratio, 8),
+	'7xl': $typography-base-size * math.pow($typography-scale-ratio, 9),
+	'8xl': $typography-base-size * math.pow($typography-scale-ratio, 10),
+	'9xl': $typography-base-size * math.pow($typography-scale-ratio, 11)
 );
 $base-typography-scale: () !default;
 /* ---------------------------------------------------------------------------
@@ -42,7 +39,7 @@ $base-typography-scale: () !default;
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
 	$font-size: math-fn.get-map-value($base-typography-scale, $size);
-	@return math-fn.round-number($font-size, 1); // Round to whole numbers for static sizes
+	@return math-fn._round-number($font-size, 1); // Round to whole numbers for static sizes
 }
 
 /* ---------------------------------------------------------------------------
@@ -52,8 +49,41 @@ $base-typography-scale: () !default;
      1) Retrieves the min and max sizes from the scale.
      2) Generates a fluid clamp expression using those values.
 --------------------------------------------------------------------------- */
-@function create-responsive-fsz($min-key, $max-key) {
+@function _create-responsive-fsz($min-key, $max-key) {
 	$min-size: get-static-fsz($min-key);
 	$max-size: get-static-fsz($max-key);
-	@return math-fn.create-clamp($min-size, $max-size);
+	@return math-fn._create-clamp($min-size, $max-size);
+}
+$responsive-font-sizes: (
+	'display--h1': typo-fsz._create-responsive-fsz('x8', 'x12'),
+	'display--h2': typo-fsz._create-responsive-fsz('x7', 'x9'),
+	'heading--h2': typo-fsz._create-responsive-fsz('x6', 'x8'),
+	'heading--h3': typo-fsz._create-responsive-fsz('x5', 'x7'),
+	'heading--h4': typo-fsz._create-responsive-fsz('x4', 'x6'),
+	'body--lg': typo-fsz._create-responsive-fsz('x3', 'x5'),
+	'body--md': typo-fsz._create-responsive-fsz('x2', 'x3'),
+	'label': typo-fsz._create-responsive-fsz('x1', 'x2')
+);
+
+@function get-responsive-fsz($key) {
+	@if map-has-key($responsive-font-sizes, $key) {
+		@return map.get($responsive-font-sizes, $key);
+	} @else {
+		@error "Key '#{$key}' not found in $responsive-font-sizes map";
+		@return null;
+	}
+}
+@mixin apply-fsz($size, $static: false) {
+	@if type-of($size) != 'string' {
+		@error "Font size must be a string. Got: #{$size}";
+	}
+	@if $static == true {
+		font-size: get-static-fsz($size);
+	} @else {
+		@if map-has-key($responsive-font-sizes, $size) {
+			font-size: get-responsive-fsz($size);
+		} @else {
+			@error "Invalid font size '#{$size}'. Available sizes are: #{map.keys($responsive-font-sizes)}";
+		}
+	}
 }
