@@ -1,7 +1,7 @@
 /* GsapParallax.ts - Svelte Action for applying a GSAP-based parallax effect */
 import { onMount } from 'svelte';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);

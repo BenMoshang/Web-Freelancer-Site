@@ -5,7 +5,7 @@
 		@include elastic-text-hover;
 		@include label-overview;
 		font-family: get-ff('display');
-		font-size: get-static-fsz('x2');
+		font-size: get-static-fsz('md');
 		font-weight: 600;
 		color: get-light-dark('900', '50');
 		line-height: 1;

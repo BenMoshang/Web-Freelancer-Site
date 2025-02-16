@@ -57,8 +57,10 @@
 </a>
 
 <style lang="scss">
+	@use '../scss/base/components/button-styling' as button;
+
 	.email-button {
-		@include _set-button-primary(true);
+		@include apply-button('primary');
 		text-decoration: none;
 	}
 </style>

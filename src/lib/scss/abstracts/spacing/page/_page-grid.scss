@@ -2,7 +2,7 @@
 // 2. Breakpoints Map & Mixin
 //-------------------------------------
 @use 'sass:map';
-@use '../../../base/global-variables' as *;
+@use '../../../base/global-mixins' as glbl-mix;
 
 //-------------------------------------
 // 3. Grid Container Mixin
@@ -35,27 +35,27 @@
 	@include _grid-container(4, 'md'); //16px
 
 	// Tablet: increase gutter & columns
-	@include respond-to('tablet') {
+	@include glbl-mix.respond-to('tablet') {
 		@include _grid-container(8, 'lg'); //20px
 	}
 
 	// Desktop: further adjustments
-	@include respond-to('desktop') {
+	@include glbl-mix.respond-to('desktop') {
 		@include _grid-container(12, 'xl'); //24PX
 	}
 }
 
 %page-grid-item {
-	@include apply-page-max-inline;
+	@include glbl-mix.apply-page-max-inline;
 	// Each item spans full width by default
 	@include _grid-item(4);
 	// Tablet variation: span more columns
-	@include respond-to('tablet') {
+	@include glbl-mix.respond-to('tablet') {
 		@include _grid-item(8);
 	}
 
 	// Desktop: further column span modification
-	@include respond-to('desktop') {
+	@include glbl-mix.respond-to('desktop') {
 		@include _grid-item(12);
 	}
 }

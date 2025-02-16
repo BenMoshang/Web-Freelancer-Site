@@ -54,7 +54,6 @@
 	</nav>
 	<div class="header__content-wrapper">
 		<ThemeToggle />
-		<!-- <EmailButton /> -->
 		<!-- MOBILE: Menu Toggle -->
 		<label for="menu-toggle" class="header__burger">
 			<input
@@ -82,6 +81,8 @@
     HEADER & CHILD COMPONENTS
   ==========================*/
 	.header {
+		@include apply-padding('lg', 'block');
+		@include apply-padding('md', 'inline');
 		@include apply-page-max-inline;
 		--header-height: #{$PAGE_HEADER_HEIGHT};
 		display: grid;
@@ -97,8 +98,7 @@
 
 		border-radius: $BR_ROUNDED;
 		block-size: var(--header-height);
-		padding-block: get-static-sp('lg');
-		padding-inline: get-static-sp('md');
+
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
@@ -202,15 +202,12 @@
 		width: 100%;
 		justify-content: space-evenly;
 		align-items: center;
-		gap: get-static-sp('2xl');
 		list-style: none;
 	}
 
 	.nav__link {
 		@extend %global__body--md;
 		@include link-effect;
-		font-family: get-ff('display');
 		line-height: 1;
-		font-weight: get-fw('emphasis');
 	}
 </style>

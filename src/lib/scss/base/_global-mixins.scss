@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use 'global-variables' as *;
+
 $BREAKPOINTS: (
 	'mobile': 30rem,
 	// 480px

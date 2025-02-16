@@ -11,10 +11,10 @@
    - $precision: The number of decimal places (defaults to 2).
    
    Example:
-     _round-number(3.14159);     // returns 3.14
-     _round-number(3.14159, 3);  // returns 3.142
+     round-number(3.14159);     // returns 3.14
+     round-number(3.14159, 3);  // returns 3.142
 --------------------------------------------------------------------------- */
-@function _round-number($value, $precision: 2) {
+@function round-number($value, $precision: 2) {
 	$multiplier: math.pow(10, $precision);
 	@return math.round($value * $multiplier) / $multiplier;
 }
@@ -32,7 +32,7 @@
    Returns:
      clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
 --------------------------------------------------------------------------- */
-@function _create-clamp(
+@function create-clamp(
 	$min-size,
 	$max-size,
 	$min-viewport: 20rem,
@@ -48,11 +48,11 @@
 				map-has-key($base-typography-scale, $max-size)
 		)
 	{
-		$slope: _round-number($slope, 1);
-		$intercept: _round-number($intercept, 1);
+		$slope: round-number($slope, 1);
+		$intercept: round-number($intercept, 1);
 	} @else {
-		$slope: _round-number($slope, 3);
-		$intercept: _round-number($intercept, 3);
+		$slope: round-number($slope, 3);
+		$intercept: round-number($intercept, 3);
 	}
 
 	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);

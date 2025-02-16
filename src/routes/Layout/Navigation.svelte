@@ -144,7 +144,7 @@
 		font-family: get-ff('display');
 		line-height: 1;
 		font-weight: get-fw('display');
-		font-size: get-static-fsz('x7');
+		font-size: get-static-fsz('7xl');
 		text-decoration: none;
 
 		text-align: left;

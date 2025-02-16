@@ -14,7 +14,7 @@
 
 import { onMount, onDestroy } from 'svelte';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 // Only register plugins in browser environment
 const isBrowser = typeof window !== 'undefined';

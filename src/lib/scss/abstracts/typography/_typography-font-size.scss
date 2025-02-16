@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:map';
 @use '../../base/global-variables' as gv;
 @use '../math/responsive-functions' as math-fn;
 
@@ -16,7 +17,7 @@ $typography-scale-ratio: 1.25;
    Define your typographic scale using the base size and scale ratio.
 --------------------------------------------------------------------------- */
 $base-typography-scale: (
-	'2xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 1)),
+	'2xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
 	'xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
 	'sm': $typography-base-size,
 	'md': $typography-base-size * math.pow($typography-scale-ratio, 1),
@@ -39,7 +40,7 @@ $base-typography-scale: () !default;
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
 	$font-size: math-fn.get-map-value($base-typography-scale, $size);
-	@return math-fn._round-number($font-size, 1); // Round to whole numbers for static sizes
+	@return math-fn.round-number($font-size, 1); // Round to whole numbers for static sizes
 }
 
 /* ---------------------------------------------------------------------------
@@ -49,20 +50,21 @@ $base-typography-scale: () !default;
      1) Retrieves the min and max sizes from the scale.
      2) Generates a fluid clamp expression using those values.
 --------------------------------------------------------------------------- */
-@function _create-responsive-fsz($min-key, $max-key) {
+@function create-responsive-fsz($min-key, $max-key) {
 	$min-size: get-static-fsz($min-key);
 	$max-size: get-static-fsz($max-key);
-	@return math-fn._create-clamp($min-size, $max-size);
+	@return math-fn.create-clamp($min-size, $max-size);
 }
+
 $responsive-font-sizes: (
-	'display--h1': typo-fsz._create-responsive-fsz('x8', 'x12'),
-	'display--h2': typo-fsz._create-responsive-fsz('x7', 'x9'),
-	'heading--h2': typo-fsz._create-responsive-fsz('x6', 'x8'),
-	'heading--h3': typo-fsz._create-responsive-fsz('x5', 'x7'),
-	'heading--h4': typo-fsz._create-responsive-fsz('x4', 'x6'),
-	'body--lg': typo-fsz._create-responsive-fsz('x3', 'x5'),
-	'body--md': typo-fsz._create-responsive-fsz('x2', 'x3'),
-	'label': typo-fsz._create-responsive-fsz('x1', 'x2')
+	'display--h1': create-responsive-fsz('8xl', '9xl'),
+	'display--h2': create-responsive-fsz('7xl', '8xl'),
+	'heading--h2': create-responsive-fsz('5xl', '6xl'),
+	'heading--h3': create-responsive-fsz('3xl', '4xl'),
+	'heading--h4': create-responsive-fsz('xl', '2xl'),
+	'body--lg': create-responsive-fsz('md', 'lg'),
+	'body--md': create-responsive-fsz('sm', 'md'),
+	'label': create-responsive-fsz('xs', 'sm')
 );
 
 @function get-responsive-fsz($key) {
