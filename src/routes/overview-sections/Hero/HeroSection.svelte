@@ -20,7 +20,7 @@
 	const heroInjectable: HeroContent = {
 		titleFirstHalf: 'MODERN WEB',
 		titleSecondHalf: 'DEVELOPMENT',
-		subtitle: 'Dynamic Experiences That Connect Your Audience'
+		subtitle: 'Digital Experiences To Connect Your Audience'
 	};
 
 	const benefitsInjectable: Benefit[] = [
@@ -217,12 +217,15 @@
 			inset: 0;
 			width: 100vw;
 			height: 100vh;
-			color: get-light-dark('800', '600', 0.38, 1);
+			color: get-light-dark('500', '600', 0.38, 1);
 			mix-blend-mode: soft-light;
 			object-fit: cover;
 			opacity: 0.5;
 			will-change: opacity, transform;
 			z-index: -1;
+			@media (prefers-color-scheme: light) {
+				filter: saturate(200%);
+			}
 		}
 
 		&__panel {
@@ -264,10 +267,11 @@
 		}
 
 		&__subtitle {
+			@extend %global__heading--h4;
 			margin-inline: auto;
 			text-align: center;
 			text-transform: uppercase;
-			@extend %global__body--lg;
+			font-weight: 500;
 			@include apply-margin('md', 'top');
 
 			// text-shadow: 0 1px 1px get-light-dark('900', '50', 0.2, 0.2);
