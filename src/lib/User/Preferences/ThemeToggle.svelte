@@ -86,8 +86,8 @@
 
 		svg {
 			position: relative;
-			width: 100%;
-			height: 100%;
+			width: get-responsive-fsz('label');
+			height: get-responsive-fsz('label');
 			transition: transform 0.4s ease;
 			transform: rotate(40deg);
 

@@ -22,9 +22,9 @@
 </svelte:head>
 
 <main class="page-container">
-	<!-- <HeroSection /> -->
-	<!-- <SecondHero /> -->
-	<FontTesting />
+	<HeroSection />
+	<SecondHero />
+	<!-- <FontTesting /> -->
 </main>
 <svg>
 	<filter id="noiseFilter">

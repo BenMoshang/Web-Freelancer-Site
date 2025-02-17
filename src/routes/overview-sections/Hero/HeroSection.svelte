@@ -16,11 +16,11 @@
 		secondHalf: string;
 	}
 
-	// Content data with proper typing
+	// Updated hero content with refined copy
 	const heroInjectable: HeroContent = {
 		titleFirstHalf: 'MODERN WEB',
 		titleSecondHalf: 'DEVELOPMENT',
-		subtitle: 'FUTURE-READY WEBSITES, BUILT TODAY'
+		subtitle: 'Dynamic Experiences That Connect Your Audience'
 	};
 
 	const benefitsInjectable: Benefit[] = [
@@ -198,7 +198,6 @@
 	.hero {
 		@extend %page-grid-item;
 
-		position: relative;
 		display: grid;
 		place-content: center;
 		grid-template-areas:
@@ -216,12 +215,12 @@
 		&__background {
 			position: absolute;
 			inset: 0;
-			z-index: -1;
 			width: 100vw;
 			height: 100vh;
-			color: get-light-dark('800', '600');
+			color: get-light-dark('800', '600', 0.38, 1);
 			mix-blend-mode: soft-light;
 			object-fit: cover;
+			opacity: 0.5;
 			will-change: opacity, transform;
 			z-index: -1;
 		}
@@ -250,9 +249,9 @@
 			text-wrap: nowrap;
 			@extend %global__display--h1;
 			@include apply-gradient-text;
-			@include apply-fsz('display--h1');
 			font-kerning: none;
-
+			letter-spacing: -0.05em;
+			line-height: 1;
 			&::after {
 				position: absolute;
 				inset: 0;
@@ -270,7 +269,8 @@
 			text-transform: uppercase;
 			@extend %global__body--lg;
 			@include apply-margin('md', 'top');
-			@include apply-typography-color('secondary');
+
+			// text-shadow: 0 1px 1px get-light-dark('900', '50', 0.2, 0.2);
 		}
 
 		&__benefits {
@@ -285,14 +285,14 @@
 				justify-content: space-between;
 				inline-size: 100%;
 				list-style: none;
-				gap: get-static-sp('sm');
+
 				@include apply-page-max-inline;
 			}
 		}
 
 		&__benefits-item {
 			@include flex-center;
-			gap: get-static-sp('sm');
+			@include apply-gap('xs');
 		}
 
 		&__benefits-icon {
@@ -309,7 +309,7 @@
 			@extend %global__label;
 			display: inline-flex;
 			align-items: center;
-			gap: get-static-sp('2xs');
+			@include apply-gap('xs');
 
 			&--seperator {
 				color: get-typography-color('tertiary');

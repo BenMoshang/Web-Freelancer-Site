@@ -198,7 +198,7 @@
 	.nav__list {
 		grid-area: nav;
 		display: flex;
-
+		@include apply-gap('lg');
 		width: 100%;
 		justify-content: space-evenly;
 		align-items: center;
@@ -208,6 +208,7 @@
 	.nav__link {
 		@extend %global__body--md;
 		@include link-effect;
+		font-size: get-responsive-fsz('label');
 		line-height: 1;
 	}
 </style>
