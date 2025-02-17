@@ -35,7 +35,7 @@
 -----------------------------------------------------*/
 // Configuration map for text pop-up shadow
 $text-pop-up-config: (
-	base-color: cf.get-light-dark('300', '900'),
+	base-color: cf.get-light-dark('500', '900'),
 	steps: 8,
 	start-offset: 0.01em,
 	increment: 0.01em,

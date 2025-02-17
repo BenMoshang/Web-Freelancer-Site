@@ -27,18 +27,18 @@ $font-weights: (
 );
 
 $line-heights: (
-	'tight': 1em,
+	'tight': 130%,
 	// Best for headings and large display text
-	'snug': 1.3em,
+	'snug': 140%,
 	// Suitable for sub-headings or denser UI elements
-	'normal': 1.6em,
+	'normal': 150%,
 	// Ideal for body text; many award-winning UIs target ~1.5 for readability
-	'loose': 1.75em // For cases where extra breathing room is needed (e.g. mobile or highly legible settings)
+	'loose': 160% // For cases where extra breathing room is needed (e.g. mobile or highly legible settings)
 );
 
 $letter-spacing: (
-	'tight': -0.05em,
-	'snug': -0.01em,
-	'normal': 0,
-	'loose': 0.2em
+	'tight': -0.025em,
+	'snug': -0.02em,
+	'normal': 0.01em,
+	'loose': 0.03em
 );

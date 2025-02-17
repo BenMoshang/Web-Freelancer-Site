@@ -13,26 +13,15 @@
 </section>
 
 <style lang="scss">
-	* {
-		outline: 1px solid red;
-	}
 	section {
+		width: 100%;
+		position: fixed;
+		inset: 0;
+		margin: auto;
 		padding-inline: 1rem;
 		padding-top: 10rem;
 		@include flex-column-center;
-		justify-content: flex-end;
 		@extend %page-grid-item;
-		& > * {
-			text-align: left !important;
-		}
-	}
-	.logo-testing {
-		padding: 1rem;
-		margin: 1rem;
-
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
 	}
 
 	.display {
@@ -46,13 +35,16 @@
 	.heading {
 		&--h2 {
 			@extend %global__heading--h2;
+			text-align: center !important;
 		}
 
 		&--h3 {
 			@extend %global__heading--h3;
+			text-align: center !important;
 		}
 		&--h4 {
 			@extend %global__heading--h4;
+			text-align: center !important;
 		}
 	}
 
@@ -67,5 +59,10 @@
 
 	.label {
 		@extend %global__label;
+	}
+	* {
+		outline: 1px solid red;
+		text-align: center !important;
+		text-wrap: none !important;
 	}
 </style>

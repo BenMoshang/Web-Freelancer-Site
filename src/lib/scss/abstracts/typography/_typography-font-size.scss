@@ -9,28 +9,37 @@
    Adjust these to match your project's design system.
 --------------------------------------------------------------------------- */
 $typography-base-size: 1.125rem;
-$typography-scale-ratio: 1.25;
+$typography-scale-ratio: 1.2;
 
 /* ---------------------------------------------------------------------------
    2) Typographic Scales (REM Values)
    ---------------------------------------------------------------------------
    Define your typographic scale using the base size and scale ratio.
 --------------------------------------------------------------------------- */
+@function calculate-font-size($step) {
+	@if $step < 0 {
+		@return math.div($typography-base-size, math.pow($typography-scale-ratio, abs($step)));
+	} @else {
+		@return math.pow($typography-scale-ratio, $step) * $typography-base-size;
+	}
+}
+
 $base-typography-scale: (
-	'2xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.75)),
-	'xs': math.div($typography-base-size, math.pow($typography-scale-ratio, 0.5)),
-	'sm': $typography-base-size,
-	'md': $typography-base-size * math.pow($typography-scale-ratio, 1),
-	'lg': $typography-base-size * math.pow($typography-scale-ratio, 2),
-	'xl': $typography-base-size * math.pow($typography-scale-ratio, 3),
-	'2xl': $typography-base-size * math.pow($typography-scale-ratio, 4),
-	'3xl': $typography-base-size * math.pow($typography-scale-ratio, 5),
-	'4xl': $typography-base-size * math.pow($typography-scale-ratio, 6),
-	'5xl': $typography-base-size * math.pow($typography-scale-ratio, 7),
-	'6xl': $typography-base-size * math.pow($typography-scale-ratio, 8),
-	'7xl': $typography-base-size * math.pow($typography-scale-ratio, 9),
-	'8xl': $typography-base-size * math.pow($typography-scale-ratio, 10),
-	'9xl': $typography-base-size * math.pow($typography-scale-ratio, 11)
+	'2xs': calculate-font-size(-0.75),
+	'xs': calculate-font-size(-0.5),
+	'sm': calculate-font-size(0),
+	'md': calculate-font-size(1),
+	'lg': calculate-font-size(2),
+	'xl': calculate-font-size(3),
+	'2xl': calculate-font-size(4),
+	'3xl': calculate-font-size(5),
+	'4xl': calculate-font-size(6),
+	'5xl': calculate-font-size(7),
+	'6xl': calculate-font-size(8),
+	'7xl': calculate-font-size(9),
+	'8xl': calculate-font-size(10),
+	'9xl': calculate-font-size(11),
+	'10xl': calculate-font-size(12)
 );
 $base-typography-scale: () !default;
 /* ---------------------------------------------------------------------------
@@ -57,11 +66,11 @@ $base-typography-scale: () !default;
 }
 
 $responsive-font-sizes: (
-	'display--h1': create-responsive-fsz('8xl', '9xl'),
-	'display--h2': create-responsive-fsz('7xl', '8xl'),
-	'heading--h2': create-responsive-fsz('5xl', '6xl'),
-	'heading--h3': create-responsive-fsz('3xl', '4xl'),
-	'heading--h4': create-responsive-fsz('xl', '2xl'),
+	'display--h1': create-responsive-fsz('5xl', '10xl'),
+	'display--h2': create-responsive-fsz('3xl', '9xl'),
+	'heading--h2': create-responsive-fsz('2xl', '5xl'),
+	'heading--h3': create-responsive-fsz('xl', '2xl'),
+	'heading--h4': create-responsive-fsz('lg', 'xl'),
 	'body--lg': create-responsive-fsz('md', 'lg'),
 	'body--md': create-responsive-fsz('sm', 'md'),
 	'label': create-responsive-fsz('xs', 'sm')

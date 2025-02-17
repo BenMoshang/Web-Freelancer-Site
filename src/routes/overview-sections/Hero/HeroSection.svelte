@@ -196,6 +196,8 @@
 
 <style lang="scss">
 	.hero {
+		@extend %page-grid-item;
+
 		position: relative;
 		display: grid;
 		place-content: center;
@@ -210,7 +212,6 @@
 		overscroll-behavior: contain;
 		perspective: 1000px;
 		transform-style: preserve-3d;
-		@extend %page-grid-item;
 
 		&__background {
 			position: absolute;
@@ -218,8 +219,8 @@
 			z-index: -1;
 			width: 100vw;
 			height: 100vh;
-			color: get-light-dark('800', '600', 0.38, 0.2);
-			mix-blend-mode: overlay;
+			color: get-light-dark('800', '600');
+			mix-blend-mode: soft-light;
 			object-fit: cover;
 			will-change: opacity, transform;
 			z-index: -1;
@@ -249,6 +250,7 @@
 			text-wrap: nowrap;
 			@extend %global__display--h1;
 			@include apply-gradient-text;
+			@include apply-fsz('display--h1');
 			font-kerning: none;
 
 			&::after {

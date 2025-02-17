@@ -8,16 +8,16 @@
 */
 
 @mixin apply-gradient-text(
-	$light-start: '900',
+	$light-start: '50',
 	$light-end: '800',
 	$dark-start: '50',
-	$dark-end: '200',
+	$dark-end: '300',
 	$direction: 135deg
 ) {
 	color: transparent;
 	filter: saturate(-100%);
-	background: linear-gradient(
-		$direction,
+	background: radial-gradient(
+		circle at center,
 		cf.get-light-dark($light-start, $dark-start),
 		cf.get-light-dark($light-end, $dark-end)
 	);

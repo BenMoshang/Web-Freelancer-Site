@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ShadowTesting from '$lib/Testing/ShadowTesting.svelte';
+	import FontTesting from '$lib/Testing/FontTesting.svelte';
 	import HeroSection from './overview-sections/Hero/HeroSection.svelte';
 	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
 	const backgroundInjectable = {
@@ -22,8 +22,9 @@
 </svelte:head>
 
 <main class="page-container">
-	<HeroSection />
-	<SecondHero />
+	<!-- <HeroSection /> -->
+	<!-- <SecondHero /> -->
+	<FontTesting />
 </main>
 <svg>
 	<filter id="noiseFilter">

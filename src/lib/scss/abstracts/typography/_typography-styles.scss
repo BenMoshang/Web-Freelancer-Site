@@ -62,7 +62,6 @@
 =            Heading Typography              =
 =============================================*/
 
-
 %global__heading--h2 {
 	@include heading-overview;
 	font-size: typo-fsz.get-responsive-fsz('heading--h2');
