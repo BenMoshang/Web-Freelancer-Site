@@ -2,7 +2,7 @@
 
 <a href="/" class="brand-logo--2">
 	<span class="brand-logo--2__bracket brand-logo--2__bracket--left">&lt;</span>
-	<span class="brand-logo--2__text">MY MODERN</span>
+	<span class="brand-logo--2__text">MODERN</span>
 	<span class="brand-logo--2__slash"> &#47;</span>
 	<span class="brand-logo--2__bracket brand-logo--2__bracket--right">&gt;</span>
 </a>
