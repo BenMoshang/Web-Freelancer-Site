@@ -133,6 +133,8 @@
 </script>
 
 <section class="hero" bind:this={heroSection} aria-label="Hero Section" role="banner">
+	<!-- todo: animate the text with cubic beszier modern -->
+
 	<svg
 		class="hero__background"
 		bind:this={heroBackground}
