@@ -20,7 +20,7 @@
 	const heroInjectable: HeroContent = {
 		titleFirstHalf: 'MODERN WEB',
 		titleSecondHalf: 'DEVELOPMENT',
-		subtitle: 'Digital Experiences To Connect Your Audience'
+		subtitle: 'your style, our expertise'
 	};
 
 	const benefitsInjectable: Benefit[] = [
@@ -66,12 +66,13 @@
 			scrollTrigger: {
 				trigger: heroSection,
 				start: 'top top',
-				end: '+=120%',
+				end: '+=100%',
 				pin: true,
 				pinSpacing: true,
 				scrub: 2,
 				markers: false,
-				anticipatePin: 1,
+				anticipatePin: 2,
+				fastScrollEnd: true,
 				preventOverlaps: true,
 				onEnter: () => {
 					gsap.set([topPanel, bottomPanel], { clearProps: 'all' });
@@ -86,14 +87,14 @@
 		// Create the animation sequence
 		doorTimeline
 			.to(topPanel, {
-				yPercent: -120,
+				yPercent: -100,
 				...ANIMATION_CONFIG,
 				willChange: 'transform'
 			})
 			.to(
 				bottomPanel,
 				{
-					yPercent: 120,
+					yPercent: 100,
 					...ANIMATION_CONFIG,
 					willChange: 'transform'
 				},
@@ -102,7 +103,7 @@
 			.to(
 				heroSection,
 				{
-					filter: 'blur(10px)',
+					filter: 'blur(8px)',
 					scale: 1.5,
 					...ANIMATION_CONFIG,
 					transformOrigin: 'center center'
@@ -204,46 +205,52 @@
 </section>
 
 <style lang="scss">
+	*,
+	*::before,
+	*::after {
+		transform: translateZ(0);
+	}
 	.hero {
 		@extend %page-grid-item;
-
+		position: relative;
 		display: grid;
-		place-content: center;
+		grid-template: 1fr 1fr / 1fr;
 		grid-template-areas:
 			'top'
 			'bottom';
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr 1fr;
-		width: 100%;
-		height: 100vh;
+		place-content: center;
+		block-size: 100svh;
+		inline-size: 100%;
 		overflow: hidden;
 		overscroll-behavior: contain;
 		perspective: 1000px;
 		transform-style: preserve-3d;
-		will-change: transform, filter, opacity;
+		will-change: transform;
+		contain: layout size;
+
 		&__background {
 			position: absolute;
 			inset: 0;
-			width: 100vw;
-			height: 100vh;
+			z-index: -1;
+			block-size: 100vh;
+			inline-size: 100vw;
 			color: get-light-dark('500', '600', 0.38, 1);
 			mix-blend-mode: soft-light;
 			object-fit: cover;
 			opacity: 0.5;
 			will-change: opacity, transform;
-			z-index: -1;
-			@media (prefers-color-scheme: light) {
-				filter: saturate(200%);
-			}
+			contain: strict;
+			transform: translateZ(0);
 		}
 
 		&__panel {
 			display: flex;
 			flex-direction: column;
-			width: 100%;
-			height: 100%;
-			transform: translateY(0%);
+			block-size: 100%;
+			inline-size: 100%;
+			transform: translateY(0);
 			will-change: transform;
+			contain: content;
 
 			&--top {
 				grid-area: top;
@@ -256,75 +263,75 @@
 		}
 
 		&__title {
+			@extend %global__display--h1;
+			@include apply-3d-text-shadow;
+
 			position: relative;
 			text-align: center;
 			text-wrap: nowrap;
-			@extend %global__display--h1;
-			@include apply-gradient-text;
 			font-kerning: none;
 			letter-spacing: -0.05em;
 			line-height: 1;
-			&::before {
+			contain: content;
+			z-index: 2;
+
+			&::after {
+				@include apply-gradient-text;
+
+				content: attr(data-text);
 				position: absolute;
 				inset: 0;
-				z-index: -1;
+				z-index: -2;
 				margin: auto;
-				content: attr(data-text);
-				isolation: isolate;
-				@include apply-3d-text-shadow;
-				@include apply-shadow('medium', false, 'drop');
 			}
 		}
 
 		&__subtitle {
 			@extend %global__heading--h4;
+			margin-block-start: get-static-sp('lg');
 			margin-inline: auto;
 			text-align: center;
 			text-transform: uppercase;
-			font-weight: 500;
-			@include apply-margin('md', 'top');
-
-			// text-shadow: 0 1px 1px get-light-dark('900', '50', 0.2, 0.2);
+			text-wrap: balance;
 		}
 
 		&__benefits {
 			display: none;
+			contain: content;
 
 			@include respond-to('mobile') {
 				display: flex;
-				margin-top: auto;
+				margin-block-start: auto;
 				margin-inline: auto;
 				padding-block-end: get-static-sp('sm');
 				align-items: center;
 				justify-content: space-between;
 				inline-size: 100%;
 				list-style: none;
-
 				@include apply-page-max-inline;
 			}
 		}
 
 		&__benefits-item {
 			@include flex-center;
+			contain: content;
 			@include apply-gap('xs');
 		}
 
 		&__benefits-icon {
 			color: get-typography-color('tertiary');
+			block-size: 1em;
+			inline-size: 1em;
 			flex-shrink: 0;
-			width: 1em;
-
-			height: 1em;
 		}
 
 		&__benefits-text {
 			@extend %global__label;
-			text-wrap: nowrap;
-			line-height: 0;
 			display: inline-flex;
 			align-items: center;
+			line-height: 0;
+			text-wrap: nowrap;
 			@include apply-gap('xs');
-
 			&--seperator {
 				color: get-typography-color('tertiary');
 			}

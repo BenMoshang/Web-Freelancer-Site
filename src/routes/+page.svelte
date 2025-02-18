@@ -23,7 +23,7 @@
 
 <main class="page-container">
 	<HeroSection />
-	<SecondHero />
+	<!-- <SecondHero /> -->
 	<!-- <FontTesting /> -->
 </main>
 <svg>
@@ -41,7 +41,7 @@
 <style lang="scss">
 	.page-container {
 		@include apply-page-max-inline;
-		@include apply-padding('md', 'inline');
+		@include apply-padding('sm', 'inline');
 
 		@extend %page-grid-container;
 		inline-size: 100%;

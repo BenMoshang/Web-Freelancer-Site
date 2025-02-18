@@ -8,7 +8,7 @@
    ---------------------------------------------------------------------------
    Adjust these to match your project's design system.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1.125rem;
+$typography-base-size: 1rem; // 18px
 $typography-scale-ratio: 1.2;
 
 /* ---------------------------------------------------------------------------
@@ -26,20 +26,34 @@ $typography-scale-ratio: 1.2;
 
 $base-typography-scale: (
 	'2xs': calculate-font-size(-0.75),
+	// 14px
 	'xs': calculate-font-size(-0.5),
+	// 16px
 	'sm': calculate-font-size(0),
+	// 18px
 	'md': calculate-font-size(1),
+	// 22px
 	'lg': calculate-font-size(2),
+	// 26px
 	'xl': calculate-font-size(3),
+	// 31px
 	'2xl': calculate-font-size(4),
+	// 37px
 	'3xl': calculate-font-size(5),
+	// 45px
 	'4xl': calculate-font-size(6),
+	// 54px
 	'5xl': calculate-font-size(7),
+	// 64px
 	'6xl': calculate-font-size(8),
+	// 77px
 	'7xl': calculate-font-size(9),
+	// 93px
 	'8xl': calculate-font-size(10),
+	// 111px
 	'9xl': calculate-font-size(11),
-	'10xl': calculate-font-size(12)
+	// 134px
+	'10xl': calculate-font-size(12) // 160px
 );
 $base-typography-scale: () !default;
 /* ---------------------------------------------------------------------------
@@ -66,11 +80,11 @@ $base-typography-scale: () !default;
 }
 
 $responsive-font-sizes: (
-	'display--h1': create-responsive-fsz('5xl', '10xl'),
-	'display--h2': create-responsive-fsz('3xl', '9xl'),
-	'heading--h2': create-responsive-fsz('2xl', '5xl'),
-	'heading--h3': create-responsive-fsz('xl', '2xl'),
-	'heading--h4': create-responsive-fsz('lg', 'xl'),
+	'display--h1': create-responsive-fsz('4xl', '10xl'),
+	'display--h2': create-responsive-fsz('2xl', '9xl'),
+	'heading--h2': create-responsive-fsz('lg', '5xl'),
+	'heading--h3': create-responsive-fsz('lg', '2xl'),
+	'heading--h4': create-responsive-fsz('md', 'xl'),
 	'body--lg': create-responsive-fsz('md', 'lg'),
 	'body--md': create-responsive-fsz('sm', 'md'),
 	'label': create-responsive-fsz('xs', 'sm')

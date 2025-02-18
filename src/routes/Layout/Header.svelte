@@ -98,15 +98,11 @@
 
 		border-radius: $BR_ROUNDED;
 		block-size: var(--header-height);
-
+		will-change: transform;
 		transition: transform 0.3s ease-in-out;
 		transform: translateY(0);
 		z-index: 1000;
-		@starting-style {
-			transform: translateY(-120%);
 
-			transition: transform 1s ease-in-out;
-		}
 		// Remove text decoration from all links in header
 		a {
 			text-decoration: none;
@@ -139,6 +135,7 @@
 			grid-area: content;
 			justify-self: end;
 			display: flex;
+			align-items: center;
 			gap: get-responsive-sp('md');
 		}
 

@@ -1,39 +1,24 @@
 /******************************************************
  * scroll.svelte.ts
- * A GSAP-based scroll utility foundation for Svelte 5
- *
- * Features:
- * 1) GSAP & ScrollTrigger initialization
- * 2) Scroll-locking with a "pin-like" approach
- * 3) A "useGsapAnimation" action for typical from->to
- *    tween animations (with optional pin).
- * 4) A "useGsapPin" action for quick pinning.
- * 5) A scrollLocker object for fully locking
- *    scrolling across the page.
+ * GSAP-based scroll utility for Svelte 5 optimized for performance.
  ******************************************************/
 
 import { onMount, onDestroy } from 'svelte';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
-// Only register plugins in browser environment
+// Only register plugins in a browser environment
 const isBrowser = typeof window !== 'undefined';
 if (isBrowser) {
 	gsap.registerPlugin(ScrollTrigger);
 }
 
+// Determine if we're on a mobile device
+const isMobile = isBrowser && window.matchMedia('(max-width: 768px)').matches;
+
 /**
- * Initialize or configure GSAP's ScrollTrigger defaults.
- * For example, you can override autoRefreshEvents, set ease defaults, etc.
- *
- * @param options - Optional ScrollTrigger config.
- *                  See https://greensock.com/docs/v3/Plugins/ScrollTrigger/static.config()
- *
- * @example
- * initGsapScroll({
- *   autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
- *   ignoreMobileResize: true
- * });
+ * Initialize or configure GSAP ScrollTrigger defaults.
+ * @param options Optional config object.
  */
 export function initGsapScroll(options: gsap.plugins.ScrollTriggerConfigVars = {}) {
 	if (isBrowser) {
@@ -42,8 +27,7 @@ export function initGsapScroll(options: gsap.plugins.ScrollTriggerConfigVars = {
 }
 
 /* -------------------------------------------------------------------
- * 2) scrollLocker: lock/unlock the entire page scroll
- *    (Equivalent to "freeze" the page, not just pin an element)
+ * scrollLocker: Utility to lock/unlock the page scroll.
  * ------------------------------------------------------------------- */
 export const scrollLocker = {
 	isLocked: false,
@@ -53,26 +37,24 @@ export const scrollLocker = {
 	keyboardListener: null as ((e: KeyboardEvent) => void) | null,
 
 	lock(options: { allowTouchMove?: boolean; allowKeyboardScroll?: boolean } = {}) {
-		if (this.isLocked) return;
-
+		if (isMobile) {
+			console.warn('scrollLocker: scroll locking disabled on mobile for better UX.');
+			return;
+		}
 		const body = document.body;
 		this.originalScrollY = window.scrollY;
 		this.originalStyle = body.style.cssText;
 		const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-		// Freeze the body at the current scroll position
 		body.style.cssText = `
-			overflow: hidden;
-			position: fixed;
-			top: -${this.originalScrollY}px;
-			left: 0; 
-			right: 0; 
-			bottom: 0;
-			padding-right: ${scrollbarWidth}px;
-			${!options.allowTouchMove ? 'touch-action: none;' : ''}
-		`;
-
-		// Prevent touch scroll
+      overflow: hidden;
+      position: fixed;
+      top: -${this.originalScrollY}px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-right: ${scrollbarWidth}px;
+      ${!options.allowTouchMove ? 'touch-action: none;' : ''}
+    `;
 		if (!options.allowTouchMove) {
 			this.touchListener = (e: TouchEvent) => {
 				e.preventDefault();
@@ -80,13 +62,10 @@ export const scrollLocker = {
 			};
 			document.addEventListener('touchmove', this.touchListener, { passive: false });
 		}
-
-		// Prevent keyboard scrolling (arrow keys, space, etc.)
 		if (!options.allowKeyboardScroll) {
 			this.keyboardListener = (e: KeyboardEvent) => {
 				if (
-					['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code) ||
-					e.key === ' '
+					['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.code)
 				) {
 					e.preventDefault();
 					e.stopPropagation();
@@ -94,18 +73,14 @@ export const scrollLocker = {
 			};
 			document.addEventListener('keydown', this.keyboardListener);
 		}
-
 		this.isLocked = true;
 	},
 
 	unlock() {
 		if (!this.isLocked) return;
-
 		const body = document.body;
 		body.style.cssText = this.originalStyle;
 		window.scrollTo(0, this.originalScrollY);
-
-		// Cleanup event listeners
 		if (this.touchListener) {
 			document.removeEventListener('touchmove', this.touchListener);
 			this.touchListener = null;
@@ -114,24 +89,12 @@ export const scrollLocker = {
 			document.removeEventListener('keydown', this.keyboardListener);
 			this.keyboardListener = null;
 		}
-
 		this.isLocked = false;
 	}
 };
 
 /* -------------------------------------------------------------------
- * 3) "useGsapAnimation"
- *    Svelte Action for a typical GSAP from->to tween with ScrollTrigger
- *
- *    Options:
- *      - from: initial tween props
- *      - to:   final tween props
- *      - triggerConfig: a partial ScrollTrigger config
- *                       (can include pin, start, end, scrub, etc.)
- *      - immediateRender: If true, GSAP sets from-values immediately
- *      - lockScroll: If true, we forcibly lock the entire page
- *                    (similar to scrollLocker) during the animation
- *                    range. This is a more extreme "pin."
+ * useGsapAnimation: Svelte Action for GSAP from→to tween with ScrollTrigger.
  * ------------------------------------------------------------------- */
 export interface GsapAnimationOptions {
 	from?: gsap.TweenVars;
@@ -141,28 +104,9 @@ export interface GsapAnimationOptions {
 	lockScroll?: boolean;
 }
 
-/**
- * useGsapAnimation Svelte Action
- *
- * @example
- * <script lang="ts">
- *   import { useGsapAnimation, initGsapScroll } from './scroll.svelte.ts';
- *   initGsapScroll(); // optional global config
- *   let box;
- * </script>
- *
- * <div use:useGsapAnimation={{
- *     from: { x: -200, opacity: 0 },
- *     to: { x: 0, opacity: 1, duration: 1 },
- *     triggerConfig: { start: 'top 80%', end: 'top 20%', scrub: 1, pin: true }
- * }} bind:this={box}>
- *   Animate me
- * </div>
- */
 export function useGsapAnimation(node: HTMLElement, options: GsapAnimationOptions = {}) {
 	let anim: gsap.core.Tween;
 	let st: ScrollTrigger;
-
 	function setup() {
 		const {
 			from = {},
@@ -172,21 +116,19 @@ export function useGsapAnimation(node: HTMLElement, options: GsapAnimationOption
 			lockScroll = false
 		} = options;
 
-		// If "lockScroll" is true, we set up a "fake pin" by locking the entire page
-		// This is basically an extreme approach where user can't scroll at all
-		// during the timeline range.
-		//
-		// Alternatively, you can set "pin: node" in `triggerConfig` for a normal GSAP pin.
+		// Optionally lock scroll if specified (disabled on mobile)
 		if (lockScroll) {
-			// We'll lock the scroll at the start of the timeline, and unlock at the end
-			triggerConfig.onEnter = () => scrollLocker.lock();
-			triggerConfig.onLeave = () => scrollLocker.unlock();
-			triggerConfig.onEnterBack = () => scrollLocker.lock();
-			triggerConfig.onLeaveBack = () => scrollLocker.unlock();
-			triggerConfig.onUpdate = (self) => {
-				// If the user forcibly tries to scroll, keep it locked
-				if (self && !scrollLocker.isLocked) scrollLocker.lock();
-			};
+			if (!isMobile) {
+				triggerConfig.onEnter = () => scrollLocker.lock();
+				triggerConfig.onLeave = () => scrollLocker.unlock();
+				triggerConfig.onEnterBack = () => scrollLocker.lock();
+				triggerConfig.onLeaveBack = () => scrollLocker.unlock();
+				triggerConfig.onUpdate = (self) => {
+					if (self && !scrollLocker.isLocked) scrollLocker.lock();
+				};
+			} else {
+				console.warn('useGsapAnimation: lockScroll disabled on mobile.');
+			}
 		}
 
 		anim = gsap.fromTo(
@@ -194,27 +136,17 @@ export function useGsapAnimation(node: HTMLElement, options: GsapAnimationOption
 			{ ...from, immediateRender },
 			{ ...to, scrollTrigger: { trigger: node, ...triggerConfig } }
 		);
-
-		if (anim.scrollTrigger) {
-			st = anim.scrollTrigger;
-		}
+		if (anim.scrollTrigger) st = anim.scrollTrigger;
 	}
 
-	onMount(() => {
-		setup();
-	});
-
+	onMount(() => setup());
 	onDestroy(() => {
 		if (st) st.kill();
 		if (anim) anim.kill();
-		if (scrollLocker.isLocked) {
-			scrollLocker.unlock();
-		}
+		if (scrollLocker.isLocked) scrollLocker.unlock();
 	});
-
 	return {
 		update(newOptions: GsapAnimationOptions) {
-			// If your props change dynamically, re-initialize
 			options = newOptions;
 			if (st) st.kill();
 			if (anim) anim.kill();
@@ -223,18 +155,13 @@ export function useGsapAnimation(node: HTMLElement, options: GsapAnimationOption
 		destroy() {
 			if (st) st.kill();
 			if (anim) anim.kill();
-			if (scrollLocker.isLocked) {
-				scrollLocker.unlock();
-			}
+			if (scrollLocker.isLocked) scrollLocker.unlock();
 		}
 	};
 }
 
 /* -------------------------------------------------------------------
- * 4) "useGsapPin"
- *    Simple Svelte Action that just pins the node in place
- *    while the user scrolls. The user can define start/end
- *    positions, etc. (like typical GSAP ScrollTrigger pin).
+ * useGsapPin: Svelte Action to pin an element using ScrollTrigger.
  * ------------------------------------------------------------------- */
 export interface GsapPinOptions {
 	start?: string | number;
@@ -247,21 +174,12 @@ export interface GsapPinOptions {
 	onLeaveBack?: ScrollTrigger.Callback;
 }
 
-/**
- * useGsapPin - Svelte Action
- *
- * Example usage:
- * <section use:useGsapPin={{ start: 'top top', end: '+=500', scrub: true }}>
- *   <h2>Pinned Section</h2>
- * </section>
- */
 export function useGsapPin(node: HTMLElement, options: GsapPinOptions = {}) {
 	let st: ScrollTrigger;
-
 	function setupPin() {
 		const {
 			start = 'top top',
-			end = '+=1000', // how many px after we start do we unpin
+			end = '+=1000',
 			pinSpacing = true,
 			scrub = false,
 			onEnter,
@@ -269,7 +187,6 @@ export function useGsapPin(node: HTMLElement, options: GsapPinOptions = {}) {
 			onEnterBack,
 			onLeaveBack
 		} = options;
-
 		st = ScrollTrigger.create({
 			trigger: node,
 			start,
@@ -283,15 +200,10 @@ export function useGsapPin(node: HTMLElement, options: GsapPinOptions = {}) {
 			onLeaveBack
 		});
 	}
-
-	onMount(() => {
-		setupPin();
-	});
-
+	onMount(() => setupPin());
 	onDestroy(() => {
 		if (st) st.kill();
 	});
-
 	return {
 		update(newOptions: GsapPinOptions) {
 			options = newOptions;
