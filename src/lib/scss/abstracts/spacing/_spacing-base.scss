@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'sass:map';
+
 /*
  * Base unit (0.25rem) corresponds to 4px when 1rem = 16px.
 
@@ -54,6 +55,7 @@ $base-spacing-scale: (
 	// 8rem (128px)
 	's144': spacing-scale(36) // 9rem (144px)
 );
+
 @function get-base-sp($key) {
 	@return map.get($base-spacing-scale, $key);
 }

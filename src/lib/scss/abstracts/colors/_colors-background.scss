@@ -10,6 +10,7 @@ $background-color-scale: (
 @function _get-background-color($key) {
 	@return map.get($background-color-scale, $key);
 }
+
 @mixin apply-background-color($key) {
 	background: _get-background-color($key);
 }

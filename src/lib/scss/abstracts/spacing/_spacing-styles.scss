@@ -1,11 +1,12 @@
 @use 'spacing-functions' as spacing-fn;
 
-/*-----------------------------------------------------------------
+/* -----------------------------------------------------------------
   Helper mixin to set padding with type options: 'all', 'inline',
   or 'block'. Returns the proper CSS property.
------------------------------------------------------------------*/
+----------------------------------------------------------------- */
 @mixin apply-padding($size, $type, $static: false) {
 	$value: spacing-fn.get-spacing-type($size, $static);
+
 	@if $type == 'all' {
 		padding: $value;
 	} @else if $type == 'inline' {
@@ -22,16 +23,17 @@
 		@error "Invalid padding type. Use 'all', 'inline', or 'block'.";
 	}
 }
-/*-----------------------------------------------------------------
+
+/* -----------------------------------------------------------------
   Helper mixin for setting gap property
------------------------------------------------------------------*/
+----------------------------------------------------------------- */
 @mixin apply-gap($size, $static: false) {
 	gap: spacing-fn.get-spacing-type($size, $static);
 }
 
-/*-----------------------------------------------------------------
+/* -----------------------------------------------------------------
   Margin mixin with direction options
------------------------------------------------------------------*/
+----------------------------------------------------------------- */
 @mixin apply-margin($size: 'md', $direction: 'all', $static: false) {
 	$sp: spacing-fn.get-spacing-type($size, $static);
 

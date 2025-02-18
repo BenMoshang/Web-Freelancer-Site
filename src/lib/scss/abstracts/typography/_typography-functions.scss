@@ -1,11 +1,11 @@
 @use 'sass:map';
-
 @use 'typography-variables' as tv;
 @use '../colors/colors-variables' as cv;
 
-/*==================================
+/* ==================================
 Other functions
-======================================*/
+====================================== */
+
 /**
  * @function get-ff
  * @desc Retrieves font-family from $font-family map

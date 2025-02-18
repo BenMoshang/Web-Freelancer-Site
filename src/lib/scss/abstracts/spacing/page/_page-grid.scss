@@ -12,11 +12,10 @@
 	display: grid;
 	grid-template-columns: repeat($columns, minmax(0, 1fr));
 	grid-template-rows: 1fr;
-	column-gap: $gutter;
-	row-gap: $gutter;
-	place-content: center;
-	margin: 0 auto;
 	inline-size: 100%;
+	margin: 0 auto;
+	gap: $gutter $gutter;
+	place-content: center;
 	scrollbar-width: thin;
 }
 
@@ -47,8 +46,10 @@
 
 %page-grid-item {
 	@include glbl-mix.apply-page-max-inline;
+
 	// Each item spans full width by default
 	@include _grid-item(4);
+
 	// Tablet variation: span more columns
 	@include glbl-mix.respond-to('tablet') {
 		@include _grid-item(8);

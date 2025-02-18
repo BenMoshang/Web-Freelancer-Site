@@ -9,27 +9,26 @@
 @mixin _button-overview {
 	@include typo.heading-overview;
 	@include ha.button-effect;
+
 	// Optional: @include shadow-high('darkest', 'lightest');
 	position: relative;
-	overflow: hidden;
+	padding-block: sf.get-static-sp('sm');
+	padding-inline: sf.get-static-sp('md');
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: sf.get-static-sp('xs');
 	inline-size: fit-content;
-	padding-block: sf.get-static-sp('sm');
-	padding-inline: sf.get-static-sp('md');
-
-	line-height: 1;
 	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
+	line-height: 1;
+	overflow: hidden;
 }
 
 @mixin _set-button-primary($small: false) {
 	@include _button-overview;
+	display: block;
 	border: 1px solid cf.get-light-dark('900', '50');
 	background: cf.get-light-dark('900', '50');
-	display: block;
-
 	font-family: typo.get-ff('body');
 	font-weight: typo.get-fw('display');
 }
@@ -40,9 +39,9 @@
 
 @mixin apply-button($type: 'primary') {
 	@if $type == 'primary' {
-		@include _set-button-primary();
+		@include _set-button-primary;
 	} @else if $type == 'secondary' {
-		@include _set-button-secondary();
+		@include _set-button-secondary;
 	} @else {
 		@error "Invalid button type '#{$type}'. Use 'primary' or 'secondary'.";
 	}
@@ -57,44 +56,45 @@
 	$svg-initial-offset: -8px,
 	$svg-transition-duration: 0.3s // Transition duration for the svg
 ) {
+	width: fit-content;
 	border: none;
 	background: none;
 	cursor: pointer;
-	width: fit-content;
 
 	// Text styles for span elements inside the button
 	& span {
 		@include typo.heading-overview;
+		margin-right: sf.get-static-sp('sm');
 		letter-spacing: typo.get-ls('loose');
 		text-transform: uppercase;
-		margin-right: sf.get-static-sp('sm');
+
 		// Underline animation specific styles
 		&.hover-underline-animation {
 			position: relative;
-			color: $color;
 			padding-bottom: $underline-padding-bottom;
+			color: $color;
 
 			// Underline effect using pseudo-element
-			&:after {
+			&::after {
 				content: '';
 				position: absolute;
-				width: 100%;
-				height: $underline-height;
 				bottom: 0;
 				left: 0;
-				background-color: $color;
+				width: 100%;
+				height: $underline-height;
 				transform: scaleX(0);
-				transform-origin: bottom right;
 				transition: transform $underline-duration ease-out;
+				background-color: $color;
+				transform-origin: bottom right;
 			}
 		}
 	}
 
 	// SVG styles within the button
 	svg {
-		fill: $color;
 		transform: translateX($svg-initial-offset);
 		transition: transform $svg-transition-duration ease;
+		fill: $color;
 	}
 
 	// Hover state for interactive animations
@@ -102,8 +102,9 @@
 		svg {
 			transform: translateX(0);
 		}
+
 		span.hover-underline-animation {
-			&:after {
+			&::after {
 				transform: scaleX(1);
 				transform-origin: bottom left;
 			}

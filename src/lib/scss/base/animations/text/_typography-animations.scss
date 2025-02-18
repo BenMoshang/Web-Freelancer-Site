@@ -8,19 +8,24 @@
 		animation: elastic-stretch 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	}
 }
+
 @keyframes elastic-stretch {
 	0% {
 		transform: scaleX(1);
 	}
+
 	50% {
 		transform: scaleX(1.2);
 	}
+
 	65% {
 		transform: scaleX(0.95);
 	}
+
 	80% {
 		transform: scaleX(1.05);
 	}
+
 	100% {
 		transform: scaleX(1);
 	}

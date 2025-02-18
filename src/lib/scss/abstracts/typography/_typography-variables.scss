@@ -24,7 +24,6 @@ $font-weights: (
 	'heading': 600,
 	'display': 700
 );
-
 $line-heights: (
 	'tight': 130%,
 	// Best for headings and large display text
@@ -34,7 +33,6 @@ $line-heights: (
 	// Ideal for body text; many award-winning UIs target ~1.5 for readability
 	'loose': 160% // For cases where extra breathing room is needed (e.g. mobile or highly legible settings)
 );
-
 $letter-spacing: (
 	'tight': -0.025em,
 	'snug': -0.02em,

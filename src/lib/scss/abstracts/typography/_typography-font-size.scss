@@ -56,6 +56,7 @@ $base-typography-scale: (
 	'10xl': calculate-font-size(12) // 160px
 );
 $base-typography-scale: () !default;
+
 /* ---------------------------------------------------------------------------
    3) Static Font-Size Getter
    ---------------------------------------------------------------------------
@@ -63,6 +64,7 @@ $base-typography-scale: () !default;
 --------------------------------------------------------------------------- */
 @function get-static-fsz($size) {
 	$font-size: math-fn.get-map-value($base-typography-scale, $size);
+
 	@return math-fn.round-number($font-size, 1); // Round to whole numbers for static sizes
 }
 
@@ -76,6 +78,7 @@ $base-typography-scale: () !default;
 @function create-responsive-fsz($min-key, $max-key) {
 	$min-size: get-static-fsz($min-key);
 	$max-size: get-static-fsz($max-key);
+
 	@return math-fn.create-clamp($min-size, $max-size);
 }
 
@@ -98,10 +101,12 @@ $responsive-font-sizes: (
 		@return null;
 	}
 }
+
 @mixin apply-fsz($size, $static: false) {
 	@if type-of($size) != 'string' {
 		@error "Font size must be a string. Got: #{$size}";
 	}
+
 	@if $static == true {
 		font-size: get-static-fsz($size);
 	} @else {

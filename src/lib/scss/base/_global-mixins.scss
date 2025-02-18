@@ -18,6 +18,7 @@ $BREAKPOINTS: (
 @mixin apply-page-max-inline {
 	max-inline-size: $PAGE_MAX_INLINE;
 }
+
 @mixin apply-br($size: $BR_DEFAULT) {
 	border-radius: $size;
 }

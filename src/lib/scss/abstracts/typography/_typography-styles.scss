@@ -4,102 +4,102 @@
 @use 'sass:map';
 
 @mixin display-overview {
+	color: colors.get-typography-color('primary');
 	font-family: typo-fn.get-ff('display');
 	font-weight: typo-fn.get-fw('display');
 	line-height: typo-fn.get-lh('tight');
 	letter-spacing: typo-fn.get-ls('tight');
-	color: colors.get-typography-color('primary');
 	text-wrap: balance;
 }
 
 @mixin heading-overview {
+	color: colors.get-typography-color('primary');
 	font-family: typo-fn.get-ff('heading');
 	font-weight: typo-fn.get-fw('heading');
 	line-height: typo-fn.get-lh('snug');
 	letter-spacing: typo-fn.get-ls('snug');
-	color: colors.get-typography-color('primary');
 	text-wrap: balance;
 }
 
 @mixin body-overview {
+	color: colors.get-typography-color('secondary');
 	font-family: typo-fn.get-ff('body');
+	font-size: typo-fsz.get-responsive-fsz('body--md');
 	font-weight: typo-fn.get-fw('body');
 	line-height: typo-fn.get-lh('normal');
 	letter-spacing: typo-fn.get-ls('normal');
-	font-size: typo-fsz.get-responsive-fsz('body--md');
 	text-wrap: pretty;
-	color: colors.get-typography-color('secondary');
 }
 
 @mixin label-overview {
+	color: colors.get-typography-color('tertiary');
 	font-family: typo-fn.get-ff('body');
-	font-weight: typo-fn.get-fw('label');
 	font-size: typo-fsz.get-responsive-fsz('label');
+	font-weight: typo-fn.get-fw('label');
 	line-height: typo-fn.get-lh('loose');
 	letter-spacing: typo-fn.get-ls('loose');
-	color: colors.get-typography-color('tertiary');
 	text-transform: uppercase;
 	text-wrap: balance;
 }
 
-/*=============================================
+/* =============================================
 =            Display Typography              =
-=============================================*/
+============================================= */
 
 %global__display--h1 {
 	@include display-overview;
-	font-size: typo-fsz.get-responsive-fsz('display--h1');
 	color: colors.get-typography-color('primary');
+	font-size: typo-fsz.get-responsive-fsz('display--h1');
 }
 
 %global__display--h2 {
 	@include display-overview;
-	font-size: typo-fsz.get-responsive-fsz('display--h2');
 	color: colors.get-typography-color('primary');
+	font-size: typo-fsz.get-responsive-fsz('display--h2');
 }
 
-/*=============================================
+/* =============================================
 =            Heading Typography              =
-=============================================*/
+============================================= */
 
 %global__heading--h2 {
 	@include heading-overview;
-	font-size: typo-fsz.get-responsive-fsz('heading--h2');
 	color: colors.get-typography-color('secondary');
+	font-size: typo-fsz.get-responsive-fsz('heading--h2');
 }
 
 %global__heading--h3 {
 	@include heading-overview;
-	font-size: typo-fsz.get-responsive-fsz('heading--h3');
 	color: colors.get-typography-color('secondary');
+	font-size: typo-fsz.get-responsive-fsz('heading--h3');
 }
 
 %global__heading--h4 {
 	@include heading-overview;
-	font-weight: typo-fn.get-fw('heading');
-	font-size: typo-fsz.get-responsive-fsz('heading--h4');
 	color: colors.get-typography-color('secondary');
+	font-size: typo-fsz.get-responsive-fsz('heading--h4');
+	font-weight: typo-fn.get-fw('heading');
 }
 
-/*=============================================
+/* =============================================
 =            Body Typography                 =
-=============================================*/
+============================================= */
 
 %global__body--lg {
 	@include body-overview;
-	font-size: typo-fsz.get-responsive-fsz('body--lg');
 	color: colors.get-typography-color('secondary');
+	font-size: typo-fsz.get-responsive-fsz('body--lg');
 }
 
 %global__body--md {
 	@include body-overview;
-	font-size: typo-fsz.get-responsive-fsz('body--md');
 	color: colors.get-typography-color('secondary');
+	font-size: typo-fsz.get-responsive-fsz('body--md');
 }
 
-/*=============================================
+/* =============================================
 =            Label Typography                =
-=============================================*/
+============================================= */
 %global__label {
 	@include label-overview;
 }

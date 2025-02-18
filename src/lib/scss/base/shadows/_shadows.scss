@@ -30,9 +30,9 @@
 * }
 **/
 
-/*--------------------------------------------------
+/* --------------------------------------------------
 3d text pop-up shadow
------------------------------------------------------*/
+----------------------------------------------------- */
 // Configuration map for text pop-up shadow
 $text-pop-up-config: (
 	base-color: cf.get-light-dark('500', '900'),
@@ -41,6 +41,7 @@ $text-pop-up-config: (
 	increment: 0.01em,
 	opacity: 1
 );
+
 @mixin apply-3d-text-shadow($config: $text-pop-up-config) {
 	$shadows: ();
 	$color: map.get($config, 'base-color');
@@ -52,14 +53,14 @@ $text-pop-up-config: (
 		$current-offset: $offset * $i;
 		$shadows: append($shadows, 0 $current-offset 0 $color, comma);
 	}
-
 	text-shadow: $shadows;
 }
 
-/*==================================================
+/* ==================================================
   Shadow System
-==================================================*/
-/*------configs-----*/
+================================================== */
+
+/* ------configs----- */
 $shadow-low-config: (
 	shadows: (
 		0.3px 0.5px 0.7px,
@@ -68,7 +69,6 @@ $shadow-low-config: (
 	),
 	opacities: 0.34
 );
-
 $shadow-medium-config: (
 	shadows: (
 		0.3px 0.5px 0.7px,
@@ -78,7 +78,6 @@ $shadow-medium-config: (
 	),
 	opacities: 0.36
 );
-
 $shadow-high-config: (
 	shadows: (
 		0.3px 0.5px 0.7px,
@@ -114,14 +113,18 @@ $shadow-base-dark: cf.get-color('800', 'dark-mode');
 	$useList: (type-of($opacities) == 'list');
 	$light-shadow-list: ();
 	$dark-shadow-list: ();
+
 	@for $i from 1 through length($shadows) {
 		$dim: nth($shadows, $i);
 		$opacity: if($useList, nth($opacities, $i), $opacities);
+
 		// Manually build a dimension string from the $dim list
 		$dim-str: '';
+
 		@each $val in $dim {
 			$dim-str: if($dim-str == '', '#{$val}', '#{$dim-str} #{$val}');
 		}
+
 		$lightColor: hsla(
 			hue($shadow-base-light),
 			saturation($shadow-base-light),
@@ -140,13 +143,15 @@ $shadow-base-dark: cf.get-color('800', 'dark-mode');
 		$dark-shadow-list: append($dark-shadow-list, $dark-shadow-value, comma);
 	}
 	box-shadow: $light-shadow-list;
+
 	@media (prefers-color-scheme: dark) {
 		box-shadow: $dark-shadow-list;
 	}
 }
-/*--------------------------------------------------
 
------------------------------------------------------*/
+/* --------------------------------------------------
+
+----------------------------------------------------- */
 // Consolidated shadow mixin with elevation parameter
 @mixin apply-shadow($elevation: 'low', $inset: false, $type: 'box') {
 	@if not($type == 'box' or $type == 'drop') {
@@ -154,6 +159,7 @@ $shadow-base-dark: cf.get-color('800', 'dark-mode');
 	}
 
 	$cfg: null;
+
 	@if $elevation == 'low' {
 		$cfg: $shadow-low-config;
 	} @else if $elevation == 'medium' {
@@ -189,9 +195,11 @@ $shadow-base-dark: cf.get-color('800', 'dark-mode');
 		@if $type == 'box' {
 			// Build box-shadow string
 			$dim-str: '';
+
 			@each $val in $dim {
 				$dim-str: if($dim-str == '', '#{$val}', '#{$dim-str} #{$val}');
 			}
+
 			$light-shadow: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$lightColor}");
 			$dark-shadow: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$darkColor}");
 			$light-shadow-list: append($light-shadow-list, $light-shadow, comma);
@@ -210,11 +218,13 @@ $shadow-base-dark: cf.get-color('800', 'dark-mode');
 
 	@if $type == 'box' {
 		box-shadow: $light-shadow-list;
+
 		@media (prefers-color-scheme: dark) {
 			box-shadow: $dark-shadow-list;
 		}
 	} @else {
 		filter: $light-shadow-list;
+
 		@media (prefers-color-scheme: dark) {
 			filter: $dark-shadow-list;
 		}

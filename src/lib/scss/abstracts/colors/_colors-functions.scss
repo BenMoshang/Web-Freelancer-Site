@@ -1,5 +1,6 @@
 @use 'colors-variables' as cv;
 @use 'sass:map';
+
 /**
 * @param {string} $color - The color weight ('50', '100', '200', etc.).
 * @param {string} $mode - The color mode ('dark-mode' or 'light-mode').
@@ -31,7 +32,6 @@
 @function get-light-dark($light-color, $dark-color, $light-opacity: 1, $dark-opacity: 1) {
 	$light: get-color($light-color, 'light-mode');
 	$dark: get-color($dark-color, 'dark-mode');
-
 	$light-with-opacity: hsla(hue($light), saturation($light), lightness($light), $light-opacity);
 	$dark-with-opacity: hsla(hue($dark), saturation($dark), lightness($dark), $dark-opacity);
 

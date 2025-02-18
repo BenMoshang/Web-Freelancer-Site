@@ -17,6 +17,7 @@
 ========================================================================== */
 @function round-number($value, $precision: 2) {
 	$multiplier: math.pow(10, $precision);
+
 	@return math.round($value * $multiplier) / $multiplier;
 }
 
@@ -58,6 +59,7 @@
 
 	// Calculate slope: change in size per change in viewport (in rem per rem).
 	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+
 	// Calculate intercept so that at $min-viewport, the value equals $min-size.
 	$intercept: $min-size - ($slope * $min-viewport);
 
@@ -98,5 +100,6 @@
 	@if not map-has-key($map, $key) {
 		@error "Key '#{$key}' not found in map. Available keys are: #{map-keys($map)}";
 	}
+
 	@return map.get($map, $key);
 }

@@ -7,23 +7,26 @@ $parallax-perspective: 2 !default;
 // Use this mixin on the container element that holds your parallax layers.
 // It sets up a fixed perspective and preserves 3D transforms for its children.
 @mixin parallax-container($perspective: $parallax-perspective) {
-	// The perspective is multiplied by 1px to work with our depth values.
-	perspective: $perspective * 1px;
-	// Hide overflow (you might use auto for scrolling containers)
-	// Ensure that child transforms maintain their 3D space.
-	transform-style: preserve-3d;
 	position: relative;
-	overflow-y: auto;
-	scroll-behavior: smooth;
 	min-height: 100vh;
-	-webkit-transform-style: preserve-3d; // iOS support
-	-webkit-perspective: $perspective * 0.0625rem; // iOS support
-	-webkit-backface-visibility: hidden; // iOS support
+	backface-visibility: hidden; // iOS support
 
 	// Enable touch scrolling on mobile devices
 	-webkit-overflow-scrolling: touch;
+	overflow-y: auto;
+
 	// Prevent overscroll bounce effects
 	overscroll-behavior: contain;
+
+	// The perspective is multiplied by 1px to work with our depth values.
+	perspective: $perspective * 0.0625rem;
+	perspective: $perspective * 1px; // iOS support
+	scroll-behavior: smooth;
+
+	// Hide overflow (you might use auto for scrolling containers)
+	// Ensure that child transforms maintain their 3D space.
+	transform-style: preserve-3d;
+	transform-style: preserve-3d; // iOS support
 }
 
 // ---------------------------------------------------------------------
@@ -35,11 +38,12 @@ $parallax-perspective: 2 !default;
 //         while positive values pull it forward (foreground effect).
 // $perspective: Should match the value used in the container.
 @mixin parallax-item($depth: 0, $perspective: $parallax-perspective) {
+	// z-index is calculated so that negative depths yield lower (or even negative) values.
+	// Adjust this as needed for your stacking order.
+	z-index: floor($depth * 1000);
+
 	// The transform uses translateZ to move the element in 3D.
 	// The scale corrects the size change caused by perspective.
 	// Scale = 1 + abs($depth) to ensure proper scaling
 	transform: translateZ(#{$depth * $perspective * 1px}) scale(#{1 + abs($depth)});
-	// z-index is calculated so that negative depths yield lower (or even negative) values.
-	// Adjust this as needed for your stacking order.
-	z-index: floor($depth * 1000);
 }

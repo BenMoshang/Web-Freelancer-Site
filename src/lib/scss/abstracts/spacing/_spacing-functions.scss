@@ -19,9 +19,11 @@ $static-spacing: (
 	'9xl': sb.get-base-sp('s128'),
 	'10xl': sb.get-base-sp('s144')
 );
+
 @function get-static-sp($key) {
 	@return map.get($static-spacing, $key);
 }
+
 /**
  * Main spacing function.
  * If $static is true, returns a static spacing value; otherwise returns a responsive value.
@@ -30,14 +32,18 @@ $static-spacing: (
 	@if type-of($size) != 'string' {
 		@error "Spacing size must be a string. Got: #{$size}";
 	}
+
 	@if $static == true {
 		@return get-static-sp($size);
 	}
+
 	@return get-responsive-sp($size);
 }
+
 @function create-responsive-sp($min-size, $max-size) {
 	$min: math-fn.get-map-value(sb.$base-spacing-scale, $min-size);
 	$max: math-fn.get-map-value(sb.$base-spacing-scale, $max-size);
+
 	@return math-fn.create-clamp($min, $max);
 }
 

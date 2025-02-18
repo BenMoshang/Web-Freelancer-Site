@@ -1,5 +1,6 @@
 @use '../colors/colors-variables' as cv;
 @use '../colors/colors-functions' as cf;
+
 /*
 *FOR GRADIENT TEXT:
 *example:
@@ -14,17 +15,18 @@
 	$dark-end: '300',
 	$direction: 135deg
 ) {
-	color: transparent;
-	filter: saturate(-100%);
 	background: radial-gradient(
 		circle at center,
 		cf.get-light-dark($light-start, $dark-start),
 		cf.get-light-dark($light-end, $dark-end)
 	);
-	-webkit-text-fill-color: transparent;
+	color: transparent;
 	background-clip: text;
-	-webkit-background-clip: text;
+	background-clip: text;
+	filter: saturate(-100%);
+	-webkit-text-fill-color: transparent;
 }
+
 // !legacy
 @mixin shimmer(
 	$light-base: '700',
@@ -40,16 +42,17 @@
 		cf.get-light-dark($light-highlight, $dark-highlight) 75%,
 		cf.get-light-dark($light-base, $dark-base) 100%
 	);
-
-	background-size: 300%;
-	background-clip: text;
 	color: transparent;
 	animation: shimmer 12s infinite;
+	background-clip: text;
+	background-size: 300%;
 }
+
 @keyframes shimmer {
 	0% {
 		background-position: -100% 0;
 	}
+
 	100% {
 		background-position: 100% 0;
 	}
