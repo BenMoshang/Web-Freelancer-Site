@@ -1,6 +1,6 @@
 <script lang="ts">
 	import HeroSection from './overview-sections/Hero/HeroSection.svelte';
-	import OpeningSection from './overview-sections/Hero/OpeningSection.svelte';
+	import OpeningSection from './overview-sections/Opening/OpeningSection.svelte';
 	const backgroundInjectable = {
 		aside: 'MODERN WEB DEVELOPMENT'
 	};
@@ -21,7 +21,7 @@
 </svelte:head>
 
 <main class="page-container">
-	<HeroSection />
+	<!-- <HeroSection /> -->
 	<OpeningSection />
 	<!-- <SecondHero /> -->
 	<!-- <FontTesting /> -->
