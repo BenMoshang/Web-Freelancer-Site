@@ -83,7 +83,7 @@
 	function setupAnimations() {
 		doorTimeline = createDoorTimeline();
 
-		// Animate panels with zoom effect
+		// Create the animation sequence
 		doorTimeline
 			.to(topPanel, {
 				yPercent: -120,
@@ -102,6 +102,7 @@
 			.to(
 				heroSection,
 				{
+					filter: 'blur(10px)',
 					scale: 1.5,
 					...ANIMATION_CONFIG,
 					transformOrigin: 'center center'
@@ -119,12 +120,18 @@
 			);
 	}
 
+	let gsapContext: gsap.Context;
 	onMount(() => {
 		initGsapScroll();
-		setupAnimations();
+		gsapContext = gsap.context(() => {
+			setupAnimations();
+		}, heroSection);
 	});
 
 	onDestroy(() => {
+		if (gsapContext) {
+			gsapContext.revert();
+		}
 		if (doorTimeline) {
 			doorTimeline.scrollTrigger?.kill();
 			doorTimeline.kill();
@@ -213,7 +220,7 @@
 		overscroll-behavior: contain;
 		perspective: 1000px;
 		transform-style: preserve-3d;
-
+		will-change: transform, filter, opacity;
 		&__background {
 			position: absolute;
 			inset: 0;
@@ -257,7 +264,7 @@
 			font-kerning: none;
 			letter-spacing: -0.05em;
 			line-height: 1;
-			&::after {
+			&::before {
 				position: absolute;
 				inset: 0;
 				z-index: -1;
@@ -265,6 +272,7 @@
 				content: attr(data-text);
 				isolation: isolate;
 				@include apply-3d-text-shadow;
+				@include apply-shadow('medium', false, 'drop');
 			}
 		}
 
@@ -310,9 +318,9 @@
 		}
 
 		&__benefits-text {
+			@extend %global__label;
 			text-wrap: nowrap;
 			line-height: 0;
-			@extend %global__label;
 			display: inline-flex;
 			align-items: center;
 			@include apply-gap('xs');

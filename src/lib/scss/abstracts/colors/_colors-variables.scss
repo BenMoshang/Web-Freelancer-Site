@@ -1,3 +1,4 @@
+// Theme color scale definition
 $color-scale: (
 	'dark-mode': (
 		'page-background': hsla(233, 5%, 7%, 1),
@@ -13,7 +14,9 @@ $color-scale: (
 		'200': hsla(232, 19%, 76%, 1),
 		'100': hsla(231, 27%, 86%, 1),
 		'50': hsla(245, 50%, 95%, 1),
-		'links': hsla(234, 50%, 50%, 1)
+		'link': hsla(234, 50%, 50%, 1),
+		// Link color for dark mode
+		'error': hsl(0, 50%, 50%) // Error color for dark mode
 	),
 
 	'light-mode': (
@@ -30,6 +33,8 @@ $color-scale: (
 		'200': hsla(232, 19%, 67%, 1),
 		'100': hsla(231, 27%, 77%, 1),
 		'50': hsla(230, 32%, 87%, 1),
-		'links': hsla(234, 50%, 45%, 1)
+		'link': hsla(234, 50%, 45%, 1),
+		// Link color for light mode
+		'error': hsl(0, 50%, 50%) // Error color for dark mode
 	)
 );

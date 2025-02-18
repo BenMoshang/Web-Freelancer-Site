@@ -55,6 +55,7 @@ $text-pop-up-config: (
 
 	text-shadow: $shadows;
 }
+
 /*==================================================
   Shadow System
 ==================================================*/
@@ -102,6 +103,10 @@ $shadow-high-config: (
 	)
 );
 
+// Global shadow base colors
+$shadow-base-light: cf.get-color('200', 'light-mode');
+$shadow-base-dark: cf.get-color('800', 'dark-mode');
+
 // Updated _set-shadow-config mixin to build a clean dimension string
 @mixin _set-shadow-config($cfg, $inset: false) {
 	$shadows: map.get($cfg, shadows);
@@ -117,10 +122,18 @@ $shadow-high-config: (
 		@each $val in $dim {
 			$dim-str: if($dim-str == '', '#{$val}', '#{$dim-str} #{$val}');
 		}
-		$lightBase: cf.get-color('100', 'light-mode');
-		$darkBase: cf.get-color('500', 'dark-mode');
-		$lightColor: hsla(hue($lightBase), saturation($lightBase), lightness($lightBase), $opacity);
-		$darkColor: hsla(hue($darkBase), saturation($darkBase), lightness($darkBase), $opacity);
+		$lightColor: hsla(
+			hue($shadow-base-light),
+			saturation($shadow-base-light),
+			lightness($shadow-base-light),
+			$opacity
+		);
+		$darkColor: hsla(
+			hue($shadow-base-dark),
+			saturation($shadow-base-dark),
+			lightness($shadow-base-dark),
+			$opacity
+		);
 		$light-shadow-value: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$lightColor}");
 		$dark-shadow-value: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$darkColor}");
 		$light-shadow-list: append($light-shadow-list, $light-shadow-value, comma);
@@ -135,52 +148,75 @@ $shadow-high-config: (
 
 -----------------------------------------------------*/
 // Consolidated shadow mixin with elevation parameter
-@mixin apply-shadow($elevation: 'low', $inset: false) {
+@mixin apply-shadow($elevation: 'low', $inset: false, $type: 'box') {
+	@if not($type == 'box' or $type == 'drop') {
+		@error "Invalid shadow type '#{$type}'. Use 'box' or 'drop'.";
+	}
+
+	$cfg: null;
 	@if $elevation == 'low' {
-		@include _set-shadow-config($shadow-low-config, $inset);
+		$cfg: $shadow-low-config;
 	} @else if $elevation == 'medium' {
-		@include _set-shadow-config($shadow-medium-config, $inset);
+		$cfg: $shadow-medium-config;
 	} @else if $elevation == 'high' {
-		@include _set-shadow-config($shadow-high-config, $inset);
+		$cfg: $shadow-high-config;
 	} @else {
 		@error "Invalid elevation '#{$elevation}'. Use 'low', 'medium', or 'high'.";
 	}
-}
 
-// Modified shadow-drop mixin for light/dark mode separation
-@mixin apply-shadow-drop($level: 'low') {
-	@if $level == 'low' {
-		$cfg: $shadow-low-config;
-	} @else if $level == 'medium' {
-		$cfg: $shadow-medium-config;
-	} @else if $level == 'high' {
-		$cfg: $shadow-high-config;
-	} @else {
-		@error "Invalid shadow level '#{$level}'. Use 'low', 'medium', or 'high'.";
-	}
 	$shadows: map.get($cfg, shadows);
 	$opacities: map.get($cfg, opacities);
 	$useList: (type-of($opacities) == 'list');
-	$light-ds-list: ();
-	$dark-ds-list: ();
+	$light-shadow-list: ();
+	$dark-shadow-list: ();
+
 	@for $i from 1 through length($shadows) {
 		$dim: nth($shadows, $i);
-		// Extract first three values for drop-shadow (offset-x, offset-y, blur)
-		$ox: nth($dim, 1);
-		$oy: nth($dim, 2);
-		$blur: nth($dim, 3);
 		$opacity: if($useList, nth($opacities, $i), $opacities);
-		$lightBase: cf.get-color('100', 'light-mode');
-		$darkBase: cf.get-color('500', 'dark-mode');
-		$lightColor: hsla(hue($lightBase), saturation($lightBase), lightness($lightBase), $opacity);
-		$darkColor: hsla(hue($darkBase), saturation($darkBase), lightness($darkBase), $opacity);
-		$light-ds: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $lightColor + ')');
-		$dark-ds: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $darkColor + ')');
-		$light-ds-list: append($light-ds-list, $light-ds, space);
-		$dark-ds-list: append($dark-ds-list, $dark-ds, space);
+		$lightColor: hsla(
+			hue($shadow-base-light),
+			saturation($shadow-base-light),
+			lightness($shadow-base-light),
+			$opacity
+		);
+		$darkColor: hsla(
+			hue($shadow-base-dark),
+			saturation($shadow-base-dark),
+			lightness($shadow-base-dark),
+			$opacity
+		);
+
+		@if $type == 'box' {
+			// Build box-shadow string
+			$dim-str: '';
+			@each $val in $dim {
+				$dim-str: if($dim-str == '', '#{$val}', '#{$dim-str} #{$val}');
+			}
+			$light-shadow: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$lightColor}");
+			$dark-shadow: unquote("#{if($inset, 'inset ', '')}#{$dim-str} #{$darkColor}");
+			$light-shadow-list: append($light-shadow-list, $light-shadow, comma);
+			$dark-shadow-list: append($dark-shadow-list, $dark-shadow, comma);
+		} @else {
+			// Build drop-shadow string
+			$ox: nth($dim, 1);
+			$oy: nth($dim, 2);
+			$blur: nth($dim, 3);
+			$light-shadow: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $lightColor + ')');
+			$dark-shadow: unquote('drop-shadow(#{$ox} #{$oy} #{$blur} ' + $darkColor + ')');
+			$light-shadow-list: append($light-shadow-list, $light-shadow, space);
+			$dark-shadow-list: append($dark-shadow-list, $dark-shadow, space);
+		}
 	}
-	filter: $light-ds-list;
-	@media (prefers-color-scheme: dark) {
-		filter: $dark-ds-list;
+
+	@if $type == 'box' {
+		box-shadow: $light-shadow-list;
+		@media (prefers-color-scheme: dark) {
+			box-shadow: $dark-shadow-list;
+		}
+	} @else {
+		filter: $light-shadow-list;
+		@media (prefers-color-scheme: dark) {
+			filter: $dark-shadow-list;
+		}
 	}
 }
