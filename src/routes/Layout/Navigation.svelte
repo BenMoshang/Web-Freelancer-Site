@@ -103,13 +103,13 @@
 	.nav__list {
 		position: absolute;
 		inset: 0;
-		padding-block: get-static-sp('xl');
-		padding-inline: get-static-sp('md');
 		gap: get-static-sp('3xl');
 		inline-size: 100%;
 		block-size: 100%;
 		margin: auto;
 		padding-top: $PAGE_HEADER_HEIGHT;
+		padding-block: get-static-sp('xl');
+		padding-inline: get-static-sp('md');
 		list-style: none;
 		place-content: center center;
 

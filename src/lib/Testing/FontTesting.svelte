@@ -16,10 +16,10 @@
 	section {
 		position: fixed;
 		inset: 0;
-		padding-inline: 1rem;
 		width: 100%;
 		margin: auto;
 		padding-top: 10rem;
+		padding-inline: 1rem;
 
 		@include flex-column-center;
 		@extend %page-grid-item;

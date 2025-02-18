@@ -308,9 +308,9 @@
 
 		&__subtitle {
 			@extend %global__heading--h4;
+			margin-block-start: get-static-sp('lg');
 			margin-inline: auto;
 			text-align: center;
-			margin-block-start: get-static-sp('lg');
 			text-transform: uppercase;
 			text-wrap: balance;
 		}
@@ -320,12 +320,12 @@
 			contain: content;
 
 			@include respond-to('mobile') {
-				margin-inline: auto;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				inline-size: 100%;
 				margin-block-start: auto;
+				margin-inline: auto;
 				padding-block-end: get-static-sp('sm');
 
 				@include apply-page-max-inline;

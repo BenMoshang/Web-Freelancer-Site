@@ -12,13 +12,13 @@
 
 	// Optional: @include shadow-high('darkest', 'lightest');
 	position: relative;
-	padding-block: sf.get-static-sp('sm');
-	padding-inline: sf.get-static-sp('md');
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: sf.get-static-sp('xs');
 	inline-size: fit-content;
+	padding-block: sf.get-static-sp('sm');
+	padding-inline: sf.get-static-sp('md');
 	color: cf.get-light-dark('50', '900'); //because svg is on current color!important keep here
 	line-height: 1;
 	overflow: hidden;

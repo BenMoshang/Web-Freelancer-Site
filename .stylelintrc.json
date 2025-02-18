@@ -14,6 +14,8 @@
 		"scss/at-function-pattern": null,
 		"scss/percent-placeholder-pattern": null,
 		"scss/no-global-function-names": null,
+		"scss/double-slash-comment-whitespace-inside": null,
+		"scss/selector-no-redundant-nesting-selector": null,
 		"property-no-unknown": [
 			true,
 			{
@@ -50,7 +52,12 @@
 					"grid-template-rows": ["auto-fit"],
 					"text-transform": ["small-caps"],
 					"animation": ["scale-in-tr", "scale-out-tr"],
-					"transition": ["transform", "opacity", "backdrop-filter", "background"],
+					"transition": [
+						"transform $nav-timing $cubic",
+						"opacity $nav-timing $cubic",
+						"backdrop-filter $nav-timing $cubic",
+						"background $nav-timing $cubic"
+					],
 					"border": ["dashed"],
 					"border-bottom": ["dashed"],
 					"text-wrap": ["none"]
@@ -165,7 +172,6 @@
 			}
 		],
 		"scss/at-rule-no-unknown": true,
-		"scss/selector-no-redundant-nesting-selector": true,
 		"color-hex-length": "short",
 		"color-named": "never",
 		"font-family-name-quotes": "always-where-required",
@@ -195,8 +201,9 @@
 			"error",
 			"view-transition"
 		],
-		"indentation": null,
-		"declaration-empty-line-before": "never"
+		"declaration-empty-line-before": "never",
+		"no-descending-specificity": null,
+		"declaration-block-no-redundant-longhand-properties": null
 	},
 	"overrides": [
 		{

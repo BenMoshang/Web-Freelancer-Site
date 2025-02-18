@@ -33,9 +33,9 @@
 //!legacy
 @mixin section-base($theme: 'dark') {
 	@extend %page-grid-item;
-	padding-inline: get-static-sp('s16');
 	inline-size: 100%;
 	block-size: 100%;
+	padding-inline: get-static-sp('s16');
 	border-radius: gv.$BR_DEFAULT;
 	background: if(
 		$theme == 'light',
