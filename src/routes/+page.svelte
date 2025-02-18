@@ -1,7 +1,6 @@
 <script lang="ts">
-	import FontTesting from '$lib/Testing/FontTesting.svelte';
 	import HeroSection from './overview-sections/Hero/HeroSection.svelte';
-	import SecondHero from './overview-sections/Hero/SecondHero.svelte';
+	import OpeningSection from './overview-sections/Hero/OpeningSection.svelte';
 	const backgroundInjectable = {
 		aside: 'MODERN WEB DEVELOPMENT'
 	};
@@ -23,6 +22,7 @@
 
 <main class="page-container">
 	<HeroSection />
+	<OpeningSection />
 	<!-- <SecondHero /> -->
 	<!-- <FontTesting /> -->
 </main>
@@ -42,39 +42,39 @@
 	.page-container {
 		@include apply-page-max-inline;
 		@include apply-padding('sm', 'inline');
-
 		@extend %page-grid-container;
+		z-index: 2;
 		inline-size: 100%;
 		block-size: 100%;
 		margin: 0 auto;
-		place-content: center;
 		overflow-x: clip;
+		place-content: center;
+
 		// scrollbar-width: none;
 		scroll-behavior: smooth;
-		z-index: 2;
 
 		&::after {
 			content: '';
 			position: fixed;
+			z-index: -2;
 			inset: 0;
-			margin: auto;
 			inline-size: 100%;
 			block-size: 100%;
+			margin: auto;
 			background: get-light-dark('page-background', 'page-background');
+			transform: translateZ(0);
 			opacity: 0.08;
+			pointer-events: none;
+			will-change: filter;
+
 			@media (prefers-color-scheme: dark) {
-				filter: url(#noiseFilter2) contrast(300%) brightness(120%) opacity(1);
+				filter: url('#noiseFilter2') contrast(300%) brightness(120%) opacity(1);
 			}
 
 			@media (prefers-color-scheme: light) {
-				filter: url(#noiseFilter) contrast(300%) brightness(50%) opacity(1);
+				filter: url('#noiseFilter') contrast(300%) brightness(50%) opacity(1);
 				opacity: unset;
 			}
-
-			pointer-events: none;
-			z-index: -2;
-			will-change: filter;
-			transform: translateZ(0);
 		}
 	}
 </style>

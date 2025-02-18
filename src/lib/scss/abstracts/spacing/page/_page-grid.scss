@@ -12,9 +12,9 @@
 	display: grid;
 	grid-template-columns: repeat($columns, minmax(0, 1fr));
 	grid-template-rows: 1fr;
+	gap: $gutter $gutter;
 	inline-size: 100%;
 	margin: 0 auto;
-	gap: $gutter $gutter;
 	place-content: center;
 	scrollbar-width: thin;
 }

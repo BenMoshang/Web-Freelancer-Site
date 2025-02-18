@@ -8,6 +8,7 @@
 <style lang="scss">
 	.portfolio {
 		@include section-base;
+
 		&__title {
 			@extend %global__display--h2;
 		}

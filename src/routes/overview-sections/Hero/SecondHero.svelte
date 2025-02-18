@@ -50,30 +50,33 @@
 	* {
 		box-sizing: border-box;
 	}
+
 	.hero {
 		@extend %page-grid-item;
 		@include apply-br;
 		@include apply-padding('2xl', 'block', false);
 		position: relative;
-		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		align-content: center;
-		@include apply-gap('3xl');
 		width: 100%;
 		height: 100svh;
+		margin: 0 auto;
+		align-content: center;
+
+		@include apply-gap('3xl');
 
 		&__title-container {
 			@include apply-br;
 			@include apply-gap('lg');
 			@include apply-padding('md', 'inline', false);
 			@include apply-padding('md', 'bottom', false);
+
 			$border-color: get-light-dark('500', '700', 0.38, 0.5);
-			overflow-x: clip;
-			border: 0.25rem dashed $border-color;
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr;
+			border: 0.25rem dashed $border-color;
+			overflow-x: clip;
 
 			&-header {
 				@include apply-padding('sm', 'block', false);
@@ -81,13 +84,16 @@
 				justify-content: space-between;
 				align-items: center;
 				border-bottom: 0.125rem dashed $border-color;
+
 				&-circle-group {
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
+
 					@include apply-gap('sm');
 					inline-size: min-content;
 				}
+
 				// Circular indicators styling
 				& span {
 					inline-size: 0.25rem;
@@ -99,11 +105,11 @@
 				// Optional small text styling (if needed)
 				& small {
 					@extend %global__label;
+					margin-inline: auto;
 					color: get-light-dark('500', '700');
+					font-size: 0.75rem;
 					text-transform: small-caps;
 					text-wrap: nowrap;
-					margin-inline: auto;
-					font-size: 0.75rem;
 				}
 			}
 		}
@@ -114,13 +120,14 @@
 			position: relative;
 
 			&::after {
-				isolation: isolate;
-				@include apply-3d-text-shadow;
 				content: attr(data-text);
 				position: absolute;
+				z-index: -1;
 				inset: 0;
 				margin: auto;
-				z-index: -1;
+				isolation: isolate;
+
+				@include apply-3d-text-shadow;
 			}
 		}
 
@@ -133,9 +140,9 @@
 				@include apply-margin('lg', 'bottom');
 				@extend %global__body--lg;
 				@include apply-typography-color('secondary');
-				text-wrap: pretty;
 				inline-size: 100%;
 				max-inline-size: 80ch;
+				text-wrap: pretty;
 			}
 
 			&-button {

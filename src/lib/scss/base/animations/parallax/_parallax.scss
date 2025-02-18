@@ -19,13 +19,11 @@ $parallax-perspective: 2 !default;
 	overscroll-behavior: contain;
 
 	// The perspective is multiplied by 1px to work with our depth values.
-	perspective: $perspective * 0.0625rem;
 	perspective: $perspective * 1px; // iOS support
 	scroll-behavior: smooth;
 
 	// Hide overflow (you might use auto for scrolling containers)
 	// Ensure that child transforms maintain their 3D space.
-	transform-style: preserve-3d;
 	transform-style: preserve-3d; // iOS support
 }
 

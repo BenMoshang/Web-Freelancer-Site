@@ -37,40 +37,51 @@
 			display: flex;
 			flex-direction: column;
 		}
+
 		&--x1 {
 			gap: get-static-_get-spacing-type('x1');
 		}
+
 		&--x2 {
 			gap: get-static-_get-spacing-type('x2');
 		}
+
 		&--x3 {
 			gap: get-static-_get-spacing-type('x3');
 		}
+
 		&--h1 {
 			gap: get-static-_get-spacing-type('x4');
 		}
+
 		&--x5 {
 			gap: get-static-_get-spacing-type('x5');
 		}
+
 		&--x6 {
 			gap: get-static-_get-spacing-type('x6');
 		}
+
 		&--x7 {
 			gap: get-static-_get-spacing-type('x7');
 		}
+
 		&--x8 {
 			gap: get-static-_get-spacing-type('x8');
 		}
+
 		&--x9 {
 			gap: get-static-_get-spacing-type('x9');
 		}
+
 		&--x10 {
 			gap: get-static-_get-spacing-type('x10');
 		}
 	}
+
 	.box {
-		outline: 1px dashed red;
 		width: 100px;
 		height: 100px;
+		outline: 1px dashed red;
 	}
 </style>

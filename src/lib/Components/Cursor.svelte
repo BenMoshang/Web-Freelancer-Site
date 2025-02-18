@@ -40,15 +40,15 @@
 <style lang="scss">
 	.cursor {
 		position: fixed;
-		pointer-events: none; /* Ensures the ring doesn't interfere with page interactions */
 		top: 0;
 		left: 0;
+		z-index: 999; /* 1 less than header (1000) to avoid overlap */
 		width: 1.5rem;
 		height: 1.5rem;
-		background: rgba(255, 255, 255, 0.893);
 		border-radius: 50%;
-		z-index: 999; /* 1 less than header (1000) to avoid overlap */
+		background: rgb(255 255 255 / 89.3%);
 		mix-blend-mode: difference;
+		pointer-events: none; /* Ensures the ring doesn't interfere with page interactions */
 	}
 
 	@media (min-width: $MOBILE_BREAKPOINT) {

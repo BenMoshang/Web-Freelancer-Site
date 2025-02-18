@@ -77,31 +77,31 @@
 <Navigation {navItems} isOpen={isNavOpen} />
 
 <style lang="scss">
-	/*==========================
+	/* ==========================
     HEADER & CHILD COMPONENTS
-  ==========================*/
+  ========================== */
 	.header {
 		@include apply-padding('lg', 'block');
 		@include apply-padding('md', 'inline');
 		@include apply-page-max-inline;
+
 		--header-height: #{$PAGE_HEADER_HEIGHT};
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		justify-content: center;
-		align-items: center;
-		grid-template-areas: 'logo nav content';
 		position: fixed;
 		top: 0;
-		left: 0;
 		right: 0;
-		inline-size: 100%;
-
-		border-radius: $BR_ROUNDED;
-		block-size: var(--header-height);
-		will-change: transform;
-		transition: transform 0.3s ease-in-out;
-		transform: translateY(0);
+		left: 0;
 		z-index: 1000;
+		display: grid;
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: repeat(3, 1fr);
+		inline-size: 100%;
+		block-size: var(--header-height);
+		border-radius: $BR_ROUNDED;
+		transform: translateY(0);
+		transition: transform 0.3s ease-in-out;
+		grid-template-areas: 'logo nav content';
+		will-change: transform;
 
 		// Remove text decoration from all links in header
 		a {
@@ -123,6 +123,7 @@
 		//==========================
 		&__nav--desktop {
 			display: none;
+
 			@include respond-to('desktop') {
 				display: block;
 			}
@@ -132,11 +133,11 @@
 		// Header Content Wrapper
 		//==========================
 		&__content-wrapper {
-			grid-area: content;
-			justify-self: end;
 			display: flex;
 			align-items: center;
 			gap: get-responsive-sp('md');
+			grid-area: content;
+			justify-self: end;
 		}
 
 		//==========================
@@ -147,9 +148,11 @@
 
 			input {
 				display: none;
+
 				// When the checkbox is checked, animate the SVG burger
 				&:checked + svg {
 					transform: rotate(-45deg);
+
 					.line-top-bottom {
 						stroke-dasharray: 20 300;
 						stroke-dashoffset: -32.42;
@@ -160,22 +163,23 @@
 			svg {
 				width: 2em;
 				height: 2em;
-				object-fit: cover;
+
 				// background: get-light-dark('darkest', 'lightest');
 				border-radius: $BR_ROUNDED;
 				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+				object-fit: cover;
 			}
 
 			.line {
 				$color: get-light-dark('800', '200');
+				transition:
+					stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
+					stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
 				fill: none;
 				stroke: $color;
 				stroke-linecap: round;
 				stroke-linejoin: round;
 				stroke-width: 2;
-				transition:
-					stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
-					stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
 
 				&-top-bottom {
 					stroke-dasharray: 12 63;
@@ -193,17 +197,18 @@
 		}
 	}
 
-	/*==========================
+	/* ==========================
     NAVIGATION LINKS & LIST
-  ==========================*/
+  ========================== */
 	.nav__list {
-		grid-area: nav;
 		display: flex;
-		@include apply-gap('lg');
-		width: 100%;
 		justify-content: space-evenly;
 		align-items: center;
+		width: 100%;
+		grid-area: nav;
 		list-style: none;
+
+		@include apply-gap('lg');
 	}
 
 	.nav__link {

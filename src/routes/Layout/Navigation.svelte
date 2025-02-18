@@ -57,71 +57,68 @@
 	a {
 		color: red;
 	}
-	/*=============================================
+
+	/* =============================================
 =          Navigation Background         =
-=============================================*/
+============================================= */
 	$cubic: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 	$nav-timing: 0.4s;
+
 	.nav {
 		$background-opacity: 0.9;
-
 		position: fixed;
-		inset: 0;
-		margin: auto;
 		z-index: 999;
+		inset: 0;
 		min-inline-size: 100vw;
 		min-block-size: 100svh;
-		background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
-		backdrop-filter: blur(0);
-		opacity: 0;
+		margin: auto;
+		background: light-dark(hsl(240deg 4% 92% / 0%), hsl(240deg 8% 18% / 0%));
 		transition:
 			transform $nav-timing $cubic,
 			opacity $nav-timing $cubic,
 			backdrop-filter $nav-timing $cubic,
 			background $nav-timing $cubic;
+		backdrop-filter: blur(0);
+		opacity: 0;
 
 		&--active {
-			background: light-dark(hsl(240, 4%, 92%, 0.6), hsla(240, 8%, 18%, 0.6));
-			backdrop-filter: blur(1.25rem);
-			-webkit-backdrop-filter: blur(1.25rem);
-			opacity: 1;
-			-webkit-animation: scale-in-tr $nav-timing cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+			background: light-dark(hsl(240deg 4% 92% / 60%), hsl(240deg 8% 18% / 60%));
 			animation: scale-in-tr $nav-timing cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+			backdrop-filter: blur(1.25rem);
+			opacity: 1;
 		}
+
 		&--inactive {
-			background: light-dark(hsl(240, 4%, 92%, 0), hsla(240, 8%, 18%, 0));
-			backdrop-filter: blur(0);
-			-webkit-backdrop-filter: blur(0);
-			opacity: 0;
-			-webkit-animation: scale-out-tr $nav-timing cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+			background: light-dark(hsl(240deg 4% 92% / 0%), hsl(240deg 8% 18% / 0%));
 			animation: scale-out-tr $nav-timing cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+			backdrop-filter: blur(0);
+			opacity: 0;
 		}
 	}
 
-	/*=============================================
+	/* =============================================
 =          Navigation Content         =
-=============================================*/
+============================================= */
 
 	.nav__list {
-		padding-top: $PAGE_HEADER_HEIGHT;
-		@include flex-column;
+		position: absolute;
+		inset: 0;
+		padding-block: get-static-sp('xl');
+		padding-inline: get-static-sp('md');
 		gap: get-static-sp('3xl');
-		align-content: center;
-		justify-content: center;
-		list-style: none;
 		inline-size: 100%;
 		block-size: 100%;
-		position: absolute;
-		padding-inline: get-static-sp('md');
-		padding-block: get-static-sp('xl');
-
-		inset: 0;
 		margin: auto;
+		padding-top: $PAGE_HEADER_HEIGHT;
+		list-style: none;
+		place-content: center center;
+
+		@include flex-column;
 	}
 
 	.nav__list-item {
-		opacity: 0;
 		transform: translateY(1.25rem);
+		opacity: 0;
 
 		@for $i from 1 through 5 {
 			&:nth-child(#{$i}) {
@@ -132,25 +129,24 @@
 		}
 
 		.nav--transition-complete & {
-			opacity: 1;
 			transform: translateY(0);
+			opacity: 1;
 		}
 	}
-	/*=============================================
+
+	/* =============================================
 =          Navigation Typography styling         =
-=============================================*/
+============================================= */
 	.nav__link {
 		@include link-effect;
 		font-family: get-ff('display');
-		line-height: 1;
-		font-weight: get-fw('display');
 		font-size: get-static-fsz('7xl');
+		font-weight: get-fw('display');
+		line-height: 1;
+		text-align: left;
 		text-decoration: none;
 
-		text-align: left;
-
 		& span {
-			color: _get-typography-color('secondary');
 			color: _get-typography-color('primary');
 		}
 	}

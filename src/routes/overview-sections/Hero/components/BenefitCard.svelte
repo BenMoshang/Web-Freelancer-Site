@@ -24,49 +24,51 @@
 	* {
 		// outline: 1px dashed red;
 	}
-	.benefit-card {
-		@include shadow-medium();
-		display: grid;
 
+	.benefit-card {
+		@include shadow-medium;
+		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto-fit;
-		grid-template-areas: 'title' 'icon' 'subtitle';
-		padding: get-static-sp('s16');
-		justify-content: center;
-		align-content: center;
-		max-block-size: 15.875rem;
 		max-inline-size: 11.875rem;
-		background-color: get-light-dark('lightest', 'darker');
+		max-block-size: 15.875rem;
+		padding: get-static-sp('s16');
 		border-radius: $BR_DEFAULT;
+		background-color: get-light-dark('lightest', 'darker');
+		grid-template-areas: 'title' 'icon' 'subtitle';
+		place-content: center center;
 
 		&__icon {
 			--icon-size: 100%;
-			object-fit: contain;
-			grid-area: icon;
 			inline-size: var(--icon-size);
 			block-size: var(--icon-size);
+			grid-area: icon;
+			object-fit: contain;
 		}
 
 		&__title {
 			@extend %global__heading--h2;
-			grid-area: title;
 			color: get-light-dark('darkest', 'lightest');
+			grid-area: title;
 		}
+
 		&__subtitle {
 			@extend %global__label;
 			grid-area: subtitle;
 		}
-		&__description {
-			grid-area: description;
-			//animates from display none;
 
-			opacity: 0;
+		&__description {
 			height: 0;
+			grid-area: description;
+
+			//animates from display none;
+			opacity: 0;
 			overflow: hidden;
 			visibility: hidden;
+
 			&.is-active {
-				opacity: 1;
 				height: auto;
+				opacity: 1;
 				overflow: visible;
 				visibility: visible;
 			}
@@ -74,11 +76,12 @@
 	}
 
 	svg {
-		grid-area: icon;
-		--icon-size: 1.5rem;
 		width: var(--icon-size);
 		height: var(--icon-size);
 		margin-bottom: get-static-sp('s8');
+		grid-area: icon;
+
+		--icon-size: 1.5rem;
 
 		& path {
 			fill: get-light-dark('darkest', 'lightest');

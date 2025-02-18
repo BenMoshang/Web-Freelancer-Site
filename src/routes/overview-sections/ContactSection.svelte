@@ -8,6 +8,7 @@
 <style lang="scss">
 	.contact {
 		@include section-base;
+
 		&__title {
 			@extend %global__display--h2;
 		}

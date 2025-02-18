@@ -14,12 +14,13 @@
 
 <style lang="scss">
 	section {
-		width: 100%;
 		position: fixed;
 		inset: 0;
-		margin: auto;
 		padding-inline: 1rem;
+		width: 100%;
+		margin: auto;
 		padding-top: 10rem;
+
 		@include flex-column-center;
 		@extend %page-grid-item;
 	}
@@ -28,10 +29,12 @@
 		&--h1 {
 			@extend %global__display--h1;
 		}
+
 		&--h2 {
 			@extend %global__display--h2;
 		}
 	}
+
 	.heading {
 		&--h2 {
 			@extend %global__heading--h2;
@@ -42,6 +45,7 @@
 			@extend %global__heading--h3;
 			text-align: center !important;
 		}
+
 		&--h4 {
 			@extend %global__heading--h4;
 			text-align: center !important;
@@ -52,6 +56,7 @@
 		&--lg {
 			@extend %global__body--lg;
 		}
+
 		&--md {
 			@extend %global__body--md;
 		}
@@ -60,9 +65,10 @@
 	.label {
 		@extend %global__label;
 	}
+
 	* {
-		outline: 1px solid red;
 		text-align: center !important;
+		outline: 1px solid red;
 		text-wrap: none !important;
 	}
 </style>

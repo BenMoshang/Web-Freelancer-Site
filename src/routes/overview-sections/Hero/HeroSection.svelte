@@ -56,7 +56,7 @@
 	// Animation configuration
 	const ANIMATION_CONFIG = {
 		duration: 4,
-		ease: 'power4.inOut',
+		ease: 'power1.inOut',
 		force3D: true
 	} as const;
 
@@ -82,7 +82,7 @@
 				scrub: 2,
 				markers: false,
 				anticipatePin: 2,
-				fastScrollEnd: true,
+				fastScrollEnd: false,
 				preventOverlaps: true,
 				onEnter: () => {
 					// Clear any inline styles applied by GSAP when the ScrollTrigger enters
@@ -235,47 +235,48 @@
 	*::after {
 		transform: translateZ(0);
 	}
+
 	.hero {
 		@extend %page-grid-item;
 		position: relative;
 		display: grid;
 		grid-template: 1fr 1fr / 1fr;
+		inline-size: 100%;
+		block-size: 100dvh;
+		contain: layout size;
 		grid-template-areas:
 			'top'
 			'bottom';
-		place-content: center;
-		block-size: 100dvh;
-		inline-size: 100%;
 		overflow: hidden;
 		overscroll-behavior: contain;
 		perspective: 1000px;
+		place-content: center;
 		transform-style: preserve-3d;
-		contain: layout size;
 
 		&__background {
 			position: absolute;
-			inset: 0;
 			z-index: -1;
-			block-size: 100%;
+			inset: 0;
 			inline-size: 100%;
+			block-size: 100%;
 			color: get-light-dark('500', '600', 0.38, 1);
+			contain: strict;
 			mix-blend-mode: soft-light;
 			object-fit: cover;
 			opacity: 0.5;
-			contain: strict;
 		}
 
 		&__panel {
 			display: flex;
 			flex-direction: column;
-			block-size: 100%;
 			inline-size: 100%;
+			block-size: 100%;
 			transform: translateY(0);
 			contain: content;
 
 			&--top {
-				grid-area: top;
 				justify-content: flex-end;
+				grid-area: top;
 			}
 
 			&--bottom {
@@ -286,32 +287,30 @@
 		&__title {
 			@extend %global__display--h1;
 			@include apply-3d-text-shadow;
-
 			position: relative;
+			z-index: 2;
+			line-height: 1;
 			text-align: center;
-			text-wrap: nowrap;
+			contain: content;
 			font-kerning: none;
 			letter-spacing: -0.05em;
-			line-height: 1;
-			contain: content;
-			z-index: 2;
+			text-wrap: nowrap;
 
 			&::after {
 				@include apply-gradient-text;
-
 				content: attr(data-text);
 				position: absolute;
-				inset: 0;
 				z-index: -2;
+				inset: 0;
 				margin: auto;
 			}
 		}
 
 		&__subtitle {
 			@extend %global__heading--h4;
-			margin-block-start: get-static-sp('lg');
 			margin-inline: auto;
 			text-align: center;
+			margin-block-start: get-static-sp('lg');
 			text-transform: uppercase;
 			text-wrap: balance;
 		}
@@ -321,13 +320,14 @@
 			contain: content;
 
 			@include respond-to('mobile') {
-				display: flex;
-				margin-block-start: auto;
 				margin-inline: auto;
-				padding-block-end: get-static-sp('sm');
-				align-items: center;
+				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				inline-size: 100%;
+				margin-block-start: auto;
+				padding-block-end: get-static-sp('sm');
+
 				@include apply-page-max-inline;
 			}
 		}
@@ -335,14 +335,15 @@
 		&__benefits-item {
 			@include flex-center;
 			contain: content;
+
 			@include apply-gap('xs');
 		}
 
 		&__benefits-icon {
-			color: get-typography-color('tertiary');
-			block-size: 1em;
-			inline-size: 1em;
 			flex-shrink: 0;
+			inline-size: 1em;
+			block-size: 1em;
+			color: get-typography-color('tertiary');
 		}
 
 		&__benefits-text {
@@ -351,7 +352,9 @@
 			align-items: center;
 			line-height: 0;
 			text-wrap: nowrap;
+
 			@include apply-gap('xs');
+
 			&--seperator {
 				color: get-typography-color('tertiary');
 			}

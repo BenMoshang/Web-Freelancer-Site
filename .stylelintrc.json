@@ -6,9 +6,57 @@
 		"custom-property-pattern": null,
 		"keyframes-name-pattern": null,
 		"max-nesting-depth": [3, { "ignore": ["blockless-at-rules", "pseudo-classes"] }],
-		"declaration-no-important": true,
-		"selector-max-compound-selectors": 3,
+		"declaration-no-important": null,
+		"selector-max-compound-selectors": 4,
 		"selector-no-qualifying-type": [true, { "ignore": ["attribute", "class"] }],
+		"scss/dollar-variable-pattern": null,
+		"scss/at-mixin-pattern": null,
+		"scss/at-function-pattern": null,
+		"scss/percent-placeholder-pattern": null,
+		"scss/no-global-function-names": null,
+		"property-no-unknown": [
+			true,
+			{
+				"ignoreProperties": ["font-smooth"]
+			}
+		],
+		"selector-pseudo-class-no-unknown": [
+			true,
+			{
+				"ignorePseudoClasses": ["global"]
+			}
+		],
+		"declaration-property-value-no-unknown": [
+			true,
+			{
+				"ignoreProperties": {
+					"color": ["get-light-dark", "get-typography-color", "_get-typography-color"],
+					"background": ["get-light-dark"],
+					"background-color": ["get-light-dark"],
+					"fill": ["get-light-dark"],
+					"font-family": ["get-ff"],
+					"font-size": ["get-responsive-fsz", "get-static-fsz"],
+					"font-weight": ["get-fw"],
+					"gap": ["get-responsive-sp", "get-static-sp", "get-static-_get-spacing-type"],
+					"margin": ["get-static-sp"],
+					"margin-block": ["get-static-sp"],
+					"margin-block-start": ["get-static-sp"],
+					"margin-inline": ["get-static-sp"],
+					"padding": ["get-static-sp"],
+					"padding-block": ["get-static-sp"],
+					"padding-inline": ["get-static-sp"],
+					"width": ["get-responsive-fsz"],
+					"height": ["get-responsive-fsz"],
+					"grid-template-rows": ["auto-fit"],
+					"text-transform": ["small-caps"],
+					"animation": ["scale-in-tr", "scale-out-tr"],
+					"transition": ["transform", "opacity", "backdrop-filter", "background"],
+					"border": ["dashed"],
+					"border-bottom": ["dashed"],
+					"text-wrap": ["none"]
+				}
+			}
+		],
 		"order/properties-order": [
 			[
 				{
@@ -106,8 +154,6 @@
 		],
 		"scss/at-rule-no-unknown": true,
 		"scss/selector-no-redundant-nesting-selector": true,
-		"scss/dollar-variable-pattern": "^[a-z][a-zA-Z0-9]+$",
-		"scss/at-mixin-pattern": "^[a-z][a-zA-Z0-9]+$",
 		"color-hex-length": "short",
 		"color-named": "never",
 		"font-family-name-quotes": "always-where-required",
@@ -133,9 +179,11 @@
 			"keyframes",
 			"font-face",
 			"supports",
-			"layer"
+			"layer",
+			"error",
+			"view-transition"
 		],
-		"indentation": 2,
+		"indentation": null,
 		"declaration-empty-line-before": "never"
 	},
 	"overrides": [

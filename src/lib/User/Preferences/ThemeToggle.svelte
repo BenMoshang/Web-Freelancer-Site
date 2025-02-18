@@ -53,19 +53,19 @@
 <style lang="scss">
 	/* Theme toggle styling from joshwcomeau.com but using pure CSS */
 	.theme-toggle {
-		color: get-light-dark('800', '200');
 		position: relative;
+		color: get-light-dark('800', '200');
 		cursor: pointer;
 
 		&__input {
 			position: absolute;
+			z-index: 1;
 			inset: 0;
-			margin: auto;
 			width: 100%;
 			height: 100%;
+			margin: auto;
 			cursor: pointer;
 			opacity: 0;
-			z-index: 1;
 
 			&:checked + svg {
 				transform: rotate(90deg);
@@ -88,24 +88,24 @@
 			position: relative;
 			width: get-responsive-fsz('label');
 			height: get-responsive-fsz('label');
-			transition: transform 0.4s ease;
 			transform: rotate(40deg);
+			transition: transform 0.4s ease;
 
 			mask > circle {
+				transform: translate(0, 0);
 				transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
-				transform: translate(0rem, 0rem);
 			}
 		}
 
 		&__sun-moon {
-			transform-origin: center center;
-			transition: inherit;
 			transform: scale(1);
+			transition: inherit;
+			transform-origin: center center;
 		}
 
 		&__ray {
-			transform-origin: center center;
 			transform: scale(0);
+			transform-origin: center center;
 
 			&--2 {
 				animation-delay: 0.05s !important;
@@ -133,6 +133,7 @@
 		0% {
 			transform: scale(0);
 		}
+
 		100% {
 			transform: scale(1);
 		}
