@@ -1,7 +1,17 @@
 <script lang="ts">
 	import gsap from 'gsap';
+	// Import and register the ScrollTrigger plugin
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	// Remove direct plugin registration here
+
 	import { initGsapScroll } from '$lib/animations/scroll.svelte';
 	import { onMount, onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
+
+	// Register plugin only in browser environment
+	if (browser) {
+		gsap.registerPlugin(ScrollTrigger);
+	}
 
 	// Types for injectable data
 	interface HeroContent {
@@ -20,7 +30,7 @@
 	const heroInjectable: HeroContent = {
 		titleFirstHalf: 'MODERN WEB',
 		titleSecondHalf: 'DEVELOPMENT',
-		subtitle: 'your style, our expertise'
+		subtitle: 'your vision, our expertise'
 	};
 
 	const benefitsInjectable: Benefit[] = [
@@ -75,6 +85,7 @@
 				fastScrollEnd: true,
 				preventOverlaps: true,
 				onEnter: () => {
+					// Clear any inline styles applied by GSAP when the ScrollTrigger enters
 					gsap.set([topPanel, bottomPanel], { clearProps: 'all' });
 				}
 			}
@@ -84,19 +95,22 @@
 	function setupAnimations() {
 		doorTimeline = createDoorTimeline();
 
-		// Create the animation sequence
+		// Pre-define will-change properties for smoother performance
+		gsap.set([topPanel, bottomPanel], { willChange: 'transform' });
+		gsap.set(heroSection, { willChange: 'filter, transform' });
+		gsap.set(heroBackground, { willChange: 'opacity, transform' });
+
+		// Create the animation sequence for the panels and background
 		doorTimeline
 			.to(topPanel, {
 				yPercent: -100,
-				...ANIMATION_CONFIG,
-				willChange: 'transform'
+				...ANIMATION_CONFIG
 			})
 			.to(
 				bottomPanel,
 				{
 					yPercent: 100,
-					...ANIMATION_CONFIG,
-					willChange: 'transform'
+					...ANIMATION_CONFIG
 				},
 				'<'
 			)
@@ -118,12 +132,24 @@
 					...ANIMATION_CONFIG
 				},
 				'<'
-			);
+			)
+			// Clean up "will-change" properties after the animation completes
+			.add(() => {
+				gsap.set([topPanel, bottomPanel, heroSection, heroBackground], {
+					willChange: 'auto'
+				});
+			});
 	}
 
 	let gsapContext: gsap.Context;
 	onMount(() => {
+		// Initialize any custom scroll functionality
 		initGsapScroll();
+
+		// Normalize scroll behavior for consistent performance across devices/browsers
+		ScrollTrigger.normalizeScroll();
+
+		// Create a scoped GSAP context to safely target the heroSection
 		gsapContext = gsap.context(() => {
 			setupAnimations();
 		}, heroSection);
@@ -141,8 +167,7 @@
 </script>
 
 <section class="hero" bind:this={heroSection} aria-label="Hero Section" role="banner">
-	<!-- todo: animate the text with cubic beszier modern -->
-
+	<!-- Animated background SVG -->
 	<svg
 		class="hero__background"
 		bind:this={heroBackground}
@@ -219,28 +244,25 @@
 			'top'
 			'bottom';
 		place-content: center;
-		block-size: 100svh;
+		block-size: 100dvh;
 		inline-size: 100%;
 		overflow: hidden;
 		overscroll-behavior: contain;
 		perspective: 1000px;
 		transform-style: preserve-3d;
-		will-change: transform;
 		contain: layout size;
 
 		&__background {
 			position: absolute;
 			inset: 0;
 			z-index: -1;
-			block-size: 100vh;
-			inline-size: 100vw;
+			block-size: 100%;
+			inline-size: 100%;
 			color: get-light-dark('500', '600', 0.38, 1);
 			mix-blend-mode: soft-light;
 			object-fit: cover;
 			opacity: 0.5;
-			will-change: opacity, transform;
 			contain: strict;
-			transform: translateZ(0);
 		}
 
 		&__panel {
@@ -249,7 +271,6 @@
 			block-size: 100%;
 			inline-size: 100%;
 			transform: translateY(0);
-			will-change: transform;
 			contain: content;
 
 			&--top {
@@ -307,7 +328,6 @@
 				align-items: center;
 				justify-content: space-between;
 				inline-size: 100%;
-				list-style: none;
 				@include apply-page-max-inline;
 			}
 		}

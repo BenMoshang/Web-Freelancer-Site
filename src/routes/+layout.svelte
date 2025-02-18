@@ -8,7 +8,7 @@
 
 <!-- todo: add a personality web questionaire -->
 <svelte:head></svelte:head>
-<!-- <Header /> -->
+<Header />
 
 <slot />
 
