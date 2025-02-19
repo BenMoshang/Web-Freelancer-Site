@@ -45,6 +45,7 @@
 	"dependencies": {
 		"@studio-freight/lenis": "^1.0.42",
 		"gsap": "^3.12.7",
+		"motion": "^12.4.4",
 		"scss": "^0.2.4"
 	}
 }

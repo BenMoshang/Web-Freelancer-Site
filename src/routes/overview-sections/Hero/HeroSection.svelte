@@ -142,17 +142,28 @@
 	}
 
 	let gsapContext: gsap.Context;
-	onMount(() => {
-		// Initialize any custom scroll functionality
-		initGsapScroll();
+	onMount(async () => {
+		if (browser) {
+			const gsapModule = await import('gsap');
+			const scrollTriggerModule = await import('gsap/ScrollTrigger');
 
-		// Normalize scroll behavior for consistent performance across devices/browsers
-		ScrollTrigger.normalizeScroll();
+			gsap = gsapModule.default;
+			ScrollTrigger = scrollTriggerModule.ScrollTrigger;
 
-		// Create a scoped GSAP context to safely target the heroSection
-		gsapContext = gsap.context(() => {
-			setupAnimations();
-		}, heroSection);
+			// Register ScrollTrigger
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Initialize scroll functionality
+			initGsapScroll();
+
+			// Normalize scroll behavior
+			ScrollTrigger.normalizeScroll();
+
+			// Create GSAP context and setup animations
+			gsapContext = gsap.context(() => {
+				setupAnimations();
+			}, heroSection);
+		}
 	});
 
 	onDestroy(() => {
