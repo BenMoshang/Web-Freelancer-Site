@@ -1,17 +1,10 @@
 <script lang="ts">
-	import gsap from 'gsap';
-	// Import and register the ScrollTrigger plugin
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	// Remove direct plugin registration here
-
-	import { initGsapScroll } from '$lib/animations/scroll.svelte';
-	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
+	import { onMount, onDestroy } from 'svelte';
+	import { initGsapScroll } from '$lib/animations/scroll.svelte';
 
-	// Register plugin only in browser environment
-	if (browser) {
-		gsap.registerPlugin(ScrollTrigger);
-	}
+	let gsap: any;
+	let ScrollTrigger: any;
 
 	// Types for injectable data
 	interface HeroContent {

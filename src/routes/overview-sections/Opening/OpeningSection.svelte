@@ -321,6 +321,7 @@
 		contain: layout size;
 		overflow: hidden;
 		place-content: center;
+		transform-origin: center;
 		&__title-container {
 			position: relative;
 			display: flex;
