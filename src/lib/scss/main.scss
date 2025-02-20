@@ -12,7 +12,7 @@
 	animation-duration: 1s;
 
 	/* Optional: add an easing function */
-	animation-timing-function: ease-in-out;
+	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Define keyframes for the outgoing view (old snapshot) */

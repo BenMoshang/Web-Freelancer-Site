@@ -90,7 +90,7 @@ $responsive-font-sizes: (
 	'heading--h4': create-responsive-fsz('md', 'xl'),
 	'body--lg': create-responsive-fsz('md', 'lg'),
 	'body--md': create-responsive-fsz('sm', 'md'),
-	'label': create-responsive-fsz('xs', 'sm')
+	'label': create-responsive-fsz('2xs', 'xs')
 );
 
 @function get-responsive-fsz($key) {
