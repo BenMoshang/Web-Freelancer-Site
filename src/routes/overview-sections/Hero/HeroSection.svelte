@@ -313,25 +313,27 @@
 
 		&__subtitle {
 			@extend %global__label;
+			position: relative;
 			margin-block-end: get-responsive-sp('lg');
 			margin-inline: auto;
-			text-align: center;
-			text-transform: uppercase;
-			text-wrap: balance;
-			background: get-light-dark('600', '700', 0.38, 0.5);
-			@include apply-shadow('medium', true);
 			padding-block: get-responsive-sp('xs');
 			padding-inline: get-responsive-sp('sm');
 			border-radius: 5rem;
-			position: relative;
+			background: get-light-dark('600', '700', 0.38, 0.5);
+			text-align: center;
+			text-transform: uppercase;
+			text-wrap: balance;
+
+			@include apply-shadow('medium', true);
 
 			&::after {
 				content: '';
 				position: absolute;
-				inset: 0;
 				z-index: -1;
-				@include apply-shadow('low', false);
+				inset: 0;
 				border-radius: 5rem;
+
+				@include apply-shadow('low', false);
 			}
 		}
 

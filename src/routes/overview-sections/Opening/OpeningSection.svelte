@@ -31,45 +31,47 @@
 		overflow: hidden;
 		place-content: center;
 		transform-origin: center;
+
 		&__title-container {
 			position: relative;
 			display: flex;
 			flex-direction: column;
-			align-items: center;
 			justify-content: center;
+			align-items: center;
 
 			&__title-text {
 				position: relative;
 				z-index: 1;
-				background-clip: text;
-				-webkit-background-clip: text;
 				color: transparent;
+				background-clip: text;
+				background-clip: text;
 				background-color: get-light-dark('500', '600', 0.38, 1);
 			}
 		}
+
 		&__background {
 			--stroke-width: 3;
 			--stroke-linejoin: round;
-			--gradient-start: currentColor;
-			--gradient-end: currentColor;
+			--gradient-start: currentcolor;
+			--gradient-end: currentcolor;
 			--feather-amount: 15.625rem;
 			position: absolute;
-			inset: 0;
-			margin-bottom: 0;
 			z-index: -2;
-			block-size: 100%;
+			inset: 0;
 			inline-size: 100%;
-			object-fit: contain;
+			block-size: 100%;
+			margin-bottom: 0;
 			color: get-light-dark('500', '600', 0.38, 1);
-			mix-blend-mode: soft-light;
 			contain: strict;
+			mix-blend-mode: soft-light;
+			object-fit: contain;
 			rotate: 180deg;
 
 			& path {
 				position: relative;
 				object-fit: contain;
-				stroke-width: var(--stroke-width);
 				stroke-linejoin: var(--stroke-linejoin);
+				stroke-width: var(--stroke-width);
 			}
 		}
 	}
