@@ -1,0 +1,153 @@
+---
+description: this is for mymodern projedct
+globs: auto
+alwaysApply: true
+---
+Before diving into the best practices, please note that you may need to adapt the globs depending on your project's specific file structure and requirements.
+
+---
+name: svelte-best-practices.mdc
+description: Best practices for Svelte component development
+globs: **/*.{svelte,ts,js}
+---
+
+- Use reactive declarations for dynamic values
+- Implement stores for global state management
+- Leverage Svelte's built-in transitions and animations
+- Keep components small and focused on a single responsibility
+
+---
+name: sveltekit-best-practices.mdc
+description: Best practices for SvelteKit application structure and routing
+globs: **/*.{svelte,ts,js}
+---
+
+- Use load functions for data fetching and server-side rendering
+- Implement proper error handling with `+error.svelte` pages
+- Utilize SvelteKit's file-based routing system
+- Leverage SvelteKit's built-in form handling and validation
+You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+
+Key Principles
+- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
+- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
+- Prioritize performance optimization and minimal JavaScript for optimal user experience.
+- Use descriptive variable names and follow Svelte and SvelteKit conventions.
+- Organize files using SvelteKit's file-based routing system.
+
+Code Style and Structure
+- Write concise, technical TypeScript or JavaScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
+- Prefer iteration and modularization over code duplication.
+- Structure files: component logic, markup, styles, helpers, types.
+- Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs
+
+Naming Conventions
+- Use lowercase with hyphens for component files (e.g., `components/auth-form.svelte`).
+- Use PascalCase for component names in imports and usage.
+- Use camelCase for variables, functions, and props.
+
+TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use const objects instead.
+- Use functional components with TypeScript interfaces for props.
+- Enable strict mode in TypeScript for better type safety.
+
+---
+name: typescript-best-practices.mdc
+description: TypeScript coding standards and type safety guidelines
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use strict null checks to prevent null pointer exceptions
+- Prefer interfaces over types for object shapes
+- Implement type guards and assertions for runtime type checking
+- Use generics for reusable components and functions
+
+---
+name: vite-best-practices.mdc
+description: Best practices for Vite configuration and optimization
+globs: vite.config.{ts,js}
+---
+
+- Use environment variables for configuration
+- Implement code splitting for better performance
+- Leverage Vite's plugin ecosystem for extended functionality
+- Optimize asset handling and caching strategies
+
+---
+name: vitest-best-practices.mdc
+description: Best practices for unit testing with Vitest
+globs: **/*.{test.ts,test.js,spec.ts,spec.js}
+---
+
+- Use describe and it blocks for organizing tests
+- Implement proper mocking for dependencies
+- Utilize Vitest's snapshot testing for UI components
+- Write tests before implementing new features (TDD)
+
+---
+name: eslint-best-practices.mdc
+description: Best practices for ESLint configuration and usage
+globs: .eslintrc.{js,cjs,json}
+---
+
+- Extend recommended configurations for your tech stack
+- Implement custom rules for project-specific requirements
+- Use ESLint plugins for additional language support
+- Integrate ESLint with your IDE for real-time feedback
+
+---
+name: prettier-best-practices.mdc
+description: Best practices for Prettier configuration and usage
+globs: .prettierrc.{js,cjs,json}
+---
+
+- Use Prettier's default configuration as a starting point
+- Implement project-specific overrides for edge cases
+- Integrate Prettier with your IDE and CI/CD pipeline
+- Use Prettier alongside ESLint for comprehensive code formatting
+
+---
+name: stylelint-best-practices.mdc
+description: Best practices for Stylelint configuration and usage
+globs: .stylelintrc.{js,cjs,json}
+---
+
+- Extend standard configurations for CSS/SCSS
+- Implement custom rules for consistent styling
+- Use Stylelint plugins for additional syntax support
+- Integrate Stylelint with your build process for automated checks
+
+---
+name: sass-best-practices.mdc
+description: Best practices for using Sass in your project
+globs: **/*.{scss,sass}
+---
+
+- Use variables for consistent theming
+- Implement mixins for reusable styles
+- Utilize nesting for better CSS organization
+- Keep selectors specific and avoid over-nesting
+
+---
+name: gsap-best-practices.mdc
+description: Best practices for using GSAP for animations
+globs: **/*.{ts,js}
+---
+
+- Use timelines for complex, coordinated animations
+- Implement easing functions for natural motion
+- Leverage GSAP's plugin ecosystem for extended functionality
+- Optimize performance by staggering animations and using requestAnimationFrame
+
+---
+name: lenis-best-practices.mdc
+description: Best practices for using Lenis for smooth scrolling
+globs: **/*.{ts,js}
+---
+
+- Configure Lenis to match your site's performance requirements
+- Implement proper event handling for scroll-based interactions
+- Use Lenis' API for custom scroll animations and effects
+- Ensure accessibility by providing alternative navigation methods

@@ -6,6 +6,7 @@
 * @param {string} $mode - The color mode ('dark-mode' or 'light-mode').
 * @return {string} The color from the chosen mode.
 */
+
 @function get-color($color, $mode: 'dark-mode') {
 	$mode-scale: map.get(cv.$color-scale, $mode);
 
