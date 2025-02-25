@@ -1,0 +1,117 @@
+// Mapped/_buttons.scss
+// Define component-specific variables using theme-based approach
+
+// Import tokens and aliases
+@use '../../tokens/colors' as colors;
+@use '../../alias/borders' as borders;
+@use '../../alias/spacing' as spacing;
+@use '../../alias/typography' as typography;
+@use '../../alias/themes/themes' as themes;
+
+// Button variants
+$button-variants: (
+	'primary': (
+		'background': (
+			'default': themes.theme('accent', 'primary'),
+			'hover': themes.theme('accent', 'secondary'),
+			'active': themes.theme('accent', 'tertiary'),
+			'disabled': themes.theme('background', 'tertiary')
+		),
+		'text': (
+			'default': themes.theme('text', 'primary'),
+			'hover': themes.theme('text', 'primary'),
+			'active': themes.theme('text', 'primary'),
+			'disabled': themes.theme('text', 'disabled')
+		),
+		'border': (
+			'default': themes.theme('accent', 'primary'),
+			'hover': themes.theme('accent', 'secondary'),
+			'active': themes.theme('accent', 'tertiary'),
+			'disabled': themes.theme('border', 'default')
+		)
+	),
+	'secondary': (
+		'background': (
+			'default': transparent,
+			'hover': rgba(themes.theme('background', 'tertiary'), 0.5),
+			'active': themes.theme('background', 'tertiary'),
+			'disabled': transparent
+		),
+		'text': (
+			'default': themes.theme('accent', 'primary'),
+			'hover': themes.theme('accent', 'secondary'),
+			'active': themes.theme('accent', 'tertiary'),
+			'disabled': themes.theme('text', 'disabled')
+		),
+		'border': (
+			'default': themes.theme('accent', 'primary'),
+			'hover': themes.theme('accent', 'secondary'),
+			'active': themes.theme('accent', 'tertiary'),
+			'disabled': themes.theme('border', 'default')
+		)
+	),
+	'tertiary': (
+		'background': (
+			'default': transparent,
+			'hover': themes.theme('background', 'secondary'),
+			'active': themes.theme('background', 'tertiary'),
+			'disabled': transparent
+		),
+		'text': (
+			'default': themes.theme('accent', 'primary'),
+			'hover': themes.theme('accent', 'secondary'),
+			'active': themes.theme('accent', 'tertiary'),
+			'disabled': themes.theme('text', 'disabled')
+		),
+		'border': (
+			'default': transparent,
+			'hover': transparent,
+			'active': transparent,
+			'disabled': transparent
+		)
+	),
+	'danger': (
+		'background': (
+			'default': themes.theme('status', 'error'),
+			'hover': darken(themes.theme('status', 'error'), 10%),
+			'active': darken(themes.theme('status', 'error'), 20%),
+			'disabled': themes.theme('background', 'tertiary')
+		),
+		'text': (
+			'default': themes.theme('text', 'primary'),
+			'hover': themes.theme('text', 'primary'),
+			'active': themes.theme('text', 'primary'),
+			'disabled': themes.theme('text', 'disabled')
+		),
+		'border': (
+			'default': themes.theme('status', 'error'),
+			'hover': darken(themes.theme('status', 'error'), 10%),
+			'active': darken(themes.theme('status', 'error'), 20%),
+			'disabled': themes.theme('border', 'default')
+		)
+	)
+);
+
+// Button sizes
+$button-sizes: (
+	'small': (
+		'padding-x': map-get(spacing.$spacing, 'xs'),
+		'padding-y': map-get(spacing.$spacing, 'xxs'),
+		'font-size': map-get(typography.$font-size, 'sm')
+	),
+	'medium': (
+		'padding-x': map-get(spacing.$spacing, 'sm'),
+		'padding-y': map-get(spacing.$spacing, 'xs'),
+		'font-size': map-get(typography.$font-size, 'md')
+	),
+	'large': (
+		'padding-x': map-get(spacing.$spacing, 'md'),
+		'padding-y': map-get(spacing.$spacing, 'sm'),
+		'font-size': map-get(typography.$font-size, 'lg')
+	)
+);
+
+// Button properties
+$button-border-radius: map-get(borders.$component-border-radius, 'button');
+$button-border-width: map-get(borders.$component-border-width, 'button');
+$button-font-weight: map-get(typography.$font-weight, 'medium');

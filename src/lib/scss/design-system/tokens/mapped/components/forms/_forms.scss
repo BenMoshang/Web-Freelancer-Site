@@ -1,0 +1,120 @@
+// Mapped/_forms.scss
+// Define component-specific variables using theme-based approach
+
+// Import tokens and aliases
+@use '../../tokens/colors' as colors;
+@use '../../alias/borders' as borders;
+@use '../../alias/spacing' as spacing;
+@use '../../alias/typography' as typography;
+@use '../../alias/themes/themes' as themes;
+
+// Form variants
+$form-variants: (
+	'default': (
+		'input': (
+			'background': (
+				'default': themes.theme('background', 'primary'),
+				'hover': themes.theme('background', 'primary'),
+				'focus': themes.theme('background', 'primary'),
+				'disabled': themes.theme('background', 'tertiary'),
+				'error': themes.theme('background', 'primary')
+			),
+			'border': (
+				'default': themes.theme('border', 'default'),
+				'hover': themes.theme('border', 'hover'),
+				'focus': themes.theme('accent', 'primary'),
+				'disabled': themes.theme('border', 'default'),
+				'error': themes.theme('status', 'error')
+			),
+			'text': (
+				'default': themes.theme('text', 'primary'),
+				'hover': themes.theme('text', 'primary'),
+				'focus': themes.theme('text', 'primary'),
+				'disabled': themes.theme('text', 'disabled'),
+				'error': themes.theme('text', 'primary'),
+				'placeholder': themes.theme('text', 'tertiary')
+			)
+		),
+		'label': (
+			'text': (
+				'default': themes.theme('text', 'secondary'),
+				'disabled': themes.theme('text', 'disabled'),
+				'error': themes.theme('status', 'error'),
+				'required': themes.theme('status', 'error')
+			)
+		),
+		'helper': (
+			'text': (
+				'default': themes.theme('text', 'tertiary'),
+				'error': themes.theme('status', 'error')
+			)
+		),
+		'checkbox': (
+			'background': (
+				'default': themes.theme('background', 'primary'),
+				'hover': themes.theme('background', 'primary'),
+				'checked': themes.theme('accent', 'primary'),
+				'disabled': themes.theme('background', 'tertiary'),
+				'error': themes.theme('background', 'primary')
+			),
+			'border': (
+				'default': themes.theme('border', 'default'),
+				'hover': themes.theme('border', 'hover'),
+				'checked': themes.theme('accent', 'primary'),
+				'disabled': themes.theme('border', 'default'),
+				'error': themes.theme('status', 'error')
+			),
+			'icon': (
+				'checked': themes.theme('background', 'primary'),
+				'disabled': themes.theme('text', 'disabled')
+			)
+		),
+		'select': (
+			'background': (
+				'default': themes.theme('background', 'primary'),
+				'hover': themes.theme('background', 'primary'),
+				'open': themes.theme('background', 'primary'),
+				'disabled': themes.theme('background', 'tertiary'),
+				'error': themes.theme('background', 'primary')
+			),
+			'border': (
+				'default': themes.theme('border', 'default'),
+				'hover': themes.theme('border', 'hover'),
+				'open': themes.theme('accent', 'primary'),
+				'disabled': themes.theme('border', 'default'),
+				'error': themes.theme('status', 'error')
+			),
+			'text': (
+				'default': themes.theme('text', 'primary'),
+				'placeholder': themes.theme('text', 'tertiary'),
+				'disabled': themes.theme('text', 'disabled')
+			)
+		),
+		'option': (
+			'background': (
+				'default': themes.theme('background', 'primary'),
+				'hover': themes.theme('background', 'secondary'),
+				'selected': rgba(themes.theme('accent', 'primary'), 0.1),
+				'disabled': themes.theme('background', 'tertiary')
+			),
+			'text': (
+				'default': themes.theme('text', 'primary'),
+				'hover': themes.theme('text', 'primary'),
+				'selected': themes.theme('accent', 'primary'),
+				'disabled': themes.theme('text', 'disabled')
+			)
+		)
+	)
+);
+
+// Form spacing
+$form-spacing: (
+	'padding-input-x': map-get(spacing.$spacing, 'sm'),
+	'padding-input-y': map-get(spacing.$spacing, 'xs'),
+	'margin-form-group': map-get(spacing.$spacing, 'md'),
+	'gap-form-label-input': map-get(spacing.$spacing, 'xxs')
+);
+
+// Form properties
+$form-border-radius: map-get(borders.$component-border-radius, 'input');
+$form-border-width: map-get(borders.$component-border-width, 'input');

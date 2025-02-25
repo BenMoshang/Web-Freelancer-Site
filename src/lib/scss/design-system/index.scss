@@ -1,0 +1,17 @@
+// Design System index.scss
+// Main entry point for the design system
+
+// Import tokens first (raw design values)
+@import 'tokens/index';
+
+// Import aliases next (role-based variables)
+@import 'alias/index';
+
+// Import utils (for mixins and functions)
+@import 'utils/index';
+
+// Import responsive utilities
+@import 'responsive/index';
+
+// Import mapped components (component-specific variables)
+@import 'mapped/index';

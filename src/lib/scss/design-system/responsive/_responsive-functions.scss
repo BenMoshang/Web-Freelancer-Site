@@ -1,0 +1,105 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use '../../base/global-variables' as gv;
+@use '../spacing/spacing-base' as sb;
+
+/* ==========================================================================
+   1) round-number Function
+   ---------------------------------------------------------------------------
+   Rounds a given number ($value) to the specified number of decimal places.
+   - $value: The number to round.
+   - $precision: The number of decimal places (defaults to 2).
+
+   Examples:
+     round-number(3.14159);      // returns 3.14
+     round-number(3.14159, 3);   // returns 3.142
+========================================================================== */
+@function round-number($value, $precision: 2) {
+	$multiplier: math.pow(10, $precision);
+
+	@return math.round($value * $multiplier) / $multiplier;
+}
+
+/* ==========================================================================
+   2) create-clamp Function (REM-Only)
+   ---------------------------------------------------------------------------
+   Generates a CSS clamp() expression for fluid (responsive) values. It is
+   designed to work with rem-based values, which makes it accessible to user
+   font-size preferences.
+
+   Parameters:
+     - $min-size: The minimum size (in rem). Example: 0.25rem.
+     - $max-size: The maximum size (in rem). Example: 1rem.
+     - $min-viewport: The viewport width (in rem) at which fluid scaling starts.
+                      Default is 20rem (~320px if 1rem = 16px).
+     - $max-viewport: The viewport width (in rem) at which fluid scaling ends.
+                      Default is gv.$PAGE_MAX_INLINE. For a design targeting 1440px,
+                      ensure gv.$PAGE_MAX_INLINE equals 90rem (1440px ÷ 16).
+
+   Returns:
+     A CSS clamp() expression:
+       clamp($min-size, calc($intercept + $slope * 100vw), $max-size)
+
+   Notes:
+     - Throws an error if $max-viewport is equal to $min-viewport.
+     - Rounds slope and intercept differently if a typography scale variable
+       exists.
+========================================================================== */
+@function create-clamp(
+	$min-size,
+	$max-size,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	// Ensure that viewport range is valid.
+	@if $max-viewport == $min-viewport {
+		@error "The maximum viewport (#{$max-viewport}) must be greater than the minimum viewport (#{$min-viewport}).";
+	}
+
+	// Calculate slope: change in size per change in viewport (in rem per rem).
+	$slope: math.div($max-size - $min-size, $max-viewport - $min-viewport);
+
+	// Calculate intercept so that at $min-viewport, the value equals $min-size.
+	$intercept: $min-size - ($slope * $min-viewport);
+
+	// If a typography scale map exists, round less aggressively (1 decimal)
+	// Otherwise, round with 3 decimals for more precision.
+	// (Assumes a global variable named $base-typography-scale may be defined)
+	@if meta.variable-exists(typography-scales) and
+		(
+			map-has-key($base-typography-scale, $min-size) or
+				map-has-key($base-typography-scale, $max-size)
+		)
+	{
+		$slope: round-number($slope, 1);
+		$intercept: round-number($intercept, 1);
+	} @else {
+		$slope: round-number($slope, 3);
+		$intercept: round-number($intercept, 3);
+	}
+
+	// Return the final clamp() CSS expression.
+	@return clamp($min-size, calc(#{$intercept} + #{$slope} * 100vw), $max-size);
+}
+
+/* ==========================================================================
+   3) get-map-value Function
+   ---------------------------------------------------------------------------
+   Safely retrieves a value from a Sass map. If the specified key does not
+   exist, an error is thrown with the list of available keys.
+
+   Parameters:
+     - $map: The Sass map.
+     - $key: The key whose value is to be retrieved.
+
+   Returns:
+     The value associated with $key.
+========================================================================== */
+@function get-map-value($map, $key) {
+	@if not map-has-key($map, $key) {
+		@error "Key '#{$key}' not found in map. Available keys are: #{map-keys($map)}";
+	}
+
+	@return map.get($map, $key);
+}

@@ -1,0 +1,130 @@
+// Utils/_accessibility.scss
+// Accessibility helpers and utilities for better a11y
+
+// Focus styles
+@mixin focus-visible($color: var(--color-primary), $offset: 2px, $width: 2px, $radius: 4px) {
+	&:focus-visible {
+		outline: $width solid $color;
+		outline-offset: $offset;
+		border-radius: $radius;
+		box-shadow: 0 0 0 $width $color;
+		transition: outline-offset 0.1s ease;
+	}
+}
+
+// Skip to content link
+@mixin skip-to-content {
+	position: fixed;
+	top: -100%;
+	left: 0;
+	z-index: 9999;
+	padding: 0.75rem 1.25rem;
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	text-decoration: none;
+	transition: top 0.2s ease-in-out;
+
+	&:focus {
+		top: 0;
+		outline: none;
+		box-shadow: 0 0 0 2px var(--color-primary);
+	}
+}
+
+// Visually hide element but keep it accessible for screen readers
+@mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+// Remove visually-hidden styling (for state changes)
+@mixin unvisually-hidden {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: initial;
+	margin: initial;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+}
+
+// Responsive font size with clamp (with fallback for older browsers)
+@mixin fluid-type($min-font-size, $max-font-size, $min-vw: 320px, $max-vw: 1200px) {
+	font-size: $min-font-size;
+
+	@media screen and (min-width: $min-vw) {
+		font-size: calc(
+			#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+				((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+		);
+	}
+
+	@media screen and (min-width: $max-vw) {
+		font-size: $max-font-size;
+	}
+
+	@supports (font-size: clamp(1rem, 1vw, 1rem)) {
+		font-size: clamp(
+			#{$min-font-size},
+			calc(
+				#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+					((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+			),
+			#{$max-font-size}
+		);
+	}
+}
+
+// Helper function to strip units for fluid-type mixin
+@function strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+// Content is hidden from all users (including screen readers)
+@mixin hidden {
+	display: none;
+}
+
+// Enforce high-contrast mode
+@mixin high-contrast {
+	@media (forced-colors: active) {
+		@content;
+	}
+}
+
+// Ensure content is readable with color contrast
+@mixin ensure-text-contrast($background-color, $light-text: #fff, $dark-text: #000) {
+	$luminance: (
+			red($background-color) * 0.299 + green($background-color) * 0.587 + blue($background-color) *
+				0.114
+		) /
+		255;
+
+	@if $luminance > 0.5 {
+		color: $dark-text;
+	} @else {
+		color: $light-text;
+	}
+}
+
+// Visually hide element but keep it accessible for screen readers
+// Reusing the definition from _accessibility.scss to maintain consistency
+@mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

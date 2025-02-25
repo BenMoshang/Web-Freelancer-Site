@@ -1,0 +1,92 @@
+// Utils/_animations.scss
+// Animation utilities, timing functions, and transition helpers
+
+// Animation timing presets (in ms)
+$animation-duration-fast: 150ms;
+$animation-duration-medium: 300ms;
+$animation-duration-slow: 500ms;
+
+// Common easing functions
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+$ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+
+// Standard transition preset
+@mixin standard-transition(
+	$properties: all,
+	$duration: $animation-duration-medium,
+	$easing: $ease-in-out
+) {
+	transition-property: $properties;
+	transition-duration: $duration;
+	transition-timing-function: $easing;
+}
+
+// Common animation patterns
+@mixin fade-in($duration: $animation-duration-medium, $easing: $ease-out) {
+	animation: fade-in $duration $easing;
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+}
+
+@mixin fade-out($duration: $animation-duration-medium, $easing: $ease-in) {
+	animation: fade-out $duration $easing;
+
+	@keyframes fade-out {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+}
+
+@mixin slide-in-up($duration: $animation-duration-medium, $easing: $ease-out, $distance: 20px) {
+	animation: slide-in-up $duration $easing;
+
+	@keyframes slide-in-up {
+		from {
+			opacity: 0;
+			transform: translateY($distance);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+// Helper for animate-on-scroll pattern
+@mixin animate-on-scroll($animation-name: 'fade-in', $threshold: 0.2) {
+	opacity: 0;
+
+	&.is-visible {
+		@if $animation-name == 'fade-in' {
+			@include fade-in;
+		} @else if $animation-name == 'slide-in-up' {
+			@include slide-in-up;
+		} @else if $animation-name == 'fade-out' {
+			@include fade-out;
+		} @else {
+			// Default fallback
+			animation: #{$animation-name} $animation-duration-medium $ease-out forwards;
+		}
+	}
+}
+
+// Reduced motion preference support
+@mixin reduced-motion-preference {
+	@media (prefers-reduced-motion: reduce) {
+		transition: none !important;
+		animation: none !important;
+	}
+}

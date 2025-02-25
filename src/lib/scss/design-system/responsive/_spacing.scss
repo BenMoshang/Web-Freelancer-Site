@@ -1,0 +1,129 @@
+// Responsive/_spacing.scss
+// Define responsive spacing utilities using fluid values with clamp()
+@use 'sass:map';
+@use '../utils/math/responsive-functions' as rf;
+@use '../base/global-variables' as gv;
+
+// Import spacing token values
+@use '../tokens/spacing' as tokens;
+
+// Fluid spacing mixin using create-clamp function
+@mixin fluid-space($min-size, $max-size, $min-viewport: 20rem, $max-viewport: gv.$PAGE_MAX_INLINE) {
+	@return rf.create-clamp($min-size, $max-size, $min-viewport, $max-viewport);
+}
+
+// Function to get spacing value based on t-shirt size
+@function get-space-value($size) {
+	@if not map-has-key(tokens.$spacing-t-shirt, $size) {
+		@error "Size '#{$size}' not found in spacing t-shirt sizes.";
+	}
+	@return map-get(tokens.$spacing-t-shirt, $size);
+}
+
+// Fluid responsive padding
+@mixin responsive-padding($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-x($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-left: fluid-space($min-value, $base-value);
+	padding-right: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-y($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-top: fluid-space($min-value, $base-value);
+	padding-bottom: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-top($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-top: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-bottom($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-bottom: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-left($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-left: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-padding-right($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	padding-right: fluid-space($min-value, $base-value);
+}
+
+// Fluid responsive margin
+@mixin responsive-margin($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	margin: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-margin-x($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	margin-left: fluid-space($min-value, $base-value);
+	margin-right: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-margin-y($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	margin-top: fluid-space($min-value, $base-value);
+	margin-bottom: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-margin-top($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	margin-top: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-margin-bottom($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	margin-bottom: fluid-space($min-value, $base-value);
+}
+
+@mixin responsive-gap($size: 'md', $min-size-modifier: 0.5) {
+	$base-value: get-space-value($size);
+	$min-value: $base-value * $min-size-modifier;
+
+	gap: fluid-space($min-value, $base-value);
+}
+
+// Custom fluid spacing with explicit min and max values
+@mixin custom-fluid-spacing(
+	$property,
+	$min-size,
+	$max-size,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	#{$property}: fluid-space($min-size, $max-size, $min-viewport, $max-viewport);
+}

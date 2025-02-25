@@ -1,0 +1,108 @@
+// Mapped/_cards.scss
+// Define component-specific variables using theme-based approach
+
+// Import tokens and aliases
+@use '../../tokens/colors' as colors;
+@use '../../alias/borders' as borders;
+@use '../../alias/spacing' as spacing;
+@use '../../alias/typography' as typography;
+@use '../../alias/themes/themes' as themes;
+
+// Card variants
+$card-variants: (
+	'default': (
+		'background': themes.theme('background', 'primary'),
+		'border': themes.theme('border', 'default'),
+		'header-bg': transparent,
+		'header-text': themes.theme('text', 'primary'),
+		'title-text': themes.theme('text', 'primary'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'primary': (
+		'background': rgba(themes.theme('accent', 'primary'), 0.1),
+		'border': rgba(themes.theme('accent', 'primary'), 0.3),
+		'header-bg': rgba(themes.theme('accent', 'primary'), 0.1),
+		'header-text': themes.theme('accent', 'tertiary'),
+		'title-text': themes.theme('accent', 'primary'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'secondary': (
+		'background': rgba(themes.theme('accent', 'secondary'), 0.1),
+		'border': rgba(themes.theme('accent', 'secondary'), 0.3),
+		'header-bg': rgba(themes.theme('accent', 'secondary'), 0.1),
+		'header-text': themes.theme('accent', 'tertiary'),
+		'title-text': themes.theme('accent', 'secondary'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'info': (
+		'background': rgba(themes.theme('status', 'info'), 0.1),
+		'border': rgba(themes.theme('status', 'info'), 0.3),
+		'header-bg': transparent,
+		'header-text': themes.theme('text', 'primary'),
+		'title-text': themes.theme('status', 'info'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'success': (
+		'background': rgba(themes.theme('status', 'success'), 0.1),
+		'border': rgba(themes.theme('status', 'success'), 0.3),
+		'header-bg': transparent,
+		'header-text': themes.theme('text', 'primary'),
+		'title-text': themes.theme('status', 'success'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'warning': (
+		'background': rgba(themes.theme('status', 'warning'), 0.1),
+		'border': rgba(themes.theme('status', 'warning'), 0.3),
+		'header-bg': transparent,
+		'header-text': themes.theme('text', 'primary'),
+		'title-text': themes.theme('status', 'warning'),
+		'content-text': themes.theme('text', 'secondary')
+	),
+	'error': (
+		'background': rgba(themes.theme('status', 'error'), 0.1),
+		'border': rgba(themes.theme('status', 'error'), 0.3),
+		'header-bg': transparent,
+		'header-text': themes.theme('text', 'primary'),
+		'title-text': themes.theme('status', 'error'),
+		'content-text': themes.theme('text', 'secondary')
+	)
+);
+
+// Card states
+$card-states: (
+	'default': (
+		'background': themes.theme('background', 'primary'),
+		'border': themes.theme('border', 'default')
+	),
+	'hover': (
+		'background': themes.theme('background', 'primary'),
+		'border': themes.theme('border', 'hover')
+	),
+	'active': (
+		'background': themes.theme('background', 'primary'),
+		'border': themes.theme('accent', 'primary')
+	),
+	'disabled': (
+		'background': themes.theme('background', 'secondary'),
+		'border': themes.theme('border', 'default')
+	)
+);
+
+// Card footer
+$card-footer: (
+	'default': themes.theme('background', 'secondary'),
+	'primary': rgba(themes.theme('accent', 'primary'), 0.1),
+	'secondary': rgba(themes.theme('accent', 'secondary'), 0.1)
+);
+
+// Card properties
+$card-border-radius: map-get(borders.$component-border-radius, 'card');
+$card-border-width: map-get(borders.$component-border-width, 'card');
+
+// Card spacing
+$card-spacing: (
+	'sm': map-get(spacing.$spacing, 'sm'),
+	'md': map-get(spacing.$spacing, 'md'),
+	'lg': map-get(spacing.$spacing, 'lg'),
+	'content-gap': map-get(spacing.$spacing, 'sm')
+);

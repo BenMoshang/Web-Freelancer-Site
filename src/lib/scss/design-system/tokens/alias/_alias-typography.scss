@@ -1,0 +1,75 @@
+// Alias/_typography.scss
+// Define role-based typography variables
+
+// Import tokens if needed
+@use '../tokens/typography' as tokens;
+@use 'sass:map';
+
+// Font family aliases
+$font-family: (
+	'primary': map.get(tokens.$font-family-base, 'sans'),
+	'secondary': map.get(tokens.$font-family-base, 'serif'),
+	'code': map.get(tokens.$font-family-base, 'mono')
+);
+
+// Font sizes by purpose
+$font-size: (
+	// Headings
+	'heading': (
+			'h1': map.get(tokens.$font-size, '4xl'),
+			'h2': map.get(tokens.$font-size, '3xl'),
+			'h3': map.get(tokens.$font-size, '2xl'),
+			'h4': map.get(tokens.$font-size, 'xl'),
+			'h5': map.get(tokens.$font-size, 'lg'),
+			'h6': map.get(tokens.$font-size, 'md')
+		),
+
+	// Body text
+	'body': (
+			'lg': map.get(tokens.$font-size, 'lg'),
+			'md': map.get(tokens.$font-size, 'md'),
+			'sm': map.get(tokens.$font-size, 'sm')
+		),
+
+	// Display text (for hero sections, etc.)
+	'display': (
+			'lg': map.get(tokens.$font-size, '7xl'),
+			'md': map.get(tokens.$font-size, '6xl'),
+			'sm': map.get(tokens.$font-size, '5xl')
+		),
+
+	// Labels
+	'label': (
+			'lg': map.get(tokens.$font-size, 'md'),
+			'md': map.get(tokens.$font-size, 'sm'),
+			'sm': map.get(tokens.$font-size, 'xs')
+		),
+
+	// Buttons
+	'button': (
+			'lg': map.get(tokens.$font-size, 'md'),
+			'md': map.get(tokens.$font-size, 'sm'),
+			'sm': map.get(tokens.$font-size, 'xs')
+		)
+);
+
+// Font weight aliases
+$font-weight: (
+	'regular': map.get(tokens.$font-weight, 'regular'),
+	'medium': map.get(tokens.$font-weight, 'medium'),
+	'bold': map.get(tokens.$font-weight, 'bold')
+);
+
+// Line height aliases
+$line-height: (
+	'tight': map.get(tokens.$line-height, 'tight'),
+	'normal': map.get(tokens.$line-height, 'normal'),
+	'relaxed': map.get(tokens.$line-height, 'relaxed')
+);
+
+// Letter spacing aliases
+$letter-spacing: (
+	'normal': map.get(tokens.$letter-spacing, 'normal'),
+	'wide': map.get(tokens.$letter-spacing, 'wide'),
+	'tight': map.get(tokens.$letter-spacing, 'tight')
+);

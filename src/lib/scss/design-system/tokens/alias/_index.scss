@@ -1,0 +1,8 @@
+// Alias/_index.scss
+// Import all alias files
+@forward 'borders';
+@forward 'colors';
+@forward 'spacing';
+@forward 'typography';
+
+@forward 'themes/themes';

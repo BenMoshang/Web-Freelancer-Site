@@ -1,0 +1,28 @@
+// Tokens/_gradient.scss
+// Define gradient values for use throughout the design system
+
+// Base radial gradient definitions with 4 colors
+$gradient-values: (
+	'primary': radial-gradient(circle, #4a90e2, #5a5de8, #7a4fe0, #9340d8),
+	'secondary': radial-gradient(circle, #8e44ad, #6d5eb6, #4a78c0, #3498db),
+	'accent': radial-gradient(circle, #f39c12, #e67e22, #e74c3c, #c0392b),
+	'success': radial-gradient(circle, #2ecc71, #27ae60, #1e8449, #196f3d),
+	'warning': radial-gradient(circle, #f1c40f, #f39c12, #e67e22, #d35400),
+	'error': radial-gradient(circle, #e74c3c, #d35400, #c0392b, #922b21),
+	'neutral': radial-gradient(circle, #ecf0f1, #bdc3c7, #95a5a6, #7f8c8d),
+	'dark': radial-gradient(circle, #2c3e50, #34495e, #2c3e50, #1a1a1a),
+	'light': radial-gradient(circle, #ffffff, #f5f5f5, #ecf0f1, #bdc3c7)
+);
+
+// Radial gradient position variations
+$gradient-positions: (
+	'center': circle at center,
+	'top-left': circle at top left,
+	'top-right': circle at top right,
+	'bottom-left': circle at bottom left,
+	'bottom-right': circle at bottom right,
+	'top-center': circle at top center,
+	'bottom-center': circle at bottom center,
+	'left-center': circle at left center,
+	'right-center': circle at right center
+);

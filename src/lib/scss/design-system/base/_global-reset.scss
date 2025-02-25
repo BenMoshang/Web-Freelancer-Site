@@ -1,0 +1,117 @@
+@use '../abstracts/colors/colors-functions' as cf;
+@use 'global-variables' as gv;
+
+/* --------------------------------------
+	 BASE LAYER
+	 - Global element-level styles.
+
+  --------------------------------------- */
+:global(*),
+:global(*::before),
+:global(*::after) {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+::selection {
+	background: cf.get-light-dark('800', '800');
+	color: white;
+}
+
+:global(body) {
+	inline-size: 100%;
+	block-size: 100%;
+	font-smooth: always;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: clip;
+
+	// font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+	// 	Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	// line-height: 1.5;
+	scroll-behavior: smooth;
+	text-rendering: geometricprecision;
+
+	@media (min-width: gv.$MOBILE_BREAKPOINT) {
+		cursor: auto;
+	}
+}
+
+:global(html) {
+	inline-size: 100%;
+	min-block-size: 100svh;
+	background: cf.get-light-dark('page-background', 'page-background');
+	scrollbar-color: cf.get-light-dark('50', '900') cf.get-light-dark('500', '600');
+	scrollbar-width: thin;
+}
+
+/* Interactive Elements */
+:global(button),
+:global([role='button']),
+:global(select) {
+	cursor: pointer;
+	touch-action: manipulation;
+}
+
+/* Form Elements */
+:global(input),
+:global(button),
+:global(textarea),
+:global(select) {
+	font: inherit;
+}
+
+/* Typography */
+:global(p),
+:global(h1),
+:global(h2),
+:global(h3),
+:global(h4),
+:global(h5),
+:global(h6) {
+	overflow-wrap: break-word;
+}
+
+:global(textarea, input) {
+	font: inherit;
+	letter-spacing: inherit;
+	word-spacing: inherit;
+}
+
+/* =================================
+	Media Reset
+	================================= */
+
+:global(img),
+:global(picture),
+:global(video),
+:global(canvas),
+:global(svg) {
+	max-inline-size: 100%;
+	block-size: auto;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-style: italic;
+	shape-margin: 1rem;
+	vertical-align: middle;
+}
+
+/* Tables */
+:global(table) {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Blockquotes */
+:global(blockquote),
+:global(q) {
+	quotes: none;
+}
+
+:global(blockquote::before),
+:global(blockquote::after),
+:global(q::before),
+:global(q::after) {
+	content: '';
+}

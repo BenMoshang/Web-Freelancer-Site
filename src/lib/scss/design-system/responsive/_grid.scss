@@ -1,0 +1,209 @@
+// Responsive/_grid.scss
+// Define responsive grid system with fluid container widths
+@use 'sass:map';
+@use 'sass:math';
+@use '../responsive/breakpoints' as bp;
+@use '../utils/math/responsive-functions' as rf;
+@use '../base/global-variables' as gv;
+@use '../tokens/spacing' as spacing;
+
+// Grid variables for 12 column design grid
+$grid-columns: 12 !default;
+$grid-gutter: map-get(spacing.$spacing-t-shirt, 'md') !default;
+$grid-container-padding: map-get(spacing.$spacing-t-shirt, 'md') !default;
+
+// Container widths
+$container-max-widths: (
+	'sm': 33.75rem,
+	'md': 45rem,
+	'lg': 60rem,
+	'xl': 71.25rem,
+	'xxl': 82.5rem
+) !default;
+
+// Function to create fluid container width
+@function fluid-container-width(
+	$min-width,
+	$max-width,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	@return rf.create-clamp($min-width, $max-width, $min-viewport, $max-viewport);
+}
+
+// Container base styles
+@mixin container-base {
+	width: 100%;
+	// Use fluid padding that scales with viewport
+	padding-inline: rf.create-clamp(
+		map-get(spacing.$spacing-t-shirt, 'xs'),
+		$grid-container-padding,
+		20rem,
+		gv.$PAGE_MAX_INLINE
+	);
+	margin-inline: auto;
+}
+
+// Container with fluid max-width
+@mixin container-fluid {
+	@include container-base;
+	// Optional: Add max-width to prevent extreme widths on ultra-wide screens
+	max-width: 100%;
+}
+
+// Modern fluid container that scales smoothly between breakpoints
+@mixin container {
+	@include container-base;
+
+	// Calculate fluid width between small and medium
+	@include bp.media-min('sm') {
+		max-width: fluid-container-width(
+			map-get($container-max-widths, 'sm'),
+			map-get($container-max-widths, 'md'),
+			map-get(bp.$breakpoints, 'sm'),
+			map-get(bp.$breakpoints, 'md')
+		);
+	}
+
+	// Calculate fluid width between medium and large
+	@include bp.media-min('md') {
+		max-width: fluid-container-width(
+			map-get($container-max-widths, 'md'),
+			map-get($container-max-widths, 'lg'),
+			map-get(bp.$breakpoints, 'md'),
+			map-get(bp.$breakpoints, 'lg')
+		);
+	}
+
+	// Calculate fluid width between large and xlarge
+	@include bp.media-min('lg') {
+		max-width: fluid-container-width(
+			map-get($container-max-widths, 'lg'),
+			map-get($container-max-widths, 'xl'),
+			map-get(bp.$breakpoints, 'lg'),
+			map-get(bp.$breakpoints, 'xl')
+		);
+	}
+
+	// Calculate fluid width between xlarge and xxlarge
+	@include bp.media-min('xl') {
+		max-width: fluid-container-width(
+			map-get($container-max-widths, 'xl'),
+			map-get($container-max-widths, 'xxl'),
+			map-get(bp.$breakpoints, 'xl'),
+			map-get(bp.$breakpoints, 'xxl')
+		);
+	}
+
+	// Max width at xxlarge
+	@include bp.media-min('xxl') {
+		max-width: map-get($container-max-widths, 'xxl');
+	}
+}
+
+// Fluid container with max width at specific breakpoint range
+@mixin container-breakpoint($min-breakpoint, $max-breakpoint) {
+	@include container-base;
+
+	@if (
+		map.has-key($container-max-widths, $min-breakpoint) and
+			map.has-key($container-max-widths, $max-breakpoint)
+	) {
+		@include bp.media-min($min-breakpoint) {
+			max-width: fluid-container-width(
+				map-get($container-max-widths, $min-breakpoint),
+				map-get($container-max-widths, $max-breakpoint),
+				map-get(bp.$breakpoints, $min-breakpoint),
+				map-get(bp.$breakpoints, $max-breakpoint)
+			);
+		}
+	} @else {
+		@error "Invalid breakpoint: #{$min-breakpoint} or #{$max-breakpoint}. Available breakpoints: #{map.keys($container-max-widths)}";
+	}
+}
+
+// Fluid gutter sizing for rows
+@mixin fluid-gutter($min-gutter: $grid-gutter * 0.5, $max-gutter: $grid-gutter) {
+	@return rf.create-clamp($min-gutter, $max-gutter, 20rem, gv.$PAGE_MAX_INLINE);
+}
+
+// Row for grid system with fluid gutters
+@mixin row($use-fluid-gutter: true) {
+	display: flex;
+	flex-wrap: wrap;
+
+	@if $use-fluid-gutter {
+		$gutter: fluid-gutter();
+		margin-inline: calc(#{$gutter} / -2);
+	} @else {
+		margin-inline: calc(#{$grid-gutter} / -2);
+	}
+}
+
+// Column for grid system with fluid gutters
+@mixin column($use-fluid-gutter: true) {
+	position: relative;
+	width: 100%;
+
+	@if $use-fluid-gutter {
+		$gutter: fluid-gutter();
+		padding-inline: calc(#{$gutter} / 2);
+	} @else {
+		padding-inline: calc(#{$grid-gutter} / 2);
+	}
+}
+
+// Column width
+@mixin column-width($size, $columns: $grid-columns) {
+	$width: percentage(math.div($size, $columns));
+	flex: 0 0 $width;
+	max-width: $width;
+}
+
+// Responsive column width
+@mixin column-responsive($breakpoint, $size, $columns: $grid-columns) {
+	@include bp.media-min($breakpoint) {
+		@include column-width($size, $columns);
+	}
+}
+
+// Responsive columns equal width
+@mixin columns-equal {
+	flex: 1 1 0;
+	max-width: 100%;
+}
+
+// Responsive column auto width
+@mixin column-auto {
+	flex: 0 0 auto;
+	width: auto;
+	max-width: 100%;
+}
+
+// Responsive column offset
+@mixin column-offset($size, $columns: $grid-columns) {
+	margin-left: percentage(math.div($size, $columns));
+}
+
+// CSS Grid layout with fluid gap
+@mixin css-grid($columns: 12, $use-fluid-gap: true) {
+	display: grid;
+	grid-template-columns: repeat($columns, 1fr);
+
+	@if $use-fluid-gap {
+		gap: fluid-gutter();
+	} @else {
+		gap: $grid-gutter;
+	}
+}
+
+// Responsive grid container with named template areas
+@mixin grid-template-areas($areas...) {
+	display: grid;
+	grid-template-areas: $areas;
+}
+
+// Responsive grid area assignment
+@mixin grid-area($area) {
+	grid-area: $area;
+}

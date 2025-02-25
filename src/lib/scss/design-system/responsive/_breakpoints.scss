@@ -1,0 +1,87 @@
+// Responsive/_breakpoints.scss
+// Define responsive breakpoint variables and mixins
+@use 'sass:map';
+$breakpoints: (
+	'2xs': 0,
+	'xs': 20rem,
+	// Extra small devices (portrait phones)
+	'sm': 29.6875rem,
+	// Small devices (landscape phones)
+	'md': 48rem,
+	// Medium devices (tablets)
+	'lg': 64rem,
+	// Large devices (desktops)
+	'xl': 80rem,
+	// Extra large devices (large desktops)
+	'xxl': 90rem // Extra extra large devices
+);
+/*===============================================
+Media queries mixins
+===============================================*/
+@mixin media-min($breakpoint) {
+	@if map.has-key($breakpoints, $breakpoint) {
+		$min-width: map.get($breakpoints, $breakpoint);
+		@media (min-width: $min-width) {
+			@content;
+		}
+	} @else {
+		@error "Invalid breakpoint: #{$breakpoint}. Available breakpoints: #{map.keys($breakpoints)}";
+	}
+}
+
+// Media query mixins for max-width (desktop first approach)
+@mixin media-max($breakpoint) {
+	@if map.has-key($breakpoints, $breakpoint) {
+		$max-width: map.get($breakpoints, $breakpoint) - 0.02;
+		@media (max-width: $max-width) {
+			@content;
+		}
+	} @else {
+		@error "Invalid breakpoint: #{$breakpoint}. Available breakpoints: #{map.keys($breakpoints)}";
+	}
+}
+
+// Media query for specific range
+@mixin media-between($min-breakpoint, $max-breakpoint) {
+	@if map.has-key($breakpoints, $min-breakpoint) and map.has-key($breakpoints, $max-breakpoint) {
+		$min-width: map.get($breakpoints, $min-breakpoint);
+		$max-width: map.get($breakpoints, $max-breakpoint) - 0.02;
+		@media (min-width: $min-width) and (max-width: $max-width) {
+			@content;
+		}
+	} @else {
+		@error "Invalid breakpoint: #{$min-breakpoint} or #{$max-breakpoint}. Available breakpoints: #{map.keys($breakpoints)}";
+	}
+}
+
+// Shorthand mixins for common device ranges
+@mixin for-mobile-only {
+	@include media-max(sm) {
+		@content;
+	}
+}
+
+@mixin for-tablet-only {
+	@include media-between(sm, lg) {
+		@content;
+	}
+}
+
+@mixin for-desktop-only {
+	@include media-min(lg) {
+		@content;
+	}
+}
+
+// Orientation mixins
+@mixin for-portrait {
+	@media (orientation: portrait) {
+		@content;
+	}
+}
+
+@mixin for-landscape {
+	@media (orientation: landscape) {
+		@content;
+	}
+}

@@ -1,0 +1,107 @@
+// Alias/_colors.scss
+// Define role-based color variables
+
+// Import tokens if needed
+@use '../tokens/colors' as tokens;
+@use 'sass:map';
+
+// Color role maps
+$primary: (
+	'darkest': map.get($color-blue, 900),
+	'darker': map.get($color-blue, 800),
+	'dark': map.get($color-blue, 700),
+	'default': map.get($color-blue, 500),
+	'light': map.get($color-blue, 300),
+	'lighter': map.get($color-blue, 200),
+	'lightest': map.get($color-blue, 100)
+);
+
+$secondary: (
+	'darkest': map.get($color-green, 900),
+	'darker': map.get($color-green, 800),
+	'dark': map.get($color-green, 700),
+	'default': map.get($color-green, 500),
+	'light': map.get($color-green, 300),
+	'lighter': map.get($color-green, 200),
+	'lightest': map.get($color-green, 100)
+);
+
+$error: (
+	'darkest': map.get($color-red, 900),
+	'darker': map.get($color-red, 800),
+	'dark': map.get($color-red, 700),
+	'default': map.get($color-red, 500),
+	'light': map.get($color-red, 300),
+	'lighter': map.get($color-red, 200),
+	'lightest': map.get($color-red, 100)
+);
+
+$success: (
+	'darkest': map.get($color-green, 900),
+	'darker': map.get($color-green, 800),
+	'dark': map.get($color-green, 700),
+	'default': map.get($color-green, 500),
+	'light': map.get($color-green, 300),
+	'lighter': map.get($color-green, 200),
+	'lightest': map.get($color-green, 100)
+);
+
+$warning: (
+	'darkest': map.get($color-yellow, 900),
+	'darker': map.get($color-yellow, 800),
+	'dark': map.get($color-yellow, 700),
+	'default': map.get($color-yellow, 500),
+	'light': map.get($color-yellow, 300),
+	'lighter': map.get($color-yellow, 200),
+	'lightest': map.get($color-yellow, 100)
+);
+
+$information: (
+	'darkest': map.get($color-blue, 900),
+	'darker': map.get($color-blue, 800),
+	'dark': map.get($color-blue, 700),
+	'default': map.get($color-blue, 500),
+	'light': map.get($color-blue, 300),
+	'lighter': map.get($color-blue, 200),
+	'lightest': map.get($color-blue, 100)
+);
+
+$neutral: (
+	'darkest': map.get($color-gray, 900),
+	'darker': map.get($color-gray, 800),
+	'dark': map.get($color-gray, 700),
+	'default': map.get($color-gray, 500),
+	'light': map.get($color-gray, 300),
+	'lighter': map.get($color-gray, 200),
+	'lightest': map.get($color-gray, 100)
+);
+
+$highlight: (
+	'darkest': map.get($color-blue, 900),
+	'darker': map.get($color-blue, 800),
+	'dark': map.get($color-blue, 700),
+	'default': map.get($color-blue, 400),
+	'light': map.get($color-blue, 300),
+	'lighter': map.get($color-blue, 200),
+	'lightest': map.get($color-blue, 100)
+);
+
+$feedback: (
+	'darkest': map.get($color-gray, 900),
+	'darker': map.get($color-gray, 800),
+	'dark': map.get($color-gray, 700),
+	'default': map.get($color-gray, 500),
+	'light': map.get($color-gray, 300),
+	'lighter': map.get($color-gray, 200),
+	'lightest': map.get($color-gray, 100)
+);
+
+$action: (
+	'darkest': map.get($color-blue, 900),
+	'darker': map.get($color-blue, 800),
+	'dark': map.get($color-blue, 700),
+	'default': map.get($color-blue, 600),
+	'light': map.get($color-blue, 400),
+	'lighter': map.get($color-blue, 300),
+	'lightest': map.get($color-blue, 200)
+);

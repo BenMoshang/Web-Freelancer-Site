@@ -1,0 +1,69 @@
+// Tokens/_spacing.scss
+// Define raw spacing values with numeric scales and T-shirt sizes
+
+// Base unit (4px or 0.25rem)
+$spacing-base: 0.25rem;
+
+// Numeric scale
+$spacing-numeric: (
+	0: 0,
+	1: $spacing-base * 1,
+	// 0.25rem - 4px
+	2: $spacing-base * 2,
+	// 0.5rem - 8px
+	3: $spacing-base * 3,
+	// 0.75rem - 12px
+	4: $spacing-base * 4,
+	// 1rem - 16px
+	5: $spacing-base * 5,
+	// 1.25rem - 20px
+	6: $spacing-base * 6,
+	// 1.5rem - 24px
+	8: $spacing-base * 8,
+	// 2rem - 32px
+	10: $spacing-base * 10,
+	// 2.5rem - 40px
+	12: $spacing-base * 12,
+	// 3rem - 48px
+	16: $spacing-base * 16,
+	// 4rem - 64px
+	20: $spacing-base * 20,
+	// 5rem - 80px
+	24: $spacing-base * 24,
+	// 6rem - 96px
+	32: $spacing-base * 32,
+	// 8rem - 128px
+	40: $spacing-base * 40,
+	// 10rem - 160px
+	48: $spacing-base * 48,
+	// 12rem - 192px
+	56: $spacing-base * 56,
+	// 14rem - 224px
+	64: $spacing-base * 64 // 16rem - 256px
+);
+
+// T-shirt sizes
+$spacing-t-shirt: (
+	'2xs': map-get($spacing-numeric, 2),
+	// 0.5rem - 8px
+	'xs': map-get($spacing-numeric, 4),
+	// 1rem - 16px
+	'sm': map-get($spacing-numeric, 6),
+	// 1.5rem - 24px
+	'md': map-get($spacing-numeric, 8),
+	// 2rem - 32px
+	'lg': map-get($spacing-numeric, 12),
+	// 3rem - 48px
+	'xl': map-get($spacing-numeric, 16),
+	// 4rem - 64px
+	'2xl': map-get($spacing-numeric, 24) // 6rem - 96px
+);
+
+// Responsive spacing modifiers (can be used with breakpoints)
+$spacing-responsive-modifiers: (
+	'mobile': 0.75,
+	// 75% of base spacing on mobile
+	'tablet': 0.875,
+	// 87.5% of base spacing on tablet
+	'desktop': 1 // 100% of base spacing on desktop
+);

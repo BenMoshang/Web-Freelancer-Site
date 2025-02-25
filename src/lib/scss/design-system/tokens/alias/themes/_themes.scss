@@ -1,0 +1,128 @@
+// Themes/_themes.scss
+// Define theme-based variables for light and dark modes
+
+@use '../../tokens/colors' as colors;
+
+// Light theme colors
+$light-theme: (
+	'background': (
+		'primary': colors.$color-white,
+		'secondary': map-get(colors.$color-gray, 50),
+		'tertiary': map-get(colors.$color-gray, 100)
+	),
+	'text': (
+		'primary': map-get(colors.$color-gray, 900),
+		'secondary': map-get(colors.$color-gray, 700),
+		'tertiary': map-get(colors.$color-gray, 600),
+		'disabled': map-get(colors.$color-gray, 400)
+	),
+	'border': (
+		'default': map-get(colors.$color-gray, 200),
+		'focus': map-get(colors.$color-blue, 500),
+		'hover': map-get(colors.$color-gray, 300)
+	),
+	'accent': (
+		'primary': map-get(colors.$color-blue, 500),
+		'secondary': map-get(colors.$color-blue, 600),
+		'tertiary': map-get(colors.$color-blue, 700)
+	),
+	'status': (
+		'success': map-get(colors.$color-green, 500),
+		'warning': map-get(colors.$color-yellow, 500),
+		'error': map-get(colors.$color-red, 500),
+		'info': map-get(colors.$color-blue, 500)
+	)
+);
+
+// Dark theme colors
+$dark-theme: (
+	'background': (
+		'primary': map-get(colors.$color-gray, 950),
+		'secondary': map-get(colors.$color-gray, 900),
+		'tertiary': map-get(colors.$color-gray, 800)
+	),
+	'text': (
+		'primary': colors.$color-white,
+		'secondary': map-get(colors.$color-gray, 300),
+		'tertiary': map-get(colors.$color-gray, 400),
+		'disabled': map-get(colors.$color-gray, 600)
+	),
+	'border': (
+		'default': map-get(colors.$color-gray, 700),
+		'focus': map-get(colors.$color-blue, 400),
+		'hover': map-get(colors.$color-gray, 600)
+	),
+	'accent': (
+		'primary': map-get(colors.$color-blue, 400),
+		'secondary': map-get(colors.$color-blue, 300),
+		'tertiary': map-get(colors.$color-blue, 200)
+	),
+	'status': (
+		'success': map-get(colors.$color-green, 400),
+		'warning': map-get(colors.$color-yellow, 400),
+		'error': map-get(colors.$color-red, 400),
+		'info': map-get(colors.$color-blue, 400)
+	)
+);
+
+// Default theme setting
+$current-theme: $dark-theme !default;
+
+// Function to get theme value
+@function theme($category, $key) {
+	@return map-get(map-get($current-theme, $category), $key);
+}
+
+// Mixin to apply theme-specific styles
+@mixin theme($theme-name) {
+	@if $theme-name == 'light' {
+		@media (prefers-color-scheme: light) {
+			:root:not([data-theme='dark']) & {
+				@content;
+			}
+		}
+		[data-theme='light'] & {
+			@content;
+		}
+	} @else if $theme-name == 'dark' {
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme='light']) & {
+				@content;
+			}
+		}
+		[data-theme='dark'] & {
+			@content;
+		}
+	} @else {
+		[data-theme='#{$theme-name}'] & {
+			@content;
+		}
+	}
+}
+
+// Mixin for adaptive colors that work in both light and dark themes
+@mixin adaptive-color($property, $category, $key) {
+	@include theme('light') {
+		#{$property}: map-get(map-get($light-theme, $category), $key);
+	}
+	@include theme('dark') {
+		#{$property}: map-get(map-get($dark-theme, $category), $key);
+	}
+}
+
+// Alternative adaptive color mixin with direct values
+@mixin adaptive-value($property, $light-value, $dark-value) {
+	@include theme('light') {
+		#{$property}: $light-value;
+	}
+	@include theme('dark') {
+		#{$property}: $dark-value;
+	}
+}
+
+// High contrast theme mixin for accessibility
+@mixin high-contrast-theme {
+	[data-theme='high-contrast'] & {
+		@content;
+	}
+}

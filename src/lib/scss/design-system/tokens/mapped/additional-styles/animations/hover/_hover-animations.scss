@@ -1,0 +1,107 @@
+@use 'sass:map';
+@use '../../../abstracts/colors/colors-functions' as cf;
+
+/* =============================================
+=          TEXT HOVER Animations            =
+============================================= */
+// Common variables for hover effects
+
+@mixin hover-effect {
+	$hover-duration: 0.3s;
+	$hover-timing: cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	transition: all $hover-duration $hover-timing;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: currentcolor;
+		transform: translateY(10px);
+		transition: all $hover-duration $hover-timing;
+		filter: blur(0.9375rem);
+		opacity: 0;
+	}
+
+	&:hover,
+	&:focus-visible {
+		transform: translateY(-2px);
+
+		&::before {
+			transform: translateY(0);
+			opacity: 0.15;
+		}
+	}
+
+	&:active {
+		transform: translateY(1px);
+
+		&::before {
+			transform: translateY(0);
+			opacity: 0.25;
+		}
+	}
+}
+
+@mixin button-effect {
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: white;
+		transform: scaleX(0);
+		transition: transform 0.3s ease;
+		mix-blend-mode: difference;
+		transform-origin: center;
+	}
+
+	&:hover,
+	&:focus-visible {
+		&::before {
+			transform: scaleX(1.05);
+		}
+	}
+
+	&:active {
+		&::before {
+			transform: scaleX(0.95);
+		}
+	}
+}
+
+@mixin link-effect {
+	position: relative;
+	text-decoration: none;
+	transition: color 0.3s ease;
+
+	// Underline effect on hover/focus
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -0.25rem;
+		left: 0;
+		width: 0;
+		height: 0.125rem;
+		background: cf.get-light-dark('900', '50');
+		transition: width 0.3s ease;
+	}
+
+	&:active,
+	&:hover,
+	&:focus {
+		color: cf.get-light-dark('900', '50');
+		transform: translateY(-0.125rem);
+
+		&::after {
+			width: 100%;
+		}
+
+		&:active {
+			transform: translateY(0);
+		}
+	}
+}

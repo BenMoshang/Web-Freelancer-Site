@@ -1,0 +1,65 @@
+// Utils/_functions.scss
+// Helper functions for color manipulation, math, etc.
+@use '../tokens/alias/themes/themes' as themes;
+
+// Color manipulation functions
+
+// Safely get a color from a map
+@function get-color($map, $key, $fallback: null) {
+	@if map-has-key($map, $key) {
+		@return map-get($map, $key);
+	}
+	@if $fallback {
+		@return $fallback;
+	}
+	@error "Color '#{$key}' not found in map.";
+}
+
+// Convert a hex color to rgb values
+@function hex-to-rgb($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
+
+// Create a rgba color with opacity
+@function color-with-opacity($color, $opacity: 1) {
+	@return rgba($color, $opacity);
+}
+
+// Mathematical helper functions
+
+// Safely convert px to rem
+@function px-to-rem($px, $base-font-size: 16px) {
+	$px: if(unitless($px), $px * 1px, $px);
+	$base-font-size: if(unitless($base-font-size), $base-font-size * 1px, $base-font-size);
+	@return ($px / $base-font-size) * 1rem;
+}
+
+// Calculate a responsive value using clamp
+@function responsive-value($min-value, $max-value, $min-width: 320px, $max-width: 1200px) {
+	$slope: ($max-value - $min-value) / ($max-width - $min-width);
+	$y-axis-intersection: -1 * $min-width * $slope + $min-value;
+
+	@return clamp(#{$min-value}, #{$y-axis-intersection} + #{$slope} * 100vw, #{$max-value});
+}
+
+// Get a value from a map safely
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		@if not map-has-key($map, $key) {
+			@error "Map has no key '#{$key}'";
+			@return null;
+		}
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+
+// Calculate spacing for consistent vertical rhythm
+@function vertical-rhythm($lines: 1, $line-height: $line-height-normal, $font-size: $body-medium) {
+	@return $lines * $line-height * $font-size;
+}
+
+// Calculate aspect ratio (e.g., 16:9)
+@function aspect-ratio($width, $height) {
+	@return percentage($height / $width);
+}

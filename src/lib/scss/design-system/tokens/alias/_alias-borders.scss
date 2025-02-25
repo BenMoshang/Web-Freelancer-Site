@@ -1,0 +1,51 @@
+// Alias/_borders.scss
+// Define role-based border variables
+
+// Import tokens if needed
+@use '../tokens/borders' as tokens;
+@use 'sass:map';
+
+// Border width aliases
+$border-width: (
+	'none': map.get($border-width, 'none'),
+	'thin': map.get($border-width, 'hairline'),
+	'medium': map.get($border-width, 'thin'),
+	'thick': map.get($border-width, 'medium')
+);
+
+// Border radius aliases
+$border-radius: (
+	'none': map.get($border-radius, 'none'),
+	'sm': map.get($border-radius, 'small'),
+	'md': map.get($border-radius, 'medium'),
+	'lg': map.get($border-radius, 'large'),
+	'xl': map.get($border-radius, 'x-large'),
+	'full': map.get($border-radius, 'full')
+);
+
+// Border style aliases
+$border-style: (
+	'solid': map.get($border-style, 'solid'),
+	'dashed': map.get($border-style, 'dashed'),
+	'dotted': map.get($border-style, 'dotted'),
+	'none': map.get($border-style, 'none')
+);
+
+// Component specific border radius
+$component-border-radius: (
+	'button': map.get($border-radius, 'md'),
+	'card': map.get($border-radius, 'md'),
+	'input': map.get($border-radius, 'sm'),
+	'badge': map.get($border-radius, 'full'),
+	'tooltip': map.get($border-radius, 'sm'),
+	'modal': map.get($border-radius, 'lg'),
+	'image': map.get($border-radius, 'md')
+);
+
+// Component specific border width
+$component-border-width: (
+	'button': map.get($border-width, 'thin'),
+	'card': map.get($border-width, 'thin'),
+	'input': map.get($border-width, 'thin'),
+	'divider': map.get($border-width, 'thin')
+);
