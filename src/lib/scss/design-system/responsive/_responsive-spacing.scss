@@ -1,4 +1,6 @@
-// Responsive/_spacing.scss
+// Responsive/_responsive-spacing.scss
+// Renamed from _spacing.scss
+
 // Define responsive spacing utilities using fluid values with clamp()
 @use 'sass:map';
 @use '../utils/math/responsive-functions' as rf;

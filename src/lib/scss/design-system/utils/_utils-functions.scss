@@ -15,11 +15,6 @@
 	@error "Color '#{$key}' not found in map.";
 }
 
-// Convert a hex color to rgb values
-@function hex-to-rgb($hex) {
-	@return red($hex), green($hex), blue($hex);
-}
-
 // Create a rgba color with opacity
 @function color-with-opacity($color, $opacity: 1) {
 	@return rgba($color, $opacity);

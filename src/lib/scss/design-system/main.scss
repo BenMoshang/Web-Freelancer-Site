@@ -1,5 +1,18 @@
+// Main entry point for the design system
+
+// Import base styles
 @forward 'base';
-@forward 'abstracts';
+
+// Import utils (for mixins and functions)
+@forward 'utils';
+
+// Import responsive utilities
+@forward 'responsive';
+// Import tokens first (raw design values)
+@forward 'tokens';
+/*=========================================
+=            View Transitions            =
+=========================================*/
 
 /* Enable view transitions for history navigations (push/replace) */
 @view-transition {

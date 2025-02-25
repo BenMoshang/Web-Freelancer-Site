@@ -1,0 +1,133 @@
+// Responsive/_responsive-typography.scss
+// Renamed from _typography.scss
+
+@use 'sass:map';
+@use '../utils/math/responsive-functions' as rf;
+@use '../base/global-variables' as gv;
+@use '../tokens/typography' as tokens;
+
+// Function to get font size from token map
+@function get-font-size($size) {
+	@if not map-has-key(tokens.$font-sizes, $size) {
+		@error "Font size '#{$size}' not found in $font-sizes map.";
+	}
+	@return map-get(tokens.$font-sizes, $size);
+}
+
+// Function to get line height from token map
+@function get-line-height($size) {
+	@if not map-has-key(tokens.$line-heights, $size) {
+		@error "Line height '#{$size}' not found in $line-heights map.";
+	}
+	@return map-get(tokens.$line-heights, $size);
+}
+
+// Fluid typography mixin using clamp()
+@mixin fluid-type(
+	$min-font-size,
+	$max-font-size,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	font-size: rf.create-clamp($min-font-size, $max-font-size, $min-viewport, $max-viewport);
+}
+
+// Responsive typography with size tokens
+@mixin responsive-type(
+	$size: 'md',
+	$min-size-modifier: 0.75,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	$base-size: get-font-size($size);
+	$min-size: $base-size * $min-size-modifier;
+
+	font-size: rf.create-clamp($min-size, $base-size, $min-viewport, $max-viewport);
+
+	// Set appropriate line height based on size
+	@if $size == 'xs' or $size == 'sm' {
+		line-height: get-line-height('tight');
+	} @else if $size == 'md' {
+		line-height: get-line-height('normal');
+	} @else {
+		line-height: get-line-height('loose');
+	}
+}
+
+// Heading styles with responsive sizing
+@mixin heading-1 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-bold;
+	@include responsive-type('3xl', 0.7);
+	margin-bottom: 0.5em;
+}
+
+@mixin heading-2 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-bold;
+	@include responsive-type('2xl', 0.75);
+	margin-bottom: 0.5em;
+}
+
+@mixin heading-3 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-semibold;
+	@include responsive-type('xl', 0.8);
+	margin-bottom: 0.5em;
+}
+
+@mixin heading-4 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-semibold;
+	@include responsive-type('lg', 0.85);
+	margin-bottom: 0.5em;
+}
+
+@mixin heading-5 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-medium;
+	@include responsive-type('md', 0.9);
+	margin-bottom: 0.5em;
+}
+
+@mixin heading-6 {
+	font-family: tokens.$font-family-heading;
+	font-weight: tokens.$font-weight-medium;
+	@include responsive-type('sm', 0.95);
+	margin-bottom: 0.5em;
+}
+
+// Body text styles
+@mixin body-large {
+	font-family: tokens.$font-family-body;
+	font-weight: tokens.$font-weight-normal;
+	@include responsive-type('lg', 0.85);
+}
+
+@mixin body-medium {
+	font-family: tokens.$font-family-body;
+	font-weight: tokens.$font-weight-normal;
+	@include responsive-type('md', 0.9);
+}
+
+@mixin body-small {
+	font-family: tokens.$font-family-body;
+	font-weight: tokens.$font-weight-normal;
+	@include responsive-type('sm', 0.95);
+}
+
+// Caption and label styles
+@mixin caption {
+	font-family: tokens.$font-family-body;
+	font-weight: tokens.$font-weight-normal;
+	@include responsive-type('xs', 1);
+	color: tokens.$text-color-secondary;
+}
+
+@mixin label {
+	font-family: tokens.$font-family-body;
+	font-weight: tokens.$font-weight-medium;
+	@include responsive-type('sm', 0.95);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}

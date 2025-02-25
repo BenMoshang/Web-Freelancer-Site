@@ -1,0 +1,85 @@
+// Responsive/_responsive-breakpoints.scss
+// Renamed from _breakpoints.scss
+
+@use 'sass:map';
+@use '../base/global-variables' as gv;
+
+// Breakpoint map with common screen sizes
+$breakpoints: (
+	'xs': 20rem,
+	// 320px
+	'sm': 36rem,
+	// 576px
+	'md': 48rem,
+	// 768px
+	'lg': 62rem,
+	// 992px
+	'xl': 75rem,
+	// 1200px
+	'xxl': 87.5rem // 1400px
+);
+
+// Function to get breakpoint value
+@function get-breakpoint($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@return map-get($breakpoints, $breakpoint);
+	} @else {
+		@error "Breakpoint '#{$breakpoint}' not found in $breakpoints map.";
+		@return null;
+	}
+}
+
+// Media query mixins
+@mixin media-breakpoint-up($breakpoint) {
+	$min-width: get-breakpoint($breakpoint);
+	@media (min-width: $min-width) {
+		@content;
+	}
+}
+
+@mixin media-breakpoint-down($breakpoint) {
+	$max-width: get-breakpoint($breakpoint);
+	@media (max-width: ($max-width - 0.0625rem)) {
+		@content;
+	}
+}
+
+@mixin media-breakpoint-between($lower, $upper) {
+	$min-width: get-breakpoint($lower);
+	$max-width: get-breakpoint($upper);
+	@media (min-width: $min-width) and (max-width: ($max-width - 0.0625rem)) {
+		@content;
+	}
+}
+
+// Container width mixins
+@mixin container {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 1rem);
+	padding-left: var(--container-padding, 1rem);
+	max-width: gv.$PAGE_MAX_INLINE;
+}
+
+@mixin container-fluid {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: var(--container-padding, 1rem);
+	padding-left: var(--container-padding, 1rem);
+}
+
+// Responsive width utilities
+@mixin responsive-width($min-width, $max-width) {
+	width: clamp($min-width, 100%, $max-width);
+}
+
+// Export breakpoint values as CSS variables
+@mixin export-breakpoints-as-css-vars {
+	:root {
+		@each $name, $value in $breakpoints {
+			--breakpoint-#{$name}: #{$value};
+		}
+	}
+}
