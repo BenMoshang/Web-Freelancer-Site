@@ -1,131 +1,181 @@
-// Responsive/_responsive-spacing.scss
-// Renamed from _spacing.scss
+/**
+ * Responsive Spacing
+ * --------------------------------------------------
+ * Provides spacing utilities that automatically adjust based on viewport size
+ * using fluid value calculations (CSS clamp).
+ * 
+ * This module leverages the create-clamp utility function to create spacing 
+ * that scales smoothly between viewport boundaries.
+ */
 
-// Define responsive spacing utilities using fluid values with clamp()
 @use 'sass:map';
-@use '../utils/math/responsive-functions' as rf;
+// Import utility functions for responsive calculations
+@use '../utils/_utils-functions' as utils;
 @use '../base/global-variables' as gv;
 
 // Import spacing token values
-@use '../tokens/spacing' as tokens;
+@use '../tokens/_primitive-spacing' as tokens;
 
-// Fluid spacing mixin using create-clamp function
-@mixin fluid-space($min-size, $max-size, $min-viewport: 20rem, $max-viewport: gv.$PAGE_MAX_INLINE) {
-	@return rf.create-clamp($min-size, $max-size, $min-viewport, $max-viewport);
-}
+// Direction mapping for logical properties
+$directions: (
+	'all': '',
+	'block': 'block',
+	'inline': 'inline',
+	'block-start': 'block-start',
+	'block-end': 'block-end',
+	'inline-start': 'inline-start',
+	'inline-end': 'inline-end'
+);
 
-// Function to get spacing value based on t-shirt size
+/**
+ * Get spacing value based on t-shirt size
+ * 
+ * @param {String} $size - T-shirt size (xs, sm, md, lg, xl, etc.)
+ * @return {Number} The corresponding spacing value
+ */
 @function get-space-value($size) {
 	@if not map-has-key(tokens.$spacing-t-shirt, $size) {
 		@error "Size '#{$size}' not found in spacing t-shirt sizes.";
 	}
-	@return map.get(tokens.$spacing-t-shirt, $size);
+	@return map-get(tokens.$spacing-t-shirt, $size);
 }
 
-// Fluid responsive padding
-@mixin responsive-padding($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-x($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-left: fluid-space($min-value, $base-value);
-	padding-right: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-y($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-top: fluid-space($min-value, $base-value);
-	padding-bottom: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-top($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-top: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-bottom($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-bottom: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-left($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-left: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-padding-right($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	padding-right: fluid-space($min-value, $base-value);
-}
-
-// Fluid responsive margin
-@mixin responsive-margin($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	margin: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-margin-x($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	margin-left: fluid-space($min-value, $base-value);
-	margin-right: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-margin-y($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	margin-top: fluid-space($min-value, $base-value);
-	margin-bottom: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-margin-top($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	margin-top: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-margin-bottom($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	margin-bottom: fluid-space($min-value, $base-value);
-}
-
-@mixin responsive-gap($size: 'md', $min-size-modifier: 0.5) {
-	$base-value: get-space-value($size);
-	$min-value: $base-value * $min-size-modifier;
-
-	gap: fluid-space($min-value, $base-value);
-}
-
-// Custom fluid spacing with explicit min and max values
-@mixin custom-fluid-spacing(
-	$property,
-	$min-size,
-	$max-size,
+/**
+ * Calculate spacing value based on responsive preference
+ * 
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the spacing shrinks at smaller viewports.
+ *                                     A value of 0.5 means the spacing will be 50% of the base size at the minimum viewport width.
+ *                                     Higher values (closer to 1) result in less reduction of spacing on small screens.
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ * @param {Number} $min-viewport - Minimum viewport width (default: 20rem/320px)
+ * @param {Number} $max-viewport - Maximum viewport width (default: page max width)
+ * @return {String|Number} CSS clamp value for fluid spacing or static value
+ */
+@function calculate-spacing(
+	$size: 'md',
+	$min-size-modifier: 0.5,
+	$is-responsive: true,
 	$min-viewport: 20rem,
 	$max-viewport: gv.$PAGE_MAX_INLINE
 ) {
-	#{$property}: fluid-space($min-size, $max-size, $min-viewport, $max-viewport);
+	$base-value: get-space-value($size);
+
+	@if $is-responsive {
+		$min-value: $base-value * $min-size-modifier;
+		@return utils.create-clamp($min-value, $base-value, $min-viewport, $max-viewport);
+	} @else {
+		@return $base-value;
+	}
+}
+
+/**
+ * Determine the full property name based on base property and direction
+ * 
+ * @param {String} $base-property - Base CSS property (padding, margin, etc.)
+ * @param {String} $direction - Direction to apply spacing to (all, block, inline, etc.)
+ * @return {String} The full CSS property name
+ */
+@function get-property-with-direction($base-property, $direction) {
+	@if not map-has-key($directions, $direction) {
+		@error "Direction '#{$direction}' is not valid. Valid directions are: #{map-keys($directions)}.";
+	}
+
+	$direction-suffix: map-get($directions, $direction);
+	@if $direction == 'all' {
+		@return $base-property;
+	} @else {
+		@return '#{$base-property}-#{$direction-suffix}';
+	}
+}
+
+/**
+ * Base mixin to apply spacing to any CSS property with direction
+ * 
+ * @param {String} $base-property - Base CSS property (padding, margin, etc.)
+ * @param {String} $direction - Direction to apply spacing to (all, block, inline, etc.)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1)
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ * @param {Number} $min-viewport - Minimum viewport width (default: 20rem)
+ * @param {Number} $max-viewport - Maximum viewport width (default: page max width)
+ */
+@mixin apply-spacing(
+	$base-property,
+	$direction: 'all',
+	$size: 'md',
+	$min-size-modifier: 0.5,
+	$is-responsive: true,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	$property: get-property-with-direction($base-property, $direction);
+	#{$property}: calculate-spacing(
+		$size,
+		$min-size-modifier,
+		$is-responsive,
+		$min-viewport,
+		$max-viewport
+	);
+}
+
+/**
+ * SPACING MIXINS
+ * --------------------------------------------------
+ * These mixins provide spacing using logical properties, with optional responsiveness
+ */
+
+/**
+ * Apply padding
+ * 
+ * @param {String} $direction - Direction to apply padding to (all, block, inline, block-start, block-end, inline-start, inline-end)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the spacing shrinks at smaller viewports
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-padding(
+	$direction: 'all',
+	$size: 'md',
+	$min-size-modifier: 0.5,
+	$is-responsive: true
+) {
+	@include apply-spacing('padding', $direction, $size, $min-size-modifier, $is-responsive);
+}
+
+/**
+ * Apply margin
+ * 
+ * @param {String} $direction - Direction to apply margin to (all, block, inline, block-start, block-end, inline-start, inline-end)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the spacing shrinks at smaller viewports.
+ *                                      A value of 0.5 means the spacing will be 50% of the base size at the minimum viewport width.
+ *                                      Higher values (closer to 1) result in less reduction of spacing on small screens.
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-margin($direction: 'all', $size: 'md', $min-size-modifier: 0.5, $is-responsive: true) {
+	@include apply-spacing('margin', $direction, $size, $min-size-modifier, $is-responsive);
+}
+
+/**
+ * LAYOUT SPACING MIXINS
+ * --------------------------------------------------
+ * These mixins provide spacing for layout elements, with optional responsiveness
+ */
+
+/**
+ * Apply gap for grid and flex layouts
+ * 
+ * @param {String} $direction - Direction to apply gap to (all, row, column)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1)
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-gap($direction: 'all', $size: 'md', $min-size-modifier: 0.5, $is-responsive: true) {
+	@if $direction == 'row' {
+		@include apply-spacing('row-gap', 'all', $size, $min-size-modifier, $is-responsive);
+	} @else if $direction == 'column' {
+		@include apply-spacing('column-gap', 'all', $size, $min-size-modifier, $is-responsive);
+	} @else {
+		@include apply-spacing('gap', 'all', $size, $min-size-modifier, $is-responsive);
+	}
 }

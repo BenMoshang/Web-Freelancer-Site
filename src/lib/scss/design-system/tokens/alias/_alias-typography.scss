@@ -4,6 +4,7 @@
 // Import tokens if needed
 @use '../tokens/typography' as tokens;
 @use 'sass:map';
+@use '../../base/global-variables' as gv;
 
 // Font family aliases
 $font-family: (
@@ -55,8 +56,9 @@ $font-size: (
 
 // Font weight aliases
 $font-weight: (
-	'regular': map.get(tokens.$font-weight, 'regular'),
 	'medium': map.get(tokens.$font-weight, 'medium'),
+	'regular': map.get(tokens.$font-weight, 'regular'),
+	'semi-bold': map.get(tokens.$font-weight, 'semi-bold'),
 	'bold': map.get(tokens.$font-weight, 'bold')
 );
 
@@ -72,4 +74,130 @@ $letter-spacing: (
 	'normal': map.get(tokens.$letter-spacing, 'normal'),
 	'wide': map.get(tokens.$letter-spacing, 'wide'),
 	'tight': map.get(tokens.$letter-spacing, 'tight')
+);
+
+/**
+ * Typography configuration maps
+ * These define the base styles for different text types
+ * -------------------------------------------------
+ */
+
+// Heading typography configuration
+$headings-config: (
+	'h1': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h1'),
+		'font-weight': map.get($font-weight, 'bold'),
+		'line-height': map.get($line-height, 'tight'),
+		'min-size-modifier': 0.65
+	),
+	'h2': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h2'),
+		'font-weight': map.get($font-weight, 'bold'),
+		'line-height': map.get($line-height, 'tight'),
+		'min-size-modifier': 0.7
+	),
+	'h3': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h3'),
+		'font-weight': map.get($font-weight, 'semi-bold'),
+		'line-height': map.get($line-height, 'normal'),
+		'min-size-modifier': 0.75
+	),
+	'h4': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h4'),
+		'font-weight': map.get($font-weight, 'semi-bold'),
+		'line-height': map.get($line-height, 'normal'),
+		'min-size-modifier': 0.8
+	),
+	'h5': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h5'),
+		'font-weight': map.get($font-weight, 'semi-bold'),
+		'line-height': map.get($line-height, 'normal'),
+		'min-size-modifier': 0.85
+	),
+	'h6': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'heading'), 'h6'),
+		'font-weight': map.get($font-weight, 'semi-bold'),
+		'line-height': map.get($line-height, 'normal'),
+		'min-size-modifier': 0.9
+	)
+);
+
+// Body typography configuration
+$body-config: (
+	'body-lg': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'body'), 'lg'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 0.85
+	),
+	'body': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'body'), 'md'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 0.9
+	),
+	'body-sm': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'body'), 'sm'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 0.95
+	)
+);
+
+// Utility typography configuration
+$utility-config: (
+	'caption': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'label'), 'sm'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 1
+	),
+	'overline': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'label'), 'sm'),
+		'font-weight': map.get($font-weight, 'medium'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'text-transform': uppercase,
+		'letter-spacing': map.get($letter-spacing, 'wide'),
+		'min-size-modifier': 1
+	),
+	'lead': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'body'), 'lg'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 0.85
+	),
+	'label': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'label'), 'md'),
+		'font-weight': map.get($font-weight, 'medium'),
+		'line-height': map.get($line-height, 'normal'),
+		'min-size-modifier': 0.95
+	),
+	'button': (
+		'font-family': map.get($font-family, 'primary'),
+		'font-size': map.get(map.get($font-size, 'button'), 'md'),
+		'font-weight': map.get($font-weight, 'medium'),
+		'line-height': map.get($line-height, 'normal'),
+		'letter-spacing': map.get($letter-spacing, 'normal'),
+		'min-size-modifier': 0.95
+	),
+	'code': (
+		'font-family': map.get($font-family, 'code'),
+		'font-size': map.get(map.get($font-size, 'body'), 'sm'),
+		'font-weight': map.get($font-weight, 'regular'),
+		'line-height': map.get($line-height, 'relaxed'),
+		'min-size-modifier': 0.95
+	)
 );

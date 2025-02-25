@@ -1,5 +1,20 @@
-// Responsive/_index.scss
-// Import all responsive files
+/**
+ * Responsive Module Index
+ * --------------------------------------------------
+ * This module forwards all responsive utilities in the design system.
+ * 
+ * It includes:
+ * - breakpoints: Media query breakpoints and utilities
+ * - grid: Responsive grid system and layout utilities
+ * - typography: Fluid typography that scales with viewport
+ * - spacing: Fluid spacing utilities that scale with viewport
+ * 
+ * These utilities rely on core functions from the utils module to calculate
+ * responsive values using CSS clamp().
+ * 
+ * @example
+ * @use 'path/to/design-system/responsive';
+ */
 
 @forward 'responsive-breakpoints';
 @forward 'responsive-grid';

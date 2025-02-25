@@ -1,133 +1,67 @@
-// Responsive/_responsive-typography.scss
-// Renamed from _typography.scss
+/**
+ * Responsive Typography
+ * --------------------------------------------------
+ * Provides typography utility functions that handle responsive font size calculations.
+ * These functions are used by the typography placeholders in _default-typography.scss.
+ * 
+ * This module focuses solely on the responsive calculation logic, while the actual
+ * typography styles are defined as placeholders in the default-typography module.
+ */
 
 @use 'sass:map';
-@use '../utils/math/responsive-functions' as rf;
+// Import utility functions for responsive calculations
+@use '../utils/_utils-functions' as utils;
 @use '../base/global-variables' as gv;
-@use '../tokens/typography' as tokens;
+// Import typography alias maps
+@use '../tokens/alias/_alias-typography' as alias;
 
-// Function to get font size from token map
-@function get-font-size($size) {
-	@if not map-has-key(tokens.$font-sizes, $size) {
-		@error "Font size '#{$size}' not found in $font-sizes map.";
-	}
-	@return map.get(tokens.$font-sizes, $size);
-}
-
-// Function to get line height from token map
-@function get-line-height($size) {
-	@if not map-has-key(tokens.$line-heights, $size) {
-		@error "Line height '#{$size}' not found in $line-heights map.";
-	}
-	@return map.get(tokens.$line-heights, $size);
-}
-
-// Fluid typography mixin using clamp()
-@mixin fluid-type(
-	$min-font-size,
-	$max-font-size,
+/**
+ * Calculate typography value based on responsive preference
+ * 
+ * @param {Number} $base-size - Base font size value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the font size shrinks at smaller viewports.
+ *                                      A value of 0.5 means the font will be 50% of the base size at the minimum viewport width.
+ *                                      Higher values (closer to 1) result in less reduction of font size on small screens.
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static typography
+ * @param {Number} $min-viewport - Minimum viewport width (default: 20rem/320px)
+ * @param {Number} $max-viewport - Maximum viewport width (default: page max width)
+ * @return {String|Number} CSS clamp value for fluid typography or static value
+ */
+@function calculate-typography(
+	$base-size,
+	$min-size-modifier: 0.75,
+	$is-responsive: true,
 	$min-viewport: 20rem,
 	$max-viewport: gv.$PAGE_MAX_INLINE
 ) {
-	font-size: rf.create-clamp($min-font-size, $max-font-size, $min-viewport, $max-viewport);
-}
-
-// Responsive typography with size tokens
-@mixin responsive-type(
-	$size: 'md',
-	$min-size-modifier: 0.75,
-	$min-viewport: 20rem,
-	$max-viewport: 80rem // *1280px design max width
-) {
-	$base-size: get-font-size($size);
-	$min-size: $base-size * $min-size-modifier;
-
-	font-size: rf.create-clamp($min-size, $base-size, $min-viewport, $max-viewport);
-
-	// Set appropriate line height based on size
-	@if $size == 'xs' or $size == 'sm' {
-		line-height: get-line-height('tight');
-	} @else if $size == 'md' {
-		line-height: get-line-height('normal');
+	@if $is-responsive {
+		$min-size: $base-size * $min-size-modifier;
+		@return utils.create-clamp($min-size, $base-size, $min-viewport, $max-viewport);
 	} @else {
-		line-height: get-line-height('loose');
+		@return $base-size;
 	}
 }
 
-// Heading styles with responsive sizing
-@mixin heading-1 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-bold;
-	@include responsive-type('3xl', 0.7);
-	margin-bottom: 0.5em;
-}
-
-@mixin heading-2 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-bold;
-	@include responsive-type('2xl', 0.75);
-	margin-bottom: 0.5em;
-}
-
-@mixin heading-3 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-semibold;
-	@include responsive-type('xl', 0.8);
-	margin-bottom: 0.5em;
-}
-
-@mixin heading-4 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-semibold;
-	@include responsive-type('lg', 0.85);
-	margin-bottom: 0.5em;
-}
-
-@mixin heading-5 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-medium;
-	@include responsive-type('md', 0.9);
-	margin-bottom: 0.5em;
-}
-
-@mixin heading-6 {
-	font-family: tokens.$font-family-heading;
-	font-weight: tokens.$font-weight-medium;
-	@include responsive-type('sm', 0.95);
-	margin-bottom: 0.5em;
-}
-
-// Body text styles
-@mixin body-large {
-	font-family: tokens.$font-family-body;
-	font-weight: tokens.$font-weight-normal;
-	@include responsive-type('lg', 0.85);
-}
-
-@mixin body-medium {
-	font-family: tokens.$font-family-body;
-	font-weight: tokens.$font-weight-normal;
-	@include responsive-type('md', 0.9);
-}
-
-@mixin body-small {
-	font-family: tokens.$font-family-body;
-	font-weight: tokens.$font-weight-normal;
-	@include responsive-type('sm', 0.95);
-}
-
-// Caption and label styles
-@mixin caption {
-	font-family: tokens.$font-family-body;
-	font-weight: tokens.$font-weight-normal;
-	@include responsive-type('xs', 1);
-	color: tokens.$text-color-secondary;
-}
-
-@mixin label {
-	font-family: tokens.$font-family-body;
-	font-weight: tokens.$font-weight-medium;
-	@include responsive-type('sm', 0.95);
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+/**
+ * Apply custom responsive typography
+ * 
+ * @param {Number} $min-size - Minimum font size value
+ * @param {Number} $max-size - Maximum font size value
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static typography
+ * @param {Number} $min-viewport - Minimum viewport width (default: 20rem/320px)
+ * @param {Number} $max-viewport - Maximum viewport width (default: page max width)
+ * @return {String|Number} CSS clamp value for fluid typography or static value
+ */
+@function create-responsive-typography(
+	$min-size,
+	$max-size,
+	$is-responsive: true,
+	$min-viewport: 20rem,
+	$max-viewport: gv.$PAGE_MAX_INLINE
+) {
+	@if $is-responsive {
+		@return utils.create-clamp($min-size, $max-size, $min-viewport, $max-viewport);
+	} @else {
+		@return $max-size;
+	}
 }

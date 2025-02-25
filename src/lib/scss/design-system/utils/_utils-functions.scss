@@ -22,6 +22,7 @@
 @use '../tokens/alias/_alias-typography' as typography;
 @use 'sass:map';
 @use 'sass:math';
+@use '../base/global-variables' as gv;
 
 /**
  * COLOR MANIPULATION FUNCTIONS
@@ -94,9 +95,9 @@
  * @return {String} CSS clamp() function with calculated values
  * 
  * @example
- * font-size: responsive-value(1rem, 2rem, 320px, 1200px);
+ * font-size: create-clamp(1rem, 2rem, 320px, 1200px);
  */
-@function responsive-value($min-value, $max-value, $min-width: 320px, $max-width: 1200px) {
+@function create-clamp($min-value, $max-value, $min-width: 20rem, $max-width: gv.$PAGE_MAX_INLINE) {
 	$slope: ($max-value - $min-value) / ($max-width - $min-width);
 	$y-axis-intersection: -1 * $min-width * $slope + $min-value;
 

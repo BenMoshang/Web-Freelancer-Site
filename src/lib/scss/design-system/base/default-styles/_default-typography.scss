@@ -16,20 +16,128 @@
  */
 
 @use '../../tokens/alias/_alias-typography' as typography;
+@use '../../responsive/_responsive-typography' as responsive;
+@use '../../utils/_utils-functions' as utils;
+@use '../../base/global-variables' as gv;
 @use 'sass:map';
 
 /**
- * Default typography placeholder
- * 
- * Provides the base typography styles:
- * - Font family from primary font stack
- * - Base font size (typically 16px/1rem)
- * - Standard line height for body text
- * 
- * Use @extend %default-typography; to apply these styles
+ * HEADING TYPOGRAPHY PLACEHOLDERS
+ * --------------------------------------------------
+ * These placeholders apply heading styles with responsive sizing
+ * Use with @extend %placeholder-name;
  */
-%default-typography {
-	font-family: map.get(typography.$font-family, 'primary');
-	font-size: map.get(typography.$font-size, 'body', 'md');
-	line-height: map.get(typography.$line-height, 'normal');
+
+// Generate heading placeholders from the configuration map
+@each $heading, $config in typography.$headings-config {
+	/**
+	 * Apply #{$heading} typography styles
+	 */
+	%#{$heading} {
+		$font-size: map.get($config, 'font-size');
+		$min-size-modifier: map.get($config, 'min-size-modifier');
+
+		// Apply base styles from config
+		@each $property, $value in $config {
+			@if $property == 'font-size' {
+				font-size: responsive.calculate-typography($font-size, $min-size-modifier);
+			} @else if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+/**
+ * BODY TYPOGRAPHY PLACEHOLDERS
+ * --------------------------------------------------
+ * These placeholders apply body text styles with responsive sizing
+ * Use with @extend %placeholder-name;
+ */
+
+// Generate body text placeholders from the configuration map
+@each $body-type, $config in typography.$body-config {
+	/**
+	 * Apply #{$body-type} typography styles
+	 */
+	%#{$body-type} {
+		$font-size: map.get($config, 'font-size');
+		$min-size-modifier: map.get($config, 'min-size-modifier');
+
+		// Apply base styles from config
+		@each $property, $value in $config {
+			@if $property == 'font-size' {
+				font-size: responsive.calculate-typography($font-size, $min-size-modifier);
+			} @else if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+/**
+ * UTILITY TYPOGRAPHY PLACEHOLDERS
+ * --------------------------------------------------
+ * These placeholders apply utility text styles with responsive sizing
+ * Use with @extend %placeholder-name;
+ */
+
+// Generate utility text placeholders from the configuration map
+@each $utility-type, $config in typography.$utility-config {
+	/**
+	 * Apply #{$utility-type} typography styles
+	 */
+	%#{$utility-type} {
+		$font-size: map.get($config, 'font-size');
+		$min-size-modifier: map.get($config, 'min-size-modifier');
+
+		// Apply base styles from config
+		@each $property, $value in $config {
+			@if $property == 'font-size' {
+				font-size: responsive.calculate-typography($font-size, $min-size-modifier);
+			} @else if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+/**
+ * Non-responsive variants
+ * --------------------------------------------------
+ * These placeholders provide static (non-responsive) versions of the typography styles
+ * Use with @extend %placeholder-name-static;
+ */
+
+// Generate static heading placeholders
+@each $heading, $config in typography.$headings-config {
+	%#{$heading}-static {
+		@each $property, $value in $config {
+			@if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+// Generate static body text placeholders
+@each $body-type, $config in typography.$body-config {
+	%#{$body-type}-static {
+		@each $property, $value in $config {
+			@if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+// Generate static utility text placeholders
+@each $utility-type, $config in typography.$utility-config {
+	%#{$utility-type}-static {
+		@each $property, $value in $config {
+			@if $property != 'min-size-modifier' {
+				#{$property}: $value;
+			}
+		}
+	}
 }

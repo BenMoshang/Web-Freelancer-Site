@@ -47,42 +47,56 @@ $letter-spacing: (
 	'widest': 0.1em
 );
 
-// Font sizes with T-shirt sizing
-$font-size: (
-	'2xs': 0.625rem,
-	// 10px
-	'xs': 0.75rem,
-	// 12px
-	'sm': 0.875rem,
-	// 14px
-	'md': 1rem,
-	// 16px
-	'lg': 1.125rem,
-	// 18px
-	'xl': 1.25rem,
-	// 20px
-	'2xl': 1.5rem,
-	// 24px
-	'3xl': 1.875rem,
-	// 30px
-	'4xl': 2.25rem,
-	// 36px
-	'5xl': 3rem,
-	// 48px
-	'6xl': 3.75rem,
-	// 60px
-	'7xl': 4.5rem,
-	// 72px
-	'8xl': 6rem,
-	// 96px
-	'9xl': 8rem // 128px
-);
+/* ---------------------------------------------------------------------------
+   1) Global / Default Variables (REM Only)
+   ---------------------------------------------------------------------------
+   Adjust these to match your project's design system.
+--------------------------------------------------------------------------- */
+$typography-base-size: 1rem; // 12px
+$typography-scale-ratio: 1.2;
 
-// Responsive factor for typography
-$font-size-responsive-modifiers: (
-	'mobile': 0.85,
-	// 85% of base size on mobile
-	'tablet': 0.9,
-	// 90% of base size on tablet
-	'desktop': 1 // 100% of base size on desktop
+/* ---------------------------------------------------------------------------
+   2) Typographic Scales (REM Values)
+   ---------------------------------------------------------------------------
+   Define your typographic scale using the base size and scale ratio.
+--------------------------------------------------------------------------- */
+@function calculate-font-size($step) {
+	@if $step < 0 {
+		@return math.div($typography-base-size, math.pow($typography-scale-ratio, abs($step)));
+	} @else {
+		@return math.pow($typography-scale-ratio, $step) * $typography-base-size;
+	}
+}
+
+$base-typography-scale: (
+	'2xs': calculate-font-size(-0.75),
+	// 14px
+	'xs': calculate-font-size(-0.5),
+	// 16px
+	'sm': calculate-font-size(0),
+	// 18px
+	'md': calculate-font-size(1),
+	// 22px
+	'lg': calculate-font-size(2),
+	// 26px
+	'xl': calculate-font-size(3),
+	// 31px
+	'2xl': calculate-font-size(4),
+	// 37px
+	'3xl': calculate-font-size(5),
+	// 45px
+	'4xl': calculate-font-size(6),
+	// 54px
+	'5xl': calculate-font-size(7),
+	// 64px
+	'6xl': calculate-font-size(8),
+	// 77px
+	'7xl': calculate-font-size(9),
+	// 93px
+	'8xl': calculate-font-size(10),
+	// 111px
+	'9xl': calculate-font-size(11),
+	// 134px
+	'10xl': calculate-font-size(12) // 160px
 );
+$base-typography-scale: () !default;
