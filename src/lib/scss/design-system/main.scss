@@ -1,18 +1,46 @@
-// Main entry point for the design system
+/**
+ * Design System - Main Entry Point
+ * --------------------------------------------------
+ * This is the main entry point for the design system. It imports and forwards
+ * all modules in the correct order to ensure proper dependency resolution.
+ *
+ * The import order is crucial:
+ * 1. Tokens: Raw design values (colors, typography, spacing)
+ * 2. Utils: Helper functions and mixins that depend on tokens
+ * 3. Responsive: Layout and responsive utilities
+ * 4. Base: Global styles and default element styling
+ *
+ * @example
+ * @use 'path/to/design-system/main';
+ */
 
-// Import base styles
-@forward 'base';
+// Import tokens first (raw design values)
+@forward 'tokens';
 
 // Import utils (for mixins and functions)
 @forward 'utils';
 
 // Import responsive utilities
 @forward 'responsive';
-// Import tokens first (raw design values)
-@forward 'tokens';
+
+// Import base styles
+@forward 'base';
+
+// Import and apply themes
+@use 'tokens/alias/themes/themes';
+@include themes.export-theme-variables();
+
 /*=========================================
 =            View Transitions            =
 =========================================*/
+/**
+ * View Transitions API Integration
+ * --------------------------------------------------
+ * These styles enable smooth transitions when navigating between pages
+ * using the View Transitions API.
+ * 
+ * @link https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
+ */
 
 /* Enable view transitions for history navigations (push/replace) */
 @view-transition {
@@ -28,9 +56,10 @@
 	animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Define keyframes for the outgoing view (old snapshot) */
-
-/* This animation slides the view to the left while fading out */
+/**
+ * Outgoing View Animation (Slide Left with Fade)
+ * Slides the old view to the left while fading it out
+ */
 @keyframes fadeOutSlideLeft {
 	from {
 		transform: translateX(0);
@@ -43,9 +72,10 @@
 	}
 }
 
-/* Define keyframes for the incoming view (new snapshot) */
-
-/* This animation slides the view in from the right while fading in */
+/**
+ * Incoming View Animation (Slide Right with Fade)
+ * Slides the new view in from the right while fading it in
+ */
 @keyframes fadeInSlideRight {
 	from {
 		transform: translateX(100%);

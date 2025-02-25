@@ -1,6 +1,25 @@
+/**
+ * Tokens Index
+ * --------------------------------------------------
+ * This module forwards all primitive design tokens to make them available 
+ * as a unified tokens module.
+ * 
+ * Tokens represent the foundational design values in the system:
+ * - colors
+ * - typography (font sizes, families, weights, etc.)
+ * - spacing values
+ * - border styles and radiuses
+ * 
+ * These primitive tokens are used by the alias layer to create semantic tokens
+ * that are mapped to specific roles and contexts.
+ * 
+ * @example Import all tokens
+ * @use 'path/to/design-system/tokens';
+ */
+
 // Tokens/_index.scss
 // Import all token files
-@import 'borders';
-@import 'colors';
-@import 'spacing';
-@import 'typography';
+@forward 'primitive-borders';
+@forward 'primitive-colors';
+@forward 'primitive-spacing';
+@forward 'primitive-typography';

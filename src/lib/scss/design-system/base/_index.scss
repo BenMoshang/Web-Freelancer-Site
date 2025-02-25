@@ -1,1 +1,18 @@
+/**
+ * Base Styles Index
+ * --------------------------------------------------
+ * This module forwards the base styles that establish the foundation for the design system.
+ * 
+ * It includes:
+ * - global-reset: Normalizes browser styles and sets a consistent baseline
+ * - default-typography: Defines base typography styles and placeholders
+ * 
+ * Base styles should be loaded after tokens, utils, and responsive modules
+ * as they may depend on values from those modules.
+ * 
+ * @example
+ * @use 'path/to/design-system/base';
+ */
+
 @forward 'global-reset';
+@forward 'default-styles/default-typography';

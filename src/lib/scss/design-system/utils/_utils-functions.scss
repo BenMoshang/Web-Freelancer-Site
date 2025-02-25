@@ -1,10 +1,44 @@
-// Utils/_functions.scss
-// Helper functions for color manipulation, math, etc.
+/**
+ * Utility Functions
+ * --------------------------------------------------
+ * This module provides helper functions for common tasks in the design system.
+ * 
+ * Categories of functions:
+ * - Color manipulation: Safely work with colors and opacity
+ * - Mathematical helpers: Convert units, calculate responsive values
+ * - Map utilities: Safely retrieve values from nested maps
+ * - Layout helpers: Calculate spacing, aspect ratios
+ * 
+ * @example
+ * @use '../utils/utils-functions' as utils;
+ * 
+ * .element {
+ *   padding: utils.px-to-rem(16);
+ *   color: utils.color-with-opacity($primary, 0.8);
+ * }
+ */
+
 @use '../tokens/alias/themes/themes' as themes;
+@use '../tokens/alias/_alias-typography' as typography;
+@use 'sass:map';
+@use 'sass:math';
 
-// Color manipulation functions
+/**
+ * COLOR MANIPULATION FUNCTIONS
+ * --------------------------------------------------
+ */
 
-// Safely get a color from a map
+/**
+ * Safely get a color from a map
+ * 
+ * @param {Map} $map - The map containing color values
+ * @param {String} $key - The key to look up in the map
+ * @param {Color} $fallback - Optional fallback color if key not found
+ * @return {Color} The requested color or fallback (or error)
+ * 
+ * @example
+ * color: get-color($primary, 'default', #0066cc);
+ */
 @function get-color($map, $key, $fallback: null) {
 	@if map-has-key($map, $key) {
 		@return map-get($map, $key);
@@ -15,21 +49,53 @@
 	@error "Color '#{$key}' not found in map.";
 }
 
-// Create a rgba color with opacity
+/**
+ * Create an rgba color with opacity
+ * 
+ * @param {Color} $color - Base color to apply opacity to
+ * @param {Number} $opacity - Opacity value (0-1)
+ * @return {Color} RGBA color with specified opacity
+ * 
+ * @example
+ * background-color: color-with-opacity($primary-color, 0.5);
+ */
 @function color-with-opacity($color, $opacity: 1) {
 	@return rgba($color, $opacity);
 }
 
-// Mathematical helper functions
+/**
+ * MATHEMATICAL HELPER FUNCTIONS
+ * --------------------------------------------------
+ */
 
-// Safely convert px to rem
+/**
+ * Safely convert pixels to rem units
+ * 
+ * @param {Number} $px - Pixel value to convert (with or without units)
+ * @param {Number} $base-font-size - Base font size for calculation (default: 16px)
+ * @return {Number} Equivalent value in rem units
+ * 
+ * @example
+ * font-size: px-to-rem(24);  // Outputs: 1.5rem (assuming 16px base)
+ */
 @function px-to-rem($px, $base-font-size: 16px) {
 	$px: if(unitless($px), $px * 1px, $px);
 	$base-font-size: if(unitless($base-font-size), $base-font-size * 1px, $base-font-size);
 	@return ($px / $base-font-size) * 1rem;
 }
 
-// Calculate a responsive value using clamp
+/**
+ * Calculate a responsive value using CSS clamp()
+ * 
+ * @param {Number} $min-value - Minimum value (usually for mobile)
+ * @param {Number} $max-value - Maximum value (usually for desktop)
+ * @param {Number} $min-width - Viewport width for minimum value (default: 320px)
+ * @param {Number} $max-width - Viewport width for maximum value (default: 1200px)
+ * @return {String} CSS clamp() function with calculated values
+ * 
+ * @example
+ * font-size: responsive-value(1rem, 2rem, 320px, 1200px);
+ */
 @function responsive-value($min-value, $max-value, $min-width: 320px, $max-width: 1200px) {
 	$slope: ($max-value - $min-value) / ($max-width - $min-width);
 	$y-axis-intersection: -1 * $min-width * $slope + $min-value;
@@ -37,7 +103,21 @@
 	@return clamp(#{$min-value}, #{$y-axis-intersection} + #{$slope} * 100vw, #{$max-value});
 }
 
-// Get a value from a map safely
+/**
+ * MAP UTILITY FUNCTIONS
+ * --------------------------------------------------
+ */
+
+/**
+ * Safely get a nested value from a map
+ * 
+ * @param {Map} $map - The map to search in
+ * @param {List} $keys - List of keys to traverse the map
+ * @return {*} Value found at the specified path or null with error
+ * 
+ * @example
+ * $value: map-deep-get($theme, 'colors', 'primary', 'default');
+ */
 @function map-deep-get($map, $keys...) {
 	@each $key in $keys {
 		@if not map-has-key($map, $key) {
@@ -49,12 +129,93 @@
 	@return $map;
 }
 
-// Calculate spacing for consistent vertical rhythm
-@function vertical-rhythm($lines: 1, $line-height: $line-height-normal, $font-size: $body-medium) {
-	@return $lines * $line-height * $font-size;
+/**
+ * LAYOUT HELPER FUNCTIONS
+ * --------------------------------------------------
+ */
+
+/**
+ * Calculate spacing for consistent vertical rhythm
+ * 
+ * @param {Number} $lines - Number of line heights to use
+ * @param {Number} $line-height - Line height value (default: from typography tokens)
+ * @param {Number} $font-size - Font size value (default: from typography tokens)
+ * @return {Number} Calculated spacing value
+ * 
+ * @example
+ * margin-bottom: vertical-rhythm(2);  // Outputs 2 × line-height × font-size
+ */
+@function vertical-rhythm($lines: 1, $line-height: null, $font-size: null) {
+	$lh: $line-height;
+	$fs: $font-size;
+
+	@if $line-height == null {
+		$lh: map.get(typography.$line-height, 'normal');
+	}
+
+	@if $font-size == null {
+		$fs: map.get(typography.$font-size, 'body', 'md');
+	}
+
+	@return $lines * $lh * $fs;
 }
 
-// Calculate aspect ratio (e.g., 16:9)
+/**
+ * Calculate percentage for aspect ratio
+ * 
+ * @param {Number} $width - Width value for ratio
+ * @param {Number} $height - Height value for ratio
+ * @return {Percentage} Height as percentage of width
+ * 
+ * @example
+ * padding-bottom: aspect-ratio(16, 9);  // Creates 16:9 aspect ratio
+ */
 @function aspect-ratio($width, $height) {
 	@return percentage($height / $width);
+}
+
+/**
+ * PERFORMANCE OPTIMIZATION
+ * --------------------------------------------------
+ */
+
+/**
+ * Cache of validated tokens to improve performance
+ * Prevents re-validation of the same token lookups
+ */
+$_validated_tokens: () !default;
+
+/**
+ * Validate and cache token lookup for better performance
+ * 
+ * @param {Map} $map - The map to validate against
+ * @param {String} $key - The key to validate
+ * @param {String} $map-name - Name of the map for error messages
+ * @return {*} Value found at key
+ * 
+ * @example
+ * $color: validate-token($colors, 'primary', 'colors');
+ */
+@function validate-token($map, $key, $map-name) {
+	// Create a unique cache key
+	$cache-key: $map-name + '-' + $key;
+
+	// Check if already validated
+	@if map-has-key($_validated_tokens, $cache-key) {
+		@return map-get($_validated_tokens, $cache-key);
+	}
+
+	// Validate and cache
+	@if not map-has-key($map, $key) {
+		@error "Key '#{$key}' not found in #{$map-name} map.";
+	}
+
+	$value: map-get($map, $key);
+	$_validated_tokens: map-merge(
+		$_validated_tokens,
+		(
+			$cache-key: $value
+		)
+	) !global;
+	@return $value;
 }

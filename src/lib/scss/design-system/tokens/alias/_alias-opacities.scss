@@ -1,8 +1,8 @@
 // Functional opacity mappings
 $opacity-functional: (
-	'disabled': map-get($opacity-values, 'medium'),
-	'hover-overlay': map-get($opacity-values, 'light'),
-	'active-overlay': map-get($opacity-values, 'semi-light'),
-	'modal-backdrop': map-get($opacity-values, 'semi-heavy'),
-	'tooltip-background': map-get($opacity-values, 'heavy')
+	'disabled': map.get($opacity-values, 'medium'),
+	'hover-overlay': map.get($opacity-values, 'light'),
+	'active-overlay': map.get($opacity-values, 'semi-light'),
+	'modal-backdrop': map.get($opacity-values, 'semi-heavy'),
+	'tooltip-background': map.get($opacity-values, 'heavy')
 );

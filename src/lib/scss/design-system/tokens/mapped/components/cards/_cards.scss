@@ -96,13 +96,13 @@ $card-footer: (
 );
 
 // Card properties
-$card-border-radius: map-get(borders.$component-border-radius, 'card');
-$card-border-width: map-get(borders.$component-border-width, 'card');
+$card-border-radius: map.get(borders.$component-border-radius, 'card');
+$card-border-width: map.get(borders.$component-border-width, 'card');
 
 // Card spacing
 $card-spacing: (
-	'sm': map-get(spacing.$spacing, 'sm'),
-	'md': map-get(spacing.$spacing, 'md'),
-	'lg': map-get(spacing.$spacing, 'lg'),
-	'content-gap': map-get(spacing.$spacing, 'sm')
+	'sm': map.get(spacing.$spacing, 'sm'),
+	'md': map.get(spacing.$spacing, 'md'),
+	'lg': map.get(spacing.$spacing, 'lg'),
+	'content-gap': map.get(spacing.$spacing, 'sm')
 );

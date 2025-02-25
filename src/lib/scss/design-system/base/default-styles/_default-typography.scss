@@ -1,5 +1,35 @@
+/**
+ * Default Typography
+ * --------------------------------------------------
+ * Defines the base typography styles using the design system's typography tokens.
+ * This provides a consistent typographic foundation that can be extended or composed
+ * with other styles.
+ * 
+ * The %default-typography placeholder can be extended in other selectors to apply
+ * the base typography styles without duplication.
+ * 
+ * @example
+ * .body-text {
+ *   @extend %default-typography;
+ *   color: $text-color;
+ * }
+ */
+
+@use '../../tokens/alias/_alias-typography' as typography;
+@use 'sass:map';
+
+/**
+ * Default typography placeholder
+ * 
+ * Provides the base typography styles:
+ * - Font family from primary font stack
+ * - Base font size (typically 16px/1rem)
+ * - Standard line height for body text
+ * 
+ * Use @extend %default-typography; to apply these styles
+ */
 %default-typography {
-	font-family: $font-family-sans-serif;
-	font-size: $font-size-base;
-	line-height: $line-height-base;
+	font-family: map.get(typography.$font-family, 'primary');
+	font-size: map.get(typography.$font-size, 'body', 'md');
+	line-height: map.get(typography.$line-height, 'normal');
 }

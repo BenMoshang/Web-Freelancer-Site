@@ -44,19 +44,19 @@ $spacing-numeric: (
 
 // T-shirt sizes
 $spacing-t-shirt: (
-	'2xs': map-get($spacing-numeric, 2),
+	'2xs': map.get($spacing-numeric, 2),
 	// 0.5rem - 8px
-	'xs': map-get($spacing-numeric, 4),
+	'xs': map.get($spacing-numeric, 4),
 	// 1rem - 16px
-	'sm': map-get($spacing-numeric, 6),
+	'sm': map.get($spacing-numeric, 6),
 	// 1.5rem - 24px
-	'md': map-get($spacing-numeric, 8),
+	'md': map.get($spacing-numeric, 8),
 	// 2rem - 32px
-	'lg': map-get($spacing-numeric, 12),
+	'lg': map.get($spacing-numeric, 12),
 	// 3rem - 48px
-	'xl': map-get($spacing-numeric, 16),
+	'xl': map.get($spacing-numeric, 16),
 	// 4rem - 64px
-	'2xl': map-get($spacing-numeric, 24) // 6rem - 96px
+	'2xl': map.get($spacing-numeric, 24) // 6rem - 96px
 );
 
 // Responsive spacing modifiers (can be used with breakpoints)

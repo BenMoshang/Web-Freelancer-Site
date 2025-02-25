@@ -95,23 +95,23 @@ $button-variants: (
 // Button sizes
 $button-sizes: (
 	'small': (
-		'padding-x': map-get(spacing.$spacing, 'xs'),
-		'padding-y': map-get(spacing.$spacing, 'xxs'),
-		'font-size': map-get(typography.$font-size, 'sm')
+		'padding-x': map.get(spacing.$spacing, 'xs'),
+		'padding-y': map.get(spacing.$spacing, 'xxs'),
+		'font-size': map.get(typography.$font-size, 'sm')
 	),
 	'medium': (
-		'padding-x': map-get(spacing.$spacing, 'sm'),
-		'padding-y': map-get(spacing.$spacing, 'xs'),
-		'font-size': map-get(typography.$font-size, 'md')
+		'padding-x': map.get(spacing.$spacing, 'sm'),
+		'padding-y': map.get(spacing.$spacing, 'xs'),
+		'font-size': map.get(typography.$font-size, 'md')
 	),
 	'large': (
-		'padding-x': map-get(spacing.$spacing, 'md'),
-		'padding-y': map-get(spacing.$spacing, 'sm'),
-		'font-size': map-get(typography.$font-size, 'lg')
+		'padding-x': map.get(spacing.$spacing, 'md'),
+		'padding-y': map.get(spacing.$spacing, 'sm'),
+		'font-size': map.get(typography.$font-size, 'lg')
 	)
 );
 
 // Button properties
-$button-border-radius: map-get(borders.$component-border-radius, 'button');
-$button-border-width: map-get(borders.$component-border-width, 'button');
-$button-font-weight: map-get(typography.$font-weight, 'medium');
+$button-border-radius: map.get(borders.$component-border-radius, 'button');
+$button-border-width: map.get(borders.$component-border-width, 'button');
+$button-font-weight: map.get(typography.$font-weight, 'medium');

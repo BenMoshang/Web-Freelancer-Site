@@ -22,7 +22,7 @@ $breakpoints: (
 // Function to get breakpoint value
 @function get-breakpoint($breakpoint) {
 	@if map-has-key($breakpoints, $breakpoint) {
-		@return map-get($breakpoints, $breakpoint);
+		@return map.get($breakpoints, $breakpoint);
 	} @else {
 		@error "Breakpoint '#{$breakpoint}' not found in $breakpoints map.";
 		@return null;

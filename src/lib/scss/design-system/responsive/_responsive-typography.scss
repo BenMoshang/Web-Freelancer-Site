@@ -11,7 +11,7 @@
 	@if not map-has-key(tokens.$font-sizes, $size) {
 		@error "Font size '#{$size}' not found in $font-sizes map.";
 	}
-	@return map-get(tokens.$font-sizes, $size);
+	@return map.get(tokens.$font-sizes, $size);
 }
 
 // Function to get line height from token map
@@ -19,7 +19,7 @@
 	@if not map-has-key(tokens.$line-heights, $size) {
 		@error "Line height '#{$size}' not found in $line-heights map.";
 	}
-	@return map-get(tokens.$line-heights, $size);
+	@return map.get(tokens.$line-heights, $size);
 }
 
 // Fluid typography mixin using clamp()
@@ -37,7 +37,7 @@
 	$size: 'md',
 	$min-size-modifier: 0.75,
 	$min-viewport: 20rem,
-	$max-viewport: gv.$PAGE_MAX_INLINE
+	$max-viewport: 80rem // *1280px design max width
 ) {
 	$base-size: get-font-size($size);
 	$min-size: $base-size * $min-size-modifier;

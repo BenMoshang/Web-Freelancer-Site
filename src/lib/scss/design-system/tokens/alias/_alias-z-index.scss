@@ -1,13 +1,13 @@
 // Functional z-index mappings
 $z-index-functional: (
-	'default': map-get($z-index-values, 'base'),
-	'dropdown': map-get($z-index-values, 'low'),
-	'sticky': map-get($z-index-values, 'medium'),
-	'header': map-get($z-index-values, 'high'),
-	'modal-backdrop': map-get($z-index-values, 'modal'),
-	'modal-content': map-get($z-index-values, 'modal') + 10,
-	'tooltip': map-get($z-index-values, 'tooltip'),
-	'popover': map-get($z-index-values, 'popover'),
-	'notification': map-get($z-index-values, 'notification'),
-	'overlay': map-get($z-index-values, 'overlay')
+	'default': map.get($z-index-values, 'base'),
+	'dropdown': map.get($z-index-values, 'low'),
+	'sticky': map.get($z-index-values, 'medium'),
+	'header': map.get($z-index-values, 'high'),
+	'modal-backdrop': map.get($z-index-values, 'modal'),
+	'modal-content': map.get($z-index-values, 'modal') + 10,
+	'tooltip': map.get($z-index-values, 'tooltip'),
+	'popover': map.get($z-index-values, 'popover'),
+	'notification': map.get($z-index-values, 'notification'),
+	'overlay': map.get($z-index-values, 'overlay')
 );

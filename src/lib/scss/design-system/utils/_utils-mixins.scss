@@ -1,6 +1,10 @@
 // Utils/_mixins.scss
 // Common utility mixins for layout, typography, and more
 
+@use '../tokens/alias/_alias-typography' as typography;
+@use '../tokens/alias/_alias-spacing' as spacing;
+@use 'sass:map';
+
 // Flexbox mixins
 @mixin flex-row {
 	display: flex;
@@ -37,7 +41,7 @@
 }
 
 // Grid layout mixins
-@mixin grid-columns($columns: 1, $gap: $gap-md) {
+@mixin grid-columns($columns: 1, $gap: spacing.$gap-md) {
 	display: grid;
 	grid-template-columns: repeat($columns, 1fr);
 	gap: $gap;
@@ -46,16 +50,16 @@
 // Typography mixins
 @mixin heading($level: 1) {
 	@if $level == 1 {
-		font-size: $heading-1;
+		font-size: map.get(typography.$font-size, 'heading', 'h1');
 	} @else if $level == 2 {
-		font-size: $heading-2;
+		font-size: map.get(typography.$font-size, 'heading', 'h2');
 	} @else if $level == 3 {
-		font-size: $heading-3;
+		font-size: map.get(typography.$font-size, 'heading', 'h3');
 	} @else {
 		@error "Invalid heading level: #{$level}. Must be 1, 2, or 3.";
 	}
-	font-weight: $font-weight-bold;
-	line-height: $line-height-tight;
+	font-weight: map.get(typography.$font-weight, 'bold');
+	line-height: map.get(typography.$line-height, 'tight');
 }
 
 @mixin heading-1 {
@@ -72,12 +76,12 @@
 
 @mixin body-text($size: 'medium') {
 	@if $size == 'small' {
-		font-size: $body-small;
+		font-size: map.get(typography.$font-size, 'body', 'sm');
 	} @else {
-		font-size: $body-medium;
+		font-size: map.get(typography.$font-size, 'body', 'md');
 	}
-	font-weight: $font-weight-regular;
-	line-height: $line-height-normal;
+	font-weight: map.get(typography.$font-weight, 'regular');
+	line-height: map.get(typography.$line-height, 'normal');
 }
 
 @mixin body-text-small {
@@ -100,7 +104,11 @@
 }
 
 // Focus styles
-@mixin focus-ring($color: $primary-default, $offset: 2px, $width: 2px) {
-	outline: $width solid $color;
+@mixin focus-ring($color: null, $offset: 2px, $width: 2px) {
+	$ring-color: $color;
+	@if $color == null {
+		$ring-color: map.get(typography.$accent, 'primary', 'default');
+	}
+	outline: $width solid $ring-color;
 	outline-offset: $offset;
 }

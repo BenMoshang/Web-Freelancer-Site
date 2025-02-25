@@ -109,12 +109,12 @@ $form-variants: (
 
 // Form spacing
 $form-spacing: (
-	'padding-input-x': map-get(spacing.$spacing, 'sm'),
-	'padding-input-y': map-get(spacing.$spacing, 'xs'),
-	'margin-form-group': map-get(spacing.$spacing, 'md'),
-	'gap-form-label-input': map-get(spacing.$spacing, 'xxs')
+	'padding-input-x': map.get(spacing.$spacing, 'sm'),
+	'padding-input-y': map.get(spacing.$spacing, 'xs'),
+	'margin-form-group': map.get(spacing.$spacing, 'md'),
+	'gap-form-label-input': map.get(spacing.$spacing, 'xxs')
 );
 
 // Form properties
-$form-border-radius: map-get(borders.$component-border-radius, 'input');
-$form-border-width: map-get(borders.$component-border-width, 'input');
+$form-border-radius: map.get(borders.$component-border-radius, 'input');
+$form-border-width: map.get(borders.$component-border-width, 'input');

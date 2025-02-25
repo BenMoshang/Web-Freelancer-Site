@@ -19,7 +19,7 @@
 	@if not map-has-key(tokens.$spacing-t-shirt, $size) {
 		@error "Size '#{$size}' not found in spacing t-shirt sizes.";
 	}
-	@return map-get(tokens.$spacing-t-shirt, $size);
+	@return map.get(tokens.$spacing-t-shirt, $size);
 }
 
 // Fluid responsive padding
