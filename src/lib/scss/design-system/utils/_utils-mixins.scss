@@ -3,6 +3,7 @@
 
 @use '../tokens/alias/_alias-typography' as typography;
 @use '../tokens/alias/_alias-spacing' as spacing;
+@use '../base/_global-variables' as gv;
 @use 'sass:map';
 
 // Flexbox mixins
@@ -40,8 +41,34 @@
 	justify-content: flex-end;
 }
 
+// Apply spacing to elements (padding)
+@mixin apply-spacing($property, $direction, $size, $min-size-modifier: 0.5, $is-responsive: true) {
+	$spacing-value: map.get(spacing.$padding, $size);
+
+	@if $direction == 'all' {
+		#{$property}: $spacing-value;
+	} @else if $direction == 'block' {
+		#{$property}-block: $spacing-value;
+	} @else if $direction == 'inline' {
+		#{$property}-inline: $spacing-value;
+	} @else if $direction == 'block-start' or $direction == 'top' {
+		#{$property}-block-start: $spacing-value;
+	} @else if $direction == 'block-end' or $direction == 'bottom' {
+		#{$property}-block-end: $spacing-value;
+	} @else if $direction == 'inline-start' or $direction == 'left' {
+		#{$property}-inline-start: $spacing-value;
+	} @else if $direction == 'inline-end' or $direction == 'right' {
+		#{$property}-inline-end: $spacing-value;
+	}
+}
+
+// Padding utility mixin
+@mixin apply-padding($direction: 'all', $size: 'md', $is_responsive: true) {
+	@include apply-spacing('padding', $direction, $size, 0.5, $is_responsive);
+}
+
 // Grid layout mixins
-@mixin grid-columns($columns: 1, $gap: spacing.$gap-md) {
+@mixin grid-columns($columns: 1, $gap: map.get(spacing.$gap, 'md')) {
 	display: grid;
 	grid-template-columns: repeat($columns, 1fr);
 	gap: $gap;
@@ -107,8 +134,19 @@
 @mixin focus-ring($color: null, $offset: 2px, $width: 2px) {
 	$ring-color: $color;
 	@if $color == null {
-		$ring-color: map.get(typography.$accent, 'primary', 'default');
+		// Using a default blue color since typography.$accent might not exist
+		$ring-color: #3b82f6;
 	}
 	outline: $width solid $ring-color;
 	outline-offset: $offset;
+}
+
+// Layout mixins
+@mixin apply-page-max-inline {
+	max-inline-size: gv.$PAGE_MAX_INLINE;
+	margin-inline: auto;
+}
+
+@mixin apply-br($size: 'md') {
+	border-radius: map.get(typography.$border-radius, $size);
 }

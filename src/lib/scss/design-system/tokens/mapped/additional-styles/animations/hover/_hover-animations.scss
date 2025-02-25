@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../../../abstracts/colors/colors-functions' as cf;
+@use '../../../../../tokens/alias/themes/_themes' as themes;
 
 /* =============================================
 =          TEXT HOVER Animations            =
@@ -86,14 +86,14 @@
 		left: 0;
 		width: 0;
 		height: 0.125rem;
-		background: cf.get-light-dark('900', '50');
+		background: themes.theme('text', 'primary');
 		transition: width 0.3s ease;
 	}
 
 	&:active,
 	&:hover,
 	&:focus {
-		color: cf.get-light-dark('900', '50');
+		color: themes.theme('accent', 'primary');
 		transform: translateY(-0.125rem);
 
 		&::after {

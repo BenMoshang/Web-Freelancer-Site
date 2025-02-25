@@ -10,9 +10,9 @@ export default defineConfig({
 			allow: ['..']
 		},
 		//ben desktop
-		// host: '192.168.0.167',
+		host: '192.168.0.167',
 		//ben laptop
-		host: '192.168.0.85',
+		// host: '192.168.0.85',
 		//work
 		// host: '10.1.10.89',
 		port: 3000
@@ -39,7 +39,7 @@ export default defineConfig({
 		devSourcemap: true,
 		preprocessorOptions: {
 			scss: {
-				additionalData: '@use "$lib/scss/main.scss" as *;',
+				additionalData: '@use "$lib/scss/design-system/main.scss" as *;',
 				includePaths: ['./src/lib/scss']
 			}
 		}

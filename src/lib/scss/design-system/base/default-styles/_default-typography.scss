@@ -119,25 +119,3 @@
 		}
 	}
 }
-
-// Generate static body text placeholders
-@each $body-type, $config in typography.$body-config {
-	%#{$body-type}-static {
-		@each $property, $value in $config {
-			@if $property != 'min-size-modifier' {
-				#{$property}: $value;
-			}
-		}
-	}
-}
-
-// Generate static utility text placeholders
-@each $utility-type, $config in typography.$utility-config {
-	%#{$utility-type}-static {
-		@each $property, $value in $config {
-			@if $property != 'min-size-modifier' {
-				#{$property}: $value;
-			}
-		}
-	}
-}

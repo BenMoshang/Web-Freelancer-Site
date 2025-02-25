@@ -77,6 +77,8 @@
 <Navigation {navItems} isOpen={isNavOpen} />
 
 <style lang="scss">
+	@use '../../lib/scss/design-system/main.scss' as *;
+	
 	/* ==========================
     HEADER & CHILD COMPONENTS
   ========================== */

@@ -14,19 +14,13 @@
  * @use 'path/to/design-system/main';
  */
 
-// Import tokens first (raw design values)
+// All @forward statements must come first
 @forward 'tokens';
-
-// Import utils (for mixins and functions)
 @forward 'utils';
-
-// Import responsive utilities
 @forward 'responsive';
-
-// Import base styles
 @forward 'base';
 
-// Import and apply themes
+// After all @forward statements, we can use and include modules
 @use 'tokens/alias/themes/themes';
 @include themes.export-theme-variables();
 

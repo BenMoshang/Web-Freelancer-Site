@@ -14,9 +14,8 @@
  * modern best practices for CSS resets.
  */
 
-@use '../abstracts/colors/colors-functions' as cf;
-@use 'global-variables' as gv;
 @use '../tokens/alias/themes/_themes' as themes;
+@use 'global-variables' as gv;
 @use 'sass:map';
 
 /* --------------------------------------
@@ -55,7 +54,7 @@
  * Base Body Styles
  * Sets foundational styles for the document body
  */
-body {
+:global(body) {
 	width: 100%;
 	height: 100%;
 	/* Use standard font-smoothing with appropriate vendor prefixes */
@@ -70,7 +69,7 @@ body {
  * HTML Element Styles
  * Sets global styles for the HTML root element
  */
-html {
+:global(html) {
 	width: 100%;
 	min-height: 100vh;
 	background: themes.theme('background', 'primary');

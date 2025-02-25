@@ -1,0 +1,60 @@
+/**
+ * SPACING MIXINS
+ * --------------------------------------------------
+ * These mixins provide spacing using logical properties, with optional responsiveness
+ */
+
+/**
+ * Apply padding
+ * 
+ * @param {String} $direction - Direction to apply padding to (all, block, inline, block-start, block-end, inline-start, inline-end)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the spacing shrinks at smaller viewports
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-padding(
+	$direction: 'all',
+	$size: 'md',
+	$min-size-modifier: 0.5,
+	$is-responsive: true
+) {
+	@include apply-spacing('padding', $direction, $size, $min-size-modifier, $is-responsive);
+}
+
+/**
+ * Apply margin
+ * 
+ * @param {String} $direction - Direction to apply margin to (all, block, inline, block-start, block-end, inline-start, inline-end)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1) that determines how much the spacing shrinks at smaller viewports.
+ *                                      A value of 0.5 means the spacing will be 50% of the base size at the minimum viewport width.
+ *                                      Higher values (closer to 1) result in less reduction of spacing on small screens.
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-margin($direction: 'all', $size: 'md', $min-size-modifier: 0.5, $is-responsive: true) {
+	@include apply-spacing('margin', $direction, $size, $min-size-modifier, $is-responsive);
+}
+
+/**
+ * LAYOUT SPACING MIXINS
+ * --------------------------------------------------
+ * These mixins provide spacing for layout elements, with optional responsiveness
+ */
+
+/**
+ * Apply gap for grid and flex layouts
+ * 
+ * @param {String} $direction - Direction to apply gap to (all, row, column)
+ * @param {String} $size - T-shirt size for spacing value
+ * @param {Number} $min-size-modifier - Modifier for minimum size (0-1)
+ * @param {Boolean} $is-responsive - Whether to use fluid (responsive) or static spacing
+ */
+@mixin apply-gap($direction: 'all', $size: 'md', $min-size-modifier: 0.5, $is-responsive: true) {
+	@if $direction == 'row' {
+		@include apply-spacing('row-gap', 'all', $size, $min-size-modifier, $is-responsive);
+	} @else if $direction == 'column' {
+		@include apply-spacing('column-gap', 'all', $size, $min-size-modifier, $is-responsive);
+	} @else {
+		@include apply-spacing('gap', 'all', $size, $min-size-modifier, $is-responsive);
+	}
+}

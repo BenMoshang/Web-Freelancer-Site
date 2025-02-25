@@ -19,7 +19,7 @@
 
 <main class="page-container">
 	<HeroSection />
-	<OpeningSection />
+	<!-- <OpeningSection /> -->
 	<!-- <SecondHero /> -->
 	<!-- <FontTesting /> -->
 </main>
@@ -36,42 +36,42 @@
 </svg>
 
 <style lang="scss">
-	.page-container {
-		@include apply-page-max-inline;
-		@include apply-padding('sm', 'inline');
-		@extend %page-grid-container;
-		z-index: 2;
-		inline-size: 100%;
-		block-size: 100%;
-		margin: 0 auto;
-		overflow-x: clip;
-		place-content: center;
+	// .page-container {
+	// 	@include apply-page-max-inline;
+	// 	@include apply-padding('sm', 'inline');
+	// 	@extend %page-grid-container;
+	// 	z-index: 2;
+	// 	inline-size: 100%;
+	// 	block-size: 100%;
+	// 	margin: 0 auto;
+	// 	overflow-x: clip;
+	// 	place-content: center;
 
-		// scrollbar-width: none;
-		scroll-behavior: smooth;
+	// 	// scrollbar-width: none;
+	// 	scroll-behavior: smooth;
 
-		&::after {
-			content: '';
-			position: fixed;
-			z-index: -2;
-			inset: 0;
-			inline-size: 100%;
-			block-size: 100%;
-			margin: auto;
-			background: get-light-dark('page-background', 'page-background');
-			transform: translateZ(0);
-			opacity: 0.08;
-			pointer-events: none;
-			will-change: filter;
+	// 	&::after {
+	// 		content: '';
+	// 		position: fixed;
+	// 		z-index: -2;
+	// 		inset: 0;
+	// 		inline-size: 100%;
+	// 		block-size: 100%;
+	// 		margin: auto;
+	// 		background: get-light-dark('page-background', 'page-background');
+	// 		transform: translateZ(0);
+	// 		opacity: 0.08;
+	// 		pointer-events: none;
+	// 		will-change: filter;
 
-			@media (prefers-color-scheme: dark) {
-				filter: url('#noiseFilter2') contrast(300%) brightness(120%) opacity(1);
-			}
+	// 		@media (prefers-color-scheme: dark) {
+	// 			filter: url('#noiseFilter2') contrast(300%) brightness(120%) opacity(1);
+	// 		}
 
-			@media (prefers-color-scheme: light) {
-				filter: url('#noiseFilter') contrast(300%) brightness(50%) opacity(1);
-				opacity: unset;
-			}
-		}
-	}
+	// 		@media (prefers-color-scheme: light) {
+	// 			filter: url('#noiseFilter') contrast(300%) brightness(50%) opacity(1);
+	// 			opacity: unset;
+	// 		}
+	// 	}
+	// }
 </style>

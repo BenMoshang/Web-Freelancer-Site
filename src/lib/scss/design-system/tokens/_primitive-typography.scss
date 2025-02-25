@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Tokens/_typography.scss
 // Define raw typography values
 
@@ -5,6 +7,9 @@
 $font-family-base: (
 	'sans': (
 		'"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"'
+	),
+	'sans-alt': (
+		'"Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"'
 	),
 	'serif': (
 		'Georgia, "Times New Roman", serif'
@@ -52,7 +57,7 @@ $letter-spacing: (
    ---------------------------------------------------------------------------
    Adjust these to match your project's design system.
 --------------------------------------------------------------------------- */
-$typography-base-size: 1rem; // 12px
+$typography-base-size: 1rem;
 $typography-scale-ratio: 1.2;
 
 /* ---------------------------------------------------------------------------
@@ -100,3 +105,6 @@ $base-typography-scale: (
 	'10xl': calculate-font-size(12) // 160px
 );
 $base-typography-scale: () !default;
+
+// Add an alias for $font-size to ensure compatibility
+$font-size: $base-typography-scale;

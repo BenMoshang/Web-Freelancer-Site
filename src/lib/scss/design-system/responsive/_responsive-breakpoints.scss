@@ -6,17 +6,17 @@
 
 // Breakpoint map with common screen sizes
 $breakpoints: (
-	'xs': 20rem,
+	'min': 20rem,
 	// 320px
-	'sm': 36rem,
+	'mobile': 29.6875rem,
 	// 576px
-	'md': 48rem,
+	'tablet': 48rem,
 	// 768px
-	'lg': 62rem,
-	// 992px
-	'xl': 75rem,
-	// 1200px
-	'xxl': 87.5rem // 1400px
+	'desktop': 64rem,
+	// 1024px start of  desktop
+	'large-desktop': 80rem,
+	// 1440px
+	'max': 90rem
 );
 
 // Function to get breakpoint value
@@ -30,49 +30,31 @@ $breakpoints: (
 }
 
 // Media query mixins
-@mixin media-breakpoint-up($breakpoint) {
+@mixin respond-to($breakpoint, $desktop-first: false) {
 	$min-width: get-breakpoint($breakpoint);
-	@media (min-width: $min-width) {
-		@content;
-	}
-}
-
-@mixin media-breakpoint-down($breakpoint) {
-	$max-width: get-breakpoint($breakpoint);
-	@media (max-width: ($max-width - 0.0625rem)) {
-		@content;
-	}
-}
-
-@mixin media-breakpoint-between($lower, $upper) {
-	$min-width: get-breakpoint($lower);
-	$max-width: get-breakpoint($upper);
-	@media (min-width: $min-width) and (max-width: ($max-width - 0.0625rem)) {
-		@content;
+	@if $desktop-first {
+		@media (min-width: $min-width) {
+			@content;
+		}
+	} @else {
+		@media (max-width: ($min-width - 0.0625rem)) {
+			@content;
+		}
 	}
 }
 
 // Container width mixins
 @mixin container {
-	width: 100%;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: var(--container-padding, 1rem);
-	padding-left: var(--container-padding, 1rem);
-	max-width: gv.$PAGE_MAX_INLINE;
+	inline-size: 100%;
+	margin-inline: auto;
+	padding-inline: var(--container-padding, 1rem);
+	max-inline-size: gv.$PAGE_MAX_INLINE;
 }
 
 @mixin container-fluid {
-	width: 100%;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: var(--container-padding, 1rem);
-	padding-left: var(--container-padding, 1rem);
-}
-
-// Responsive width utilities
-@mixin responsive-width($min-width, $max-width) {
-	width: clamp($min-width, 100%, $max-width);
+	inline-size: 100%;
+	margin-inline: auto;
+	padding-inline: var(--container-padding, 1rem);
 }
 
 // Export breakpoint values as CSS variables

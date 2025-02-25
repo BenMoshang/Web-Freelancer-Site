@@ -2,13 +2,13 @@
 // Define role-based spacing variables
 
 // Import tokens if needed
-@use '../tokens/spacing' as tokens;
+@use '../_primitive-spacing' as tokens;
 @use 'sass:map';
 
 // Create spacing maps with T-shirt sizes
 $padding: (
 	'none': map.get(tokens.$spacing-numeric, 0),
-	'xxs': map.get(tokens.$spacing-t-shirt, '2xs'),
+	'2xs': map.get(tokens.$spacing-t-shirt, '2xs'),
 	'xs': map.get(tokens.$spacing-t-shirt, 'xs'),
 	'sm': map.get(tokens.$spacing-t-shirt, 'sm'),
 	'md': map.get(tokens.$spacing-t-shirt, 'md'),
@@ -23,12 +23,12 @@ $gap: $padding;
 
 // Section spacing
 $section-spacing: (
-	'padding-y': (
+	'padding-block': (
 		'sm': map.get(tokens.$spacing-numeric, 8),
 		'md': map.get(tokens.$spacing-numeric, 12),
 		'lg': map.get(tokens.$spacing-numeric, 16)
 	),
-	'padding-x': (
+	'padding-inline': (
 		'sm': map.get(tokens.$spacing-numeric, 4),
 		'md': map.get(tokens.$spacing-numeric, 6),
 		'lg': map.get(tokens.$spacing-numeric, 8)

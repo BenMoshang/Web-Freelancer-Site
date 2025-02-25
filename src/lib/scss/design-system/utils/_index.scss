@@ -1,6 +1,6 @@
 // Utils/_index.scss
 // Import all utility files
 
-@forward 'functions';
-@forward 'mixins';
-@forward 'themes';
+@forward 'utils-functions' as functions-*;
+@forward 'utils-mixins' as mixins-*;
+@forward 'utils-accessibility' as accessibility-*;

@@ -2,14 +2,14 @@
 // Define role-based typography variables
 
 // Import tokens if needed
-@use '../tokens/typography' as tokens;
+@use '../_primitive-typography' as tokens;
 @use 'sass:map';
 @use '../../base/global-variables' as gv;
 
 // Font family aliases
 $font-family: (
-	'primary': map.get(tokens.$font-family-base, 'sans'),
-	'secondary': map.get(tokens.$font-family-base, 'serif'),
+	'heading': map.get(tokens.$font-family-base, 'sans'),
+	'body': map.get(tokens.$font-family-base, 'serif'),
 	'code': map.get(tokens.$font-family-base, 'mono')
 );
 

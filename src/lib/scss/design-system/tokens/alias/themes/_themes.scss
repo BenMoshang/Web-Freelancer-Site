@@ -1,7 +1,7 @@
 // Themes/_themes.scss
 // Define theme-based variables for light and dark modes
 
-@use '../../../_primitive-colors' as colors;
+@use '../../_primitive-colors' as colors;
 @use 'sass:map';
 
 /**
@@ -89,6 +89,16 @@ $current-theme: $dark-theme !default;
 }
 
 /**
+ * Simplified theme function for easy access to theme values
+ * @param {String} $category - The category of the theme value (e.g., 'background', 'text')
+ * @param {String} $key - The specific key within the category (e.g., 'primary', 'secondary')
+ * @return {String} CSS custom property reference
+ */
+@function theme($category, $key) {
+	@return get-theme-value($category, $key);
+}
+
+/**
  * Mixin to apply theme-specific styles
  * Handles both user preference (prefers-color-scheme) and explicit theme selection
  * @param {String} $theme-name - The theme to apply ('light', 'dark', or custom theme name)
@@ -97,24 +107,24 @@ $current-theme: $dark-theme !default;
 @mixin apply-theme($theme-name) {
 	@if $theme-name == 'light' {
 		@media (prefers-color-scheme: light) {
-			:root:not([data-theme='dark']) & {
+			:root:not([data-theme='dark']) {
 				@content;
 			}
 		}
-		[data-theme='light'] & {
+		[data-theme='light'] {
 			@content;
 		}
 	} @else if $theme-name == 'dark' {
 		@media (prefers-color-scheme: dark) {
-			:root:not([data-theme='light']) & {
+			:root:not([data-theme='light']) {
 				@content;
 			}
 		}
-		[data-theme='dark'] & {
+		[data-theme='dark'] {
 			@content;
 		}
 	} @else {
-		[data-theme='#{$theme-name}'] & {
+		[data-theme='#{$theme-name}'] {
 			@content;
 		}
 	}
@@ -177,7 +187,7 @@ $current-theme: $dark-theme !default;
  * @content Styles to apply in high contrast mode
  */
 @mixin high-contrast-theme {
-	[data-theme='high-contrast'] & {
+	[data-theme='high-contrast'] {
 		@content;
 	}
 }
