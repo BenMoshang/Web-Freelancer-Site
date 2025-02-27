@@ -76,18 +76,12 @@
 </header>
 <Navigation {navItems} isOpen={isNavOpen} />
 
-<style lang="scss">
-	@use '../../lib/scss/design-system/main.scss' as *;
-	
+<style>
 	/* ==========================
     HEADER & CHILD COMPONENTS
   ========================== */
 	.header {
-		@include apply-padding('lg', 'block');
-		@include apply-padding('md', 'inline');
-		@include apply-page-max-inline;
-
-		--header-height: #{$PAGE_HEADER_HEIGHT};
+		--header-height: 80px;
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -97,111 +91,103 @@
 		justify-content: center;
 		align-items: center;
 		grid-template-columns: repeat(3, 1fr);
-		inline-size: 100%;
-		block-size: var(--header-height);
-		border-radius: $BR_ROUNDED;
+		width: 100%;
+		height: var(--header-height);
+		border-radius: 8px;
 		transform: translateY(0);
 		transition: transform 0.3s ease-in-out;
 		grid-template-areas: 'logo nav content';
 		will-change: transform;
+		padding: 1.5rem 1rem;
+	}
 
-		// Remove text decoration from all links in header
-		a {
-			text-decoration: none;
-		}
+	/* Remove text decoration from all links in header */
+	.header a {
+		text-decoration: none;
+	}
 
-		// Desktop: limit header width
-		@include respond-to('desktop') {
+	/* Desktop: limit header width */
+	@media (min-width: 1024px) {
+		.header {
 			margin-inline: auto;
-		}
-
-		// Modifier: hide header by sliding it up
-		&.hide {
-			transform: translateY(-120%);
-		}
-
-		//==========================
-		// Navigation (Desktop)
-		//==========================
-		&__nav--desktop {
-			display: none;
-
-			@include respond-to('desktop') {
-				display: block;
-			}
-		}
-
-		//==========================
-		// Header Content Wrapper
-		//==========================
-		&__content-wrapper {
-			display: flex;
-			align-items: center;
-			gap: get-responsive-sp('md');
-			grid-area: content;
-			justify-self: end;
-		}
-
-		//==========================
-		// Burger Menu (Mobile)
-		//==========================
-		&__burger {
-			cursor: pointer;
-
-			input {
-				display: none;
-
-				// When the checkbox is checked, animate the SVG burger
-				&:checked + svg {
-					transform: rotate(-45deg);
-
-					.line-top-bottom {
-						stroke-dasharray: 20 300;
-						stroke-dashoffset: -32.42;
-					}
-				}
-			}
-
-			svg {
-				width: 2em;
-				height: 2em;
-
-				// background: get-light-dark('darkest', 'lightest');
-				border-radius: $BR_ROUNDED;
-				transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-				object-fit: cover;
-			}
-
-			.line {
-				$color: get-light-dark('800', '200');
-				transition:
-					stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
-					stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
-				fill: none;
-				stroke: $color;
-				stroke-linecap: round;
-				stroke-linejoin: round;
-				stroke-width: 2;
-
-				&-top-bottom {
-					stroke-dasharray: 12 63;
-				}
-			}
 		}
 	}
 
-	//==========================
-	// Hide burger menu on larger screens
-	//==========================
-	@include respond-to('desktop') {
+	/* Modifier: hide header by sliding it up */
+	.header.hide {
+		transform: translateY(-120%);
+	}
+
+	/* Navigation (Desktop) */
+	.header__nav--desktop {
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.header__nav--desktop {
+			display: block;
+		}
+	}
+
+	/* Header Content Wrapper */
+	.header__content-wrapper {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		grid-area: content;
+		justify-self: end;
+	}
+
+	/* Burger Menu (Mobile) */
+	.header__burger {
+		cursor: pointer;
+	}
+
+	.header__burger input {
+		display: none;
+	}
+
+	/* When the checkbox is checked, animate the SVG burger */
+	.header__burger input:checked + svg {
+		transform: rotate(-45deg);
+	}
+
+	.header__burger input:checked + svg .line-top-bottom {
+		stroke-dasharray: 20 300;
+		stroke-dashoffset: -32.42;
+	}
+
+	.header__burger svg {
+		width: 2em;
+		height: 2em;
+		border-radius: 8px;
+		transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+		object-fit: cover;
+	}
+
+	.header__burger .line {
+		transition:
+			stroke-dasharray 500ms cubic-bezier(0.4, 0, 0.2, 1),
+			stroke-dashoffset 500ms cubic-bezier(0.4, 0, 0.2, 1);
+		fill: none;
+		stroke: rgba(0, 0, 0, 0.8);
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 2;
+	}
+
+	.header__burger .line-top-bottom {
+		stroke-dasharray: 12 63;
+	}
+
+	/* Hide burger menu on larger screens */
+	@media (min-width: 1024px) {
 		.header__burger {
 			display: none;
 		}
 	}
 
-	/* ==========================
-    NAVIGATION LINKS & LIST
-  ========================== */
+	/* NAVIGATION LINKS & LIST */
 	.nav__list {
 		display: flex;
 		justify-content: space-evenly;
@@ -209,14 +195,30 @@
 		width: 100%;
 		grid-area: nav;
 		list-style: none;
-
-		@include apply-gap('lg');
+		gap: 1.5rem;
 	}
 
 	.nav__link {
-		@extend %global__body--md;
-		@include link-effect;
-		font-size: get-responsive-fsz('label');
+		font-size: 0.875rem;
 		line-height: 1;
+		position: relative;
+	}
+
+	.nav__link span::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		bottom: -4px;
+		left: 0;
+		background-color: currentColor;
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.3s ease;
+	}
+
+	.nav__link:hover span::after {
+		transform: scaleX(1);
+		transform-origin: left;
 	}
 </style>

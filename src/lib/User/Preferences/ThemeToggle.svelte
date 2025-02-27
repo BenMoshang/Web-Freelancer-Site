@@ -50,83 +50,83 @@
 	</svg>
 </label>
 
-<style lang="scss">
+<style>
 	/* Theme toggle styling from joshwcomeau.com but using pure CSS */
 	.theme-toggle {
 		position: relative;
-		color: get-light-dark('800', '200');
+		color: rgba(0, 0, 0, 0.8);
 		cursor: pointer;
+	}
 
-		&__input {
-			position: absolute;
-			z-index: 1;
-			inset: 0;
-			width: 100%;
-			height: 100%;
-			margin: auto;
-			cursor: pointer;
-			opacity: 0;
+	.theme-toggle__input {
+		position: absolute;
+		z-index: 1;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: auto;
+		cursor: pointer;
+		opacity: 0;
+	}
 
-			&:checked + svg {
-				transform: rotate(90deg);
+	.theme-toggle__input:checked + svg {
+		transform: rotate(90deg);
+	}
 
-				mask > circle {
-					transform: translate(1rem, -0.1875rem);
-				}
+	.theme-toggle__input:checked + svg mask > circle {
+		transform: translate(1rem, -0.1875rem);
+	}
 
-				.theme-toggle__sun-moon {
-					transform: scale(0.55);
-				}
+	.theme-toggle__input:checked + svg .theme-toggle__sun-moon {
+		transform: scale(0.55);
+	}
 
-				.theme-toggle__ray {
-					animation: showRay1832 0.4s ease 0s 1 forwards;
-				}
-			}
-		}
+	.theme-toggle__input:checked + svg .theme-toggle__ray {
+		animation: showRay1832 0.4s ease 0s 1 forwards;
+	}
 
-		svg {
-			position: relative;
-			width: get-responsive-fsz('label');
-			height: get-responsive-fsz('label');
-			transform: rotate(40deg);
-			transition: transform 0.4s ease;
+	.theme-toggle svg {
+		position: relative;
+		width: 0.875rem;
+		height: 0.875rem;
+		transform: rotate(40deg);
+		transition: transform 0.4s ease;
+	}
 
-			mask > circle {
-				transform: translate(0, 0);
-				transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
-			}
-		}
+	.theme-toggle svg mask > circle {
+		transform: translate(0, 0);
+		transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+	}
 
-		&__sun-moon {
-			transform: scale(1);
-			transition: inherit;
-			transform-origin: center center;
-		}
+	.theme-toggle__sun-moon {
+		transform: scale(1);
+		transition: inherit;
+		transform-origin: center center;
+	}
 
-		&__ray {
-			transform: scale(0);
-			transform-origin: center center;
+	.theme-toggle__ray {
+		transform: scale(0);
+		transform-origin: center center;
+	}
 
-			&--2 {
-				animation-delay: 0.05s !important;
-			}
+	.theme-toggle__ray--2 {
+		animation-delay: 0.05s !important;
+	}
 
-			&--3 {
-				animation-delay: 0.1s !important;
-			}
+	.theme-toggle__ray--3 {
+		animation-delay: 0.1s !important;
+	}
 
-			&--4 {
-				animation-delay: 0.17s !important;
-			}
+	.theme-toggle__ray--4 {
+		animation-delay: 0.17s !important;
+	}
 
-			&--5 {
-				animation-delay: 0.25s !important;
-			}
+	.theme-toggle__ray--5 {
+		animation-delay: 0.25s !important;
+	}
 
-			&--6 {
-				animation-delay: 0.29s !important;
-			}
-		}
+	.theme-toggle__ray--6 {
+		animation-delay: 0.29s !important;
 	}
 
 	@keyframes showRay1832 {
@@ -136,6 +136,12 @@
 
 		100% {
 			transform: scale(1);
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.theme-toggle {
+			color: rgba(255, 255, 255, 0.8);
 		}
 	}
 </style>

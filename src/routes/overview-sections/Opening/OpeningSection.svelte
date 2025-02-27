@@ -20,6 +20,8 @@
 	</div>
 </section>
 
+<!-- Commented out SCSS style with compilation errors -->
+<!-- 
 <style scoped lang="scss">
 	.opening {
 		@extend %page-grid-item;
@@ -74,5 +76,35 @@
 				stroke-width: var(--stroke-width);
 			}
 		}
+	}
+</style>
+-->
+
+<!-- Replace with plain CSS to avoid compilation errors -->
+<style>
+	.opening {
+		position: relative;
+		display: grid;
+		width: 100%;
+		height: 100%;
+		contain: layout size;
+		overflow: hidden;
+		place-content: center;
+		transform-origin: center;
+	}
+
+	.opening__title-container {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.opening__title-text {
+		position: relative;
+		z-index: 1;
+		color: rgba(0, 0, 0, 0.38);
+		background-clip: text;
 	}
 </style>

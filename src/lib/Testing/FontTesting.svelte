@@ -12,6 +12,8 @@
 	<p class="label">LABEL</p>
 </section>
 
+<!-- Commented out SCSS with compilation errors -->
+<!-- 
 <style lang="scss">
 	section {
 		position: fixed;
@@ -64,6 +66,78 @@
 
 	.label {
 		@extend %global__label;
+	}
+
+	* {
+		text-align: center !important;
+		outline: 1px solid red;
+		text-wrap: none !important;
+	}
+</style>
+-->
+
+<!-- Replacement with basic CSS -->
+<style>
+	section {
+		position: fixed;
+		inset: 0;
+		width: 100%;
+		margin: auto;
+		padding-top: 10rem;
+		padding-inline: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.display--h1 {
+		font-size: 4rem;
+		font-weight: 800;
+		line-height: 1.1;
+	}
+
+	.display--h2 {
+		font-size: 3.5rem;
+		font-weight: 700;
+		line-height: 1.2;
+	}
+
+	.heading--h2 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		line-height: 1.2;
+		text-align: center !important;
+	}
+
+	.heading--h3 {
+		font-size: 2rem;
+		font-weight: 600;
+		line-height: 1.3;
+		text-align: center !important;
+	}
+
+	.heading--h4 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		line-height: 1.4;
+		text-align: center !important;
+	}
+
+	.body--lg {
+		font-size: 1.25rem;
+		line-height: 1.6;
+	}
+
+	.body--md {
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	.label {
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
 	* {

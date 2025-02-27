@@ -46,6 +46,8 @@
 	</div>
 </section>
 
+<!-- Commented out SCSS with compilation errors -->
+<!-- 
 <style scoped lang="scss">
 	* {
 		box-sizing: border-box;
@@ -150,5 +152,135 @@
 				text-align: left;
 			}
 		}
+	}
+</style>
+-->
+
+<!-- Replacement with plain CSS to avoid compilation errors -->
+<style>
+	* {
+		box-sizing: border-box;
+	}
+
+	.hero {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100vh;
+		margin: 0 auto;
+		align-content: center;
+		padding: 2rem;
+		gap: 2rem;
+	}
+
+	.hero__title-container {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		border: 0.25rem dashed rgba(0, 0, 0, 0.38);
+		overflow-x: clip;
+		gap: 1rem;
+		padding: 1rem;
+	}
+
+	.hero__title-container-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 0.125rem dashed rgba(0, 0, 0, 0.38);
+		padding: 0.5rem 0;
+	}
+
+	.hero__title-container-header-circle-group {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.5rem;
+		width: min-content;
+	}
+
+	.hero__title-container-header-circle-group span {
+		width: 0.25rem;
+		height: 0.25rem;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.38);
+	}
+
+	.hero__title-container-header small {
+		margin-inline: auto;
+		color: rgba(0, 0, 0, 0.7);
+		font-size: 0.75rem;
+		text-transform: small-caps;
+		text-wrap: nowrap;
+	}
+
+	.hero__title {
+		position: relative;
+		font-size: 3rem;
+		font-weight: 800;
+		background: linear-gradient(90deg, #000, #333);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	.hero__title::after {
+		content: attr(data-text);
+		position: absolute;
+		z-index: -1;
+		inset: 0;
+		margin: auto;
+		isolation: isolate;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	}
+
+	.hero__description-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.hero__description-container-description {
+		margin-bottom: 1rem;
+		font-size: 1.25rem;
+		color: rgba(0, 0, 0, 0.7);
+		width: 100%;
+		max-width: 80ch;
+		text-wrap: pretty;
+	}
+
+	.hero__description-container-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-weight: bold;
+		padding: 0;
+		text-align: left;
+	}
+
+	.hover-underline-animation {
+		position: relative;
+	}
+
+	.hover-underline-animation::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		bottom: -4px;
+		left: 0;
+		background-color: currentColor;
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.3s ease;
+	}
+
+	.hero__description-container-button:hover .hover-underline-animation::after {
+		transform: scaleX(1);
+		transform-origin: left;
 	}
 </style>

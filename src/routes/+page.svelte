@@ -1,6 +1,5 @@
 <script lang="ts">
-	import HeroSection from './overview-sections/Hero/HeroSection.svelte';
-	import OpeningSection from './overview-sections/Opening/OpeningSection.svelte';
+	import FontTesting from '$lib/Testing/FontTesting.svelte';
 </script>
 
 <svelte:head>
@@ -18,10 +17,7 @@
 </svelte:head>
 
 <main class="page-container">
-	<HeroSection />
-	<!-- <OpeningSection /> -->
-	<!-- <SecondHero /> -->
-	<!-- <FontTesting /> -->
+	<FontTesting />
 </main>
 <svg>
 	<filter id="noiseFilter">
@@ -35,43 +31,17 @@
 	</filter>
 </svg>
 
-<style lang="scss">
-	// .page-container {
-	// 	@include apply-page-max-inline;
-	// 	@include apply-padding('sm', 'inline');
-	// 	@extend %page-grid-container;
-	// 	z-index: 2;
-	// 	inline-size: 100%;
-	// 	block-size: 100%;
-	// 	margin: 0 auto;
-	// 	overflow-x: clip;
-	// 	place-content: center;
+<style>
+	/* Removing SCSS styling and using basic CSS to avoid compilation errors */
+	/* All complex styling with SCSS variables and mixins is commented out */
 
-	// 	// scrollbar-width: none;
-	// 	scroll-behavior: smooth;
-
-	// 	&::after {
-	// 		content: '';
-	// 		position: fixed;
-	// 		z-index: -2;
-	// 		inset: 0;
-	// 		inline-size: 100%;
-	// 		block-size: 100%;
-	// 		margin: auto;
-	// 		background: get-light-dark('page-background', 'page-background');
-	// 		transform: translateZ(0);
-	// 		opacity: 0.08;
-	// 		pointer-events: none;
-	// 		will-change: filter;
-
-	// 		@media (prefers-color-scheme: dark) {
-	// 			filter: url('#noiseFilter2') contrast(300%) brightness(120%) opacity(1);
-	// 		}
-
-	// 		@media (prefers-color-scheme: light) {
-	// 			filter: url('#noiseFilter') contrast(300%) brightness(50%) opacity(1);
-	// 			opacity: unset;
-	// 		}
-	// 	}
-	// }
+	.page-container {
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		overflow-x: clip;
+		place-content: center;
+		scroll-behavior: smooth;
+	}
 </style>

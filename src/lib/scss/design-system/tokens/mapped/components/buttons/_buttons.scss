@@ -2,11 +2,11 @@
 // Define component-specific variables using theme-based approach
 
 // Import tokens and aliases
-@use '../../tokens/colors' as colors;
-@use '../../alias/borders' as borders;
-@use '../../alias/spacing' as spacing;
-@use '../../alias/typography' as typography;
-@use '../../alias/themes/themes' as themes;
+@use '../../../../alias/colors' as colors;
+@use '../../../../alias/borders' as borders;
+@use '../../../../alias/spacing' as spacing;
+@use '../../../../alias/typography' as typography;
+@use '../../../../alias/themes/themes' as themes;
 
 // Button variants
 $button-variants: (

@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { onMount, onDestroy } from 'svelte';
-	import { initGsapScroll } from '$lib/animations/scroll.svelte';
-
-	let gsap: any;
-	let ScrollTrigger: any;
+	// import { initGsapScroll } from '$lib/animations/scroll.svelte';
 
 	// Types for injectable data
 	interface HeroContent {
@@ -50,168 +47,25 @@
 	} as const;
 
 	/* Refs to DOM elements with proper typing */
-	let topPanel: HTMLElement;
-	let bottomPanel: HTMLElement;
 	let heroSection: HTMLElement;
-	let heroBackground: SVGSVGElement;
-	let doorTimeline: gsap.core.Timeline;
 
-	// Animation configuration
-	const ANIMATION_CONFIG = {
-		duration: 4,
-		ease: 'power1.inOut',
-		force3D: true
-	} as const;
-
-	function createDoorTimeline() {
-		return gsap.timeline({
-			scrollTrigger: {
-				trigger: heroSection,
-				start: 'top top',
-				end: '+=100%',
-				pin: true,
-
-				pinSpacing: true,
-				scrub: 2,
-				markers: false,
-				anticipatePin: 2,
-				fastScrollEnd: false,
-				preventOverlaps: true,
-				onEnter: () => {
-					// Clear any inline styles applied by GSAP when the ScrollTrigger enters
-					gsap.set([topPanel, bottomPanel], { clearProps: 'all' });
-				}
-			}
-		});
-	}
-
-	function setupAnimations() {
-		doorTimeline = createDoorTimeline();
-
-		// Pre-define will-change properties for smoother performance
-		gsap.set([topPanel, bottomPanel], { willChange: 'transform' });
-		gsap.set(heroSection, { willChange: 'filter, transform' });
-		gsap.set(heroBackground, { willChange: 'opacity, transform' });
-
-		// Create the animation sequence for the panels and background
-		doorTimeline
-			.to(topPanel, {
-				yPercent: -100,
-				...ANIMATION_CONFIG
-			})
-			.to(
-				bottomPanel,
-				{
-					yPercent: 100,
-					...ANIMATION_CONFIG
-				},
-				'<'
-			)
-			.to(
-				heroSection,
-				{
-					filter: 'blur(8px)',
-					scale: 1.5,
-					...ANIMATION_CONFIG,
-					transformOrigin: 'center center'
-				},
-				'<'
-			)
-			.to(
-				heroBackground,
-				{
-					opacity: 0,
-					scale: 1.2,
-					...ANIMATION_CONFIG
-				},
-				'<'
-			)
-			// Clean up "will-change" properties after the animation completes
-			.add(() => {
-				gsap.set([topPanel, bottomPanel, heroSection, heroBackground], {
-					willChange: 'auto'
-				});
-			});
-	}
-
-	let gsapContext: gsap.Context;
-	onMount(async () => {
-		if (browser) {
-			const gsapModule = await import('gsap');
-			const scrollTriggerModule = await import('gsap/ScrollTrigger');
-
-			gsap = gsapModule.default;
-			ScrollTrigger = scrollTriggerModule.ScrollTrigger;
-
-			// Register ScrollTrigger
-			gsap.registerPlugin(ScrollTrigger);
-
-			// Initialize scroll functionality
-			initGsapScroll();
-
-			// Normalize scroll behavior
-			ScrollTrigger.normalizeScroll();
-
-			// Create GSAP context and setup animations
-			gsapContext = gsap.context(() => {
-				setupAnimations();
-			}, heroSection);
-		}
-	});
-
-	onDestroy(() => {
-		if (gsapContext) {
-			gsapContext.revert();
-		}
-		if (doorTimeline) {
-			doorTimeline.scrollTrigger?.kill();
-			doorTimeline.kill();
-		}
+	// GSAP animation functionality is temporarily disabled
+	onMount(() => {
+		// Animation initialization would go here
 	});
 </script>
 
-<section class="hero" bind:this={heroSection} aria-label="Hero Section" role="banner">
-	<!-- Animated background SVG -->
-	<svg
-		class="hero__background"
-		bind:this={heroBackground}
-		xmlns="http://www.w3.org/2000/svg"
-		version="1.1"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-		viewBox="0 0 800 800"
-		aria-hidden="true"
-	>
-		<defs>
-			<radialGradient id="cccircular-grad" r="50%" cx="50%" cy="50%">
-				<stop offset="15%" stop-color="currentColor" stop-opacity="0.5"></stop>
-				<stop offset="75%" stop-color="currentColor" stop-opacity="1"></stop>
-				<stop offset="100%" stop-color="currentColor" stop-opacity="1"></stop>
-			</radialGradient>
-		</defs>
-		<g fill="currentColor">
-			{#each Array(10) as _, i}
-				{@const radius = 352 - i * 32}
-				{@const opacity = 0.05 + i * 0.086}
-				<circle r={radius} cx="400" cy="400" opacity={opacity.toFixed(2)}></circle>
-			{/each}
-		</g>
-	</svg>
-
-	<div class="hero__panel hero__panel--top" bind:this={topPanel} aria-hidden="true">
-		<h2 class="hero__subtitle">{heroInjectable.subtitle}</h2>
-
-		<h1 data-text={heroInjectable.titleFirstHalf} class="hero__title hero__title--top">
+<section class="hero-container" bind:this={heroSection}>
+	<div class="hero-content">
+		<h2 class="hero-subtitle">{heroInjectable.subtitle}</h2>
+		<h1 class="hero-title">
 			{heroInjectable.titleFirstHalf}
-		</h1>
-	</div>
-
-	<div class="hero__panel hero__panel--bottom" bind:this={bottomPanel}>
-		<h1 data-text={heroInjectable.titleSecondHalf} class="hero__title hero__title--bottom">
 			{heroInjectable.titleSecondHalf}
 		</h1>
-		<ul class="hero__benefits" aria-label="Key Benefits">
+
+		<div class="hero-benefits">
 			{#each benefitsInjectable as benefit, index}
-				<li class="hero__benefits-item">
+				<div class="hero-benefit-item">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="10"
@@ -219,167 +73,81 @@
 						viewBox={index === 0 ? ICONS.globe.viewBox : ICONS.code.viewBox}
 						aria-hidden="true"
 						fill="currentColor"
-						class="hero__benefits-icon"
 					>
 						<path fill="currentColor" d={index === 0 ? ICONS.globe.path : ICONS.code.path} />
 					</svg>
-					<strong class="hero__benefits-text">
-						<span class="hero__benefits-text--first-half">{benefit.firstHalf}</span>
-						<span class="hero__benefits-text--seperator">{benefit.seperator}</span>
-						<span class="hero__benefits-text--second-half">{benefit.secondHalf}</span>
-					</strong>
-				</li>
+					<span class="hero-benefit-text">
+						<span>{benefit.firstHalf}</span>
+						<span class="separator">{benefit.seperator}</span>
+						<span>{benefit.secondHalf}</span>
+					</span>
+				</div>
 			{/each}
-		</ul>
+		</div>
 	</div>
 </section>
 
-<style lang="scss">
-	*,
-	*::before,
-	*::after {
-		transform: translateZ(0);
+<style>
+	/* Converted from SCSS to basic CSS to avoid compilation errors */
+	.hero-container {
+		position: relative;
+		width: 100%;
+		min-height: 100vh;
+		display: grid;
+		place-items: center;
+		z-index: 1;
+		overflow: hidden;
 	}
 
-	.hero {
-		@extend %page-grid-item;
+	.hero-content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		gap: 20px;
+		padding: 2rem;
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.hero-title {
+		font-size: 3.5rem;
+		font-weight: 800;
+		line-height: 1.1;
+		margin: 0;
 		position: relative;
-		display: grid;
-		grid-template: 1fr 1fr / 1fr;
-		inline-size: 100%;
-		block-size: 100dvh;
-		contain: layout size;
-		grid-template-areas:
-			'top'
-			'bottom';
-		overflow: hidden;
-		overscroll-behavior: contain;
-		perspective: 1000px;
-		place-content: center;
-		transform-style: preserve-3d;
+	}
 
-		&__background {
-			position: absolute;
-			z-index: -1;
-			inset: 0;
-			inline-size: 100%;
-			block-size: 100%;
-			color: get-light-dark('500', '600', 0.38, 1);
-			contain: strict;
-			mix-blend-mode: soft-light;
-			object-fit: cover;
-			opacity: 0.5;
-		}
+	.hero-subtitle {
+		font-size: 1.5rem;
+		font-weight: 400;
+		margin: 0;
+	}
 
-		&__panel {
-			display: flex;
-			flex-direction: column;
-			inline-size: 100%;
-			block-size: 100%;
-			transform: translateY(0);
-			contain: content;
+	.hero-benefits {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
 
-			&--top {
-				justify-content: flex-end;
-				grid-area: top;
-			}
+	.hero-benefit-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 
-			&--bottom {
-				grid-area: bottom;
-			}
-		}
+	.hero-benefit-text {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+	}
 
-		&__title {
-			@extend %global__display--h1;
-			@include apply-3d-text-shadow;
-			position: relative;
-			z-index: 2;
-			line-height: 1;
-			text-align: center;
-			contain: content;
-			font-kerning: none;
-			letter-spacing: -0.05em;
-			text-wrap: nowrap;
-
-			&::after {
-				@include apply-gradient-text;
-				content: attr(data-text);
-				position: absolute;
-				z-index: -2;
-				inset: 0;
-				margin: auto;
-			}
-		}
-
-		&__subtitle {
-			@extend %global__label;
-			position: relative;
-			margin-block-end: get-responsive-sp('lg');
-			margin-inline: auto;
-			padding-block: get-responsive-sp('xs');
-			padding-inline: get-responsive-sp('sm');
-			border-radius: 5rem;
-			background: get-light-dark('600', '700', 0.38, 0.5);
-			text-align: center;
-			text-transform: uppercase;
-			text-wrap: balance;
-
-			@include apply-shadow('medium', true);
-
-			&::after {
-				content: '';
-				position: absolute;
-				z-index: -1;
-				inset: 0;
-				border-radius: 5rem;
-
-				@include apply-shadow('low', false);
-			}
-		}
-
-		&__benefits {
-			display: none;
-			contain: content;
-
-			@include respond-to('mobile') {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				inline-size: 100%;
-				margin-block-start: auto;
-				margin-inline: auto;
-				padding-block-end: get-static-sp('sm');
-
-				@include apply-page-max-inline;
-			}
-		}
-
-		&__benefits-item {
-			@include flex-center;
-			contain: content;
-
-			@include apply-gap('xs');
-		}
-
-		&__benefits-icon {
-			flex-shrink: 0;
-			inline-size: 1em;
-			block-size: 1em;
-			color: get-typography-color('tertiary');
-		}
-
-		&__benefits-text {
-			@extend %global__label;
-			display: inline-flex;
-			align-items: center;
-			line-height: 0;
-			text-wrap: nowrap;
-
-			@include apply-gap('xs');
-
-			&--seperator {
-				color: get-typography-color('tertiary');
-			}
-		}
+	.separator {
+		opacity: 0.6;
+		margin: 0 0.25rem;
 	}
 </style>

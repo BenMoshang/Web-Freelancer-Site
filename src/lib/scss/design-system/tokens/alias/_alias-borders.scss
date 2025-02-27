@@ -2,15 +2,15 @@
 // Define role-based border variables
 
 // Import tokens if needed
-@use '../tokens/borders' as tokens;
+@use '../_primitive-borders' as tokens;
 @use 'sass:map';
 
 // Border width aliases
 $border-width: (
-	'none': map.get($border-width, 'none'),
-	'thin': map.get($border-width, 'hairline'),
-	'medium': map.get($border-width, 'thin'),
-	'thick': map.get($border-width, 'medium')
+	'none': map.get(tokens.$border-width, 'none'),
+	'thin': map.get(tokens.$border-width, 'hairline'),
+	'medium': map.get(tokens.$border-width, 'thin'),
+	'thick': map.get(tokens.$border-width, 'medium')
 );
 
 // Border radius aliases
