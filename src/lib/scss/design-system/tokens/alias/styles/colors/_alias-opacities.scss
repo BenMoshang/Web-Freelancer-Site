@@ -1,0 +1,64 @@
+@use 'sass:map';
+@use '../primitive/_primitive-opacities' as p;
+
+// ==========================================================================
+// SEMANTIC OPACITY TOKENS
+// ==========================================================================
+
+/**
+ * Semantic opacity values for consistent transparency across components
+ * Organized by purpose and component state
+ */
+
+// Semantic opacity by component and state
+// ----------------------------------
+$SEMANTIC_OPACITY: (
+	'interactive': (
+		'disabled': p.opacity('38'),
+		'hover': p.opacity('10'),
+		'focus': p.opacity('25')
+	),
+
+	'background': (
+		'subtle': p.opacity('5'),
+		'light': p.opacity('10'),
+		'medium': p.opacity('25'),
+		'strong': p.opacity('60')
+	),
+
+	'overlay': (
+		'scrim': p.opacity('60'),
+		'modal': p.opacity('80'),
+		'notification': p.opacity('87')
+	),
+
+	'text': (
+		'primary': p.opacity('87'),
+		'secondary': p.opacity('60'),
+		'tertiary': p.opacity('38'),
+		'disabled': p.opacity('25')
+	),
+
+	'icon': (
+		'primary': p.opacity('87'),
+		'secondary': p.opacity('60'),
+		'tertiary': p.opacity('38'),
+		'disabled': p.opacity('25')
+	)
+) !default;
+
+/**
+ * Get a semantic opacity value
+ * @param {String} $context - Context (interactive, background, overlay, text, icon)
+ * @param {String} $variant - Variant or state name
+ * @return {Number} The opacity value
+ */
+@function semantic-opacity($context, $variant) {
+	@return map.get(map.get($SEMANTIC_OPACITY, $context), $variant);
+}
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+
+$alias-opacity: $SEMANTIC_OPACITY;

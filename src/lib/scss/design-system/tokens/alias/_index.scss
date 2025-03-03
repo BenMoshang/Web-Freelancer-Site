@@ -1,8 +1,30 @@
-// Alias/_index.scss
-// Import all alias files
-@forward 'borders';
-@forward 'colors';
-@forward 'spacing';
-@forward 'typography';
+/**
+ * Design System Semantic Tokens
+ * ========================================================================== 
+ * Semantic aliases that map to primitive tokens based on function and meaning.
+ *
+ * These aliases abstract the raw primitive values to create meaningful,
+ * context-specific tokens that represent their purpose rather than their value.
+ * This enables:
+ * - Consistent usage across components
+ * - Easier theming and customization
+ * - Clearer intent in the codebase
+ * 
+ * @example Import all semantic tokens
+ * @use '../path/to/tokens/alias' as a;
+ * 
+ * .component {
+ *   color: a.semantic-color('primary');
+ *   font-size: a.type('heading', 'md', 'font-size');
+ *   border-radius: a.border('radius', 'md');
+ *   margin: a.space('component', 'md');
+ * }
+ */
 
-@forward 'themes/themes';
+// Forward all semantic token files with their variables and functions
+@forward 'alias-borders';
+
+@forward 'alias-spacing';
+@forward 'alias-typography';
+@forward 'alias-z-index';
+@forward 'colors';

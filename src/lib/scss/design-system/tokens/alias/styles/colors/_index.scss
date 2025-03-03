@@ -1,0 +1,8 @@
+// Tokens/colors/_index.scss
+// Import all color alias files
+
+// Import alias files
+@forward 'alias-colors';
+@forward 'alias-themes';
+@forward 'alias-gradient';
+@forward 'alias-opacities';

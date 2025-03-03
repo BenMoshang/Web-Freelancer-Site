@@ -183,8 +183,28 @@
 /**
  * Cache of validated tokens to improve performance
  * Prevents re-validation of the same token lookups
+ * Using module-level variable with immutable updates pattern
  */
-$_validated_tokens: () !default;
+$_token_cache: () !default;
+$_cache_enabled: true !default;
+
+/**
+ * Enable or disable token caching
+ * @param {Boolean} $enabled - Whether caching should be enabled
+ */
+@function set-cache-enabled($enabled: true) {
+	$_cache_enabled: $enabled !global;
+	@return $enabled;
+}
+
+/**
+ * Clear the token cache
+ * Useful in test environments or when dynamically updating tokens
+ */
+@function clear-token-cache() {
+	$_token_cache: () !global;
+	@return true;
+}
 
 /**
  * Validate and cache token lookup for better performance
@@ -201,22 +221,76 @@ $_validated_tokens: () !default;
 	// Create a unique cache key
 	$cache-key: $map-name + '-' + $key;
 
-	// Check if already validated
-	@if map-has-key($_validated_tokens, $cache-key) {
-		@return map-get($_validated_tokens, $cache-key);
+	// Check if caching is enabled
+	@if $_cache_enabled {
+		// Check if already validated
+		@if map-has-key($_token_cache, $cache-key) {
+			@return map-get($_token_cache, $cache-key);
+		}
 	}
 
 	// Validate and cache
 	@if not map-has-key($map, $key) {
+		// Check for close matches for typo detection
+		$available-keys: map-keys($map);
+		$similar-keys: ();
+
+		@each $available-key in $available-keys {
+			// Simple similarity check based on first character
+			@if str-slice($available-key, 1, 1) == str-slice($key, 1, 1) {
+				$similar-keys: append($similar-keys, $available-key);
+			}
+		}
+
+		@if length($similar-keys) > 0 {
+			@warn "Key '#{$key}' not found in #{$map-name} map. Did you mean one of these? #{$similar-keys}";
+		}
+
 		@error "Key '#{$key}' not found in #{$map-name} map.";
 	}
 
 	$value: map-get($map, $key);
-	$_validated_tokens: map-merge(
-		$_validated_tokens,
-		(
-			$cache-key: $value
-		)
-	) !global;
+
+	// Only update cache if caching is enabled
+	@if $_cache_enabled {
+		$_token_cache: map-merge(
+			$_token_cache,
+			(
+				$cache-key: $value
+			)
+		) !global;
+	}
+
 	@return $value;
+}
+
+/**
+ * DEPRECATION WARNINGS
+ * --------------------------------------------------
+ */
+
+/**
+ * Log deprecation warning for functions or mixins
+ * @param {String} $old - Name of deprecated feature
+ * @param {String} $new - Name of replacement feature
+ * @param {String} $version - Version when it will be removed (optional)
+ */
+@mixin deprecated($old, $new, $version: null) {
+	$message: '#{$old} is deprecated.';
+
+	@if $new {
+		$message: $message + ' Use #{$new} instead.';
+	}
+
+	@if $version {
+		$message: $message + ' Will be removed in version #{$version}.';
+	}
+
+	@warn $message;
+}
+
+// Deprecated color function - use theme() instead
+@function get-color-deprecated($map, $key, $fallback: null) {
+	@include deprecated('get-color', 'theme()');
+	@return get-color($map, $key, $fallback);
 }

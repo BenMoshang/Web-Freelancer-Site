@@ -1,0 +1,180 @@
+/**
+ * Alias Colors
+ * --------------------------------------------------
+ * This module defines semantic color aliases that map to primitive color tokens.
+ * 
+ * Semantic colors represent the meaning or purpose of a color rather than its visual value.
+ * This abstraction allows us to:
+ * - Change the underlying colors without changing component code
+ * - Ensure consistency in color usage across the application
+ * - Make theming more straightforward
+ * 
+ * The color map provides different categories (primary, secondary, etc.) each with
+ * intensity levels from 'lightest' to 'darkest', with 'default' as the primary value.
+ * 
+ * @example Usage in components
+ * @use 'path/to/design-system/tokens/alias/colors' as colors;
+ * 
+ * .button--primary {
+ *   background-color: map.get(map.get(colors.$alias-color, 'primary'), 'default');
+ *   color: map.get(map.get(colors.$alias-color, 'neutral'), 'lightest');
+ * }
+ * 
+ * // Or with a helper function
+ * @function get-color($category, $shade: 'default') {
+ *   @return map.get(map.get($alias-color, $category), $shade);
+ * }
+ * 
+ * .button--primary {
+ *   background-color: get-color('primary');
+ *   color: get-color('neutral', 'lightest');
+ * }
+ */
+
+// Alias/_colors.scss
+// Define role-based color variables
+
+// Import tokens
+@use 'sass:map';
+@use '../primitive/_primitive-colors' as p;
+
+/**
+ * Semantic color tokens that map to primitive colors
+ * Organized by purpose/function rather than visual appearance
+ */
+
+// ==========================================================================
+// CONFIG
+// ==========================================================================
+
+$_CONFIG: (
+	'intensity-scale': (
+		'darkest',
+		'darker',
+		'dark',
+		'default',
+		'light',
+		'lighter',
+		'lightest'
+	),
+	'default-intensity': 'default'
+) !default;
+
+// ==========================================================================
+// SEMANTIC COLOR PALETTE
+// ==========================================================================
+
+// Semantic colors with intensity variants
+// ----------------------------------
+$SEMANTIC_COLORS: (
+	'primary': (
+		'darkest': p.color('blue', 900),
+		'darker': p.color('blue', 800),
+		'dark': p.color('blue', 700),
+		'default': p.color('blue', 500),
+		'light': p.color('blue', 300),
+		'lighter': p.color('blue', 200),
+		'lightest': p.color('blue', 100)
+	),
+
+	'secondary': (
+		'darkest': p.color('green', 900),
+		'darker': p.color('green', 800),
+		'dark': p.color('green', 700),
+		'default': p.color('green', 500),
+		'light': p.color('green', 300),
+		'lighter': p.color('green', 200),
+		'lightest': p.color('green', 100)
+	),
+
+	'error': (
+		'darkest': p.color('red', 900),
+		'darker': p.color('red', 800),
+		'dark': p.color('red', 700),
+		'default': p.color('red', 500),
+		'light': p.color('red', 300),
+		'lighter': p.color('red', 200),
+		'lightest': p.color('red', 100)
+	),
+
+	'success': (
+		'darkest': p.color('green', 900),
+		'darker': p.color('green', 800),
+		'dark': p.color('green', 700),
+		'default': p.color('green', 500),
+		'light': p.color('green', 300),
+		'lighter': p.color('green', 200),
+		'lightest': p.color('green', 100)
+	),
+
+	'warning': (
+		'darkest': p.color('yellow', 900),
+		'darker': p.color('yellow', 800),
+		'dark': p.color('yellow', 700),
+		'default': p.color('yellow', 500),
+		'light': p.color('yellow', 300),
+		'lighter': p.color('yellow', 200),
+		'lightest': p.color('yellow', 100)
+	),
+
+	'information': (
+		'darkest': p.color('blue', 900),
+		'darker': p.color('blue', 800),
+		'dark': p.color('blue', 700),
+		'default': p.color('blue', 500),
+		'light': p.color('blue', 300),
+		'lighter': p.color('blue', 200),
+		'lightest': p.color('blue', 100)
+	),
+
+	'neutral': (
+		'darkest': p.color('gray', 900),
+		'darker': p.color('gray', 800),
+		'dark': p.color('gray', 700),
+		'default': p.color('gray', 500),
+		'light': p.color('gray', 300),
+		'lighter': p.color('gray', 200),
+		'lightest': p.color('gray', 100)
+	),
+
+	'highlight': (
+		'darkest': p.color('blue', 900),
+		'darker': p.color('blue', 800),
+		'dark': p.color('blue', 700),
+		'default': p.color('blue', 400),
+		'light': p.color('blue', 300),
+		'lighter': p.color('blue', 200),
+		'lightest': p.color('blue', 100)
+	),
+
+	'action': (
+		'darkest': p.color('blue', 900),
+		'darker': p.color('blue', 800),
+		'dark': p.color('blue', 700),
+		'default': p.color('blue', 600),
+		'light': p.color('blue', 400),
+		'lighter': p.color('blue', 300),
+		'lightest': p.color('blue', 200)
+	)
+) !default;
+
+/**
+ * Get a semantic color value
+ * @param {String} $category - The semantic category (primary, secondary, etc.)
+ * @param {String} $intensity - The intensity level (default, light, dark, etc.)
+ * @return {Color} The semantic color value
+ */
+@function semantic-color($category, $intensity: map.get($_CONFIG, 'default-intensity')) {
+	@return map.get(map.get($SEMANTIC_COLORS, $category), $intensity);
+}
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+
+$alias-color: $SEMANTIC_COLORS;
+
+// Keeping the legacy function for backward compatibility
+@function get-color($category, $shade: 'default') {
+	@return semantic-color($category, $shade);
+}

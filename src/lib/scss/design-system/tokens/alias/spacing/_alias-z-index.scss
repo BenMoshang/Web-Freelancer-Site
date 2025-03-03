@@ -1,0 +1,59 @@
+// Alias/_alias-z-index.scss
+// Define role-based z-index variables
+
+@use 'sass:map';
+@use '../primitive/_primitive-z-index' as p;
+
+// ==========================================================================
+// SEMANTIC Z-INDEX TOKENS
+// ==========================================================================
+
+/**
+ * Semantic z-index values for controlling element stacking
+ * Organized by component and purpose
+ */
+
+// Semantic z-index by UI component
+// ----------------------------------
+$SEMANTIC_Z_INDEX: (
+	'base': (
+		'below': p.z('low'),
+		'default': p.z('base'),
+		'above': p.z('high')
+	),
+
+	'navigation': (
+		'header': 100,
+		'dropdown': 200,
+		'sidebar': 300
+	),
+
+	'overlay': (
+		'backdrop': 900,
+		'modal': 1000,
+		'dialog': 1100,
+		'tooltip': 1200
+	),
+
+	'floating': (
+		'sticky': 400,
+		'popover': 500,
+		'notification': 600
+	)
+) !default;
+
+/**
+ * Get a semantic z-index value
+ * @param {String} $context - Context group (base, navigation, overlay, floating)
+ * @param {String} $name - Specific component or state
+ * @return {Number} The z-index value
+ */
+@function semantic-z($context, $name) {
+	@return map.get(map.get($SEMANTIC_Z_INDEX, $context), $name);
+}
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+
+$alias-z-index: $SEMANTIC_Z_INDEX;

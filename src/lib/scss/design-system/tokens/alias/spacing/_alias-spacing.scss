@@ -1,0 +1,112 @@
+// Alias/_spacing.scss
+// Define role-based spacing variables
+
+// Import tokens if needed
+@use '../_primitive-spacing' as tokens;
+@use 'sass:map';
+@use '../primitive/_primitive-spacing' as p;
+
+// ==========================================================================
+// SEMANTIC SPACING TOKENS
+// ==========================================================================
+
+/**
+ * Semantic spacing tokens for consistent layout and component spacing
+ * Organized by purpose and context
+ */
+
+// ==========================================================================
+// CONFIG
+// ==========================================================================
+
+$_CONFIG: (
+	'size-scale': (
+		'xs': 1,
+		// 4px
+		'sm': 2,
+		// 8px
+		'md': 4,
+		// 16px
+		'lg': 6,
+		// 24px
+		'xl': 8,
+		// 32px
+		'2xl': 12,
+		// 48px
+		'3xl': 16,
+		// 64px
+		'4xl': 24 // 96px
+	)
+) !default;
+
+// ==========================================================================
+// SEMANTIC SPACING
+// ==========================================================================
+
+// Semantic spacing by component and context
+// ----------------------------------
+$SEMANTIC_SPACING: (
+	// Layout spacing
+	'layout': (
+			'xs': p.space(map.get($_CONFIG, 'size-scale', 'xs')),
+			'sm': p.space(map.get($_CONFIG, 'size-scale', 'sm')),
+			'md': p.space(map.get($_CONFIG, 'size-scale', 'md')),
+			'lg': p.space(map.get($_CONFIG, 'size-scale', 'lg')),
+			'xl': p.space(map.get($_CONFIG, 'size-scale', 'xl')),
+			'2xl': p.space(map.get($_CONFIG, 'size-scale', '2xl')),
+			'3xl': p.space(map.get($_CONFIG, 'size-scale', '3xl')),
+			'4xl': p.space(map.get($_CONFIG, 'size-scale', '4xl'))
+		),
+
+	// Component spacing
+	'component': (
+			'xs': p.space(map.get($_CONFIG, 'size-scale', 'xs')),
+			'sm': p.space(map.get($_CONFIG, 'size-scale', 'sm')),
+			'md': p.space(map.get($_CONFIG, 'size-scale', 'md')),
+			'lg': p.space(map.get($_CONFIG, 'size-scale', 'lg')),
+			'xl': p.space(map.get($_CONFIG, 'size-scale', 'xl'))
+		),
+
+	// Text spacing
+	'text': (
+			'xs': p.space(1),
+			// 4px
+			'sm': p.space(2),
+			// 8px
+			'md': p.space(3),
+			// 12px
+			'lg': p.space(4) // 16px
+		),
+
+	// Icon spacing
+	'icon': (
+			'xs': p.space(1),
+			// 4px
+			'sm': p.space(2),
+			// 8px
+			'md': p.space(3),
+			// 12px
+			'lg': p.space(4) // 16px
+		)
+) !default;
+
+/**
+ * Get a semantic spacing value
+ * @param {String} $context - Spacing context (layout, component, text, icon)
+ * @param {String} $size - Size variant (xs, sm, md, lg, xl, etc.)
+ * @return {Length} The spacing value
+ */
+@function semantic-space($context, $size) {
+	@return map.get(map.get($SEMANTIC_SPACING, $context), $size);
+}
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+
+$alias-spacing: $SEMANTIC_SPACING;
+
+// Keeping the legacy function for backward compatibility
+@function get-spacing($context, $size) {
+	@return semantic-space($context, $size);
+}

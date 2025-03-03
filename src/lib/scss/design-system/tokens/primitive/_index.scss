@@ -1,0 +1,31 @@
+/**
+ * Design System Primitive Tokens
+ * ========================================================================== 
+ * Core values that define the foundation of the design system.
+ *
+ * These primitives include raw values for:
+ * - colors
+ * - typography (font sizes, families, weights)
+ * - spacing values
+ * - borders and radiuses 
+ * - z-indices
+ * - opacities
+ * 
+ * @example Import all tokens
+ * @use '../path/to/tokens/primitive' as p;
+ * 
+ * .element {
+ *   color: p.color('blue', 500);
+ *   font-size: p.size(2);
+ *   padding: p.space(4);
+ *   z-index: p.z('modal');
+ * }
+ */
+
+// Forward all token files with their variables and functions
+@forward 'primitive-borders';
+@forward 'primitive-spacing';
+@forward 'primitive-typography';
+@forward 'primitive-z-index';
+
+@forward 'colors';

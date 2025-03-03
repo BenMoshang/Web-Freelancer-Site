@@ -1,0 +1,75 @@
+@use 'sass:map';
+@use 'sass:math';
+
+// ==========================================================================
+// SPACING TOKENS
+// ==========================================================================
+
+/**
+ * Spacing values for consistent layout and positioning
+ */
+
+// Spacing configuration
+// ----------------------------------
+$_CONFIG: (
+	'base': 0.25rem // 4px base unit
+);
+/**
+ * Calculate a custom spacing value
+ * @param {Number} $multiplier - Multiple of the base unit
+ * @return {Length} The calculated spacing value
+ */
+@function _calculate-multiplier($multiplier) {
+	@return map.get($_CONFIG, 'base') * $multiplier;
+}
+// Spacing scale using the base unit
+// ----------------------------------
+$SPACING: (
+	0: 0,
+	1: _calculate-multiplier(1),
+	// 0.25rem - 4px
+	2: _calculate-multiplier(2),
+	// 0.5rem - 8px
+	3: _calculate-multiplier(3),
+	// 0.75rem - 12px
+	4: _calculate-multiplier(4),
+	// 1rem - 16px
+	5: _calculate-multiplier(5),
+	// 1.25rem - 20px
+	6: _calculate-multiplier(6),
+	// 1.5rem - 24px
+	8: _calculate-multiplier(8),
+	// 2rem - 32px
+	10: _calculate-multiplier(10),
+	// 2.5rem - 40px
+	12: _calculate-multiplier(12),
+	// 3rem - 48px
+	16: _calculate-multiplier(16),
+	// 4rem - 64px
+	20: _calculate-multiplier(20),
+	// 5rem - 80px
+	24: _calculate-multiplier(24),
+	// 6rem - 96px
+	32: _calculate-multiplier(32),
+	// 8rem - 128px
+	40: _calculate-multiplier(40),
+	// 10rem - 160px
+	48: _calculate-multiplier(48),
+	// 12rem - 192px
+	56: _calculate-multiplier(56),
+	// 14rem - 224px
+	64: _calculate-multiplier(64) // 16rem - 256px
+) !default;
+
+/**
+ * Get a spacing value
+ * @param {Number} $key - The spacing key (0-64)
+ * @return {Length} The spacing value
+ */
+@function get-spacing-primitive($key) {
+	@return map.get($SPACING, $key);
+}
+
+$PRIMITIVE_SPACING_BASE: map.get($_CONFIG, 'base');
+$PRIMITIVE_SPACING_SCALE: $SPACING;
+$PRIMITIVE_SPACING: $SPACING;

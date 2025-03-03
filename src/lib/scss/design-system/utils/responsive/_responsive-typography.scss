@@ -1,0 +1,176 @@
+/**
+ * Responsive Typography System
+ * --------------------------------------------------
+ * A fluid typography system that scales text size based on viewport width.
+ * 
+ * This system provides:
+ * - Smooth scaling between minimum and maximum sizes
+ * - Consistent typography across different screen sizes
+ * - Accessible text sizing with proper rem units
+ * - Comprehensive heading and body text utilities
+ * 
+ * @example Basic fluid typography
+ * .title {
+ *   @include fluid-typography(1.5rem, 3rem);
+ * }
+ * 
+ * @example Using predefined text sizes
+ * h1 {
+ *   @include responsive-heading(1);
+ * }
+ */
+
+@use 'sass:map';
+@use '../utils/utils-functions' as utils;
+@use '../tokens/alias/_alias-typography' as typography;
+@use 'responsive-breakpoints' as breakpoints;
+@use '../base/global-variables' as gv;
+
+// Type scale ratios for different design systems
+$type-scales: (
+	'minor-second': 1.067,
+	'major-second': 1.125,
+	'minor-third': 1.2,
+	'major-third': 1.25,
+	'perfect-fourth': 1.333,
+	'augmented-fourth': 1.414,
+	'perfect-fifth': 1.5,
+	'golden-ratio': 1.618
+) !default;
+
+// Default type scale to use
+$selected-type-scale: 'perfect-fourth' !default;
+
+/**
+ * Creates fluid typography that scales between min and max sizes
+ * based on viewport width using CSS clamp()
+ * 
+ * @param {Length} $min-size - Minimum font size (usually for mobile)
+ * @param {Length} $max-size - Maximum font size (usually for desktop)
+ * @param {Length} $min-vw - Minimum viewport width (default: 20rem/320px)
+ * @param {Length} $max-vw - Maximum viewport width (default: from global variables)
+ * @return {String} CSS with font-size declaration
+ * 
+ * @example
+ * .title {
+ *   @include fluid-typography(1.5rem, 3rem);
+ * }
+ */
+@mixin fluid-typography($min-size, $max-size, $min-vw: 20rem, $max-vw: gv.$PAGE_MAX_INLINE) {
+	// Convert any px values to rem
+	$min-size: if(unit($min-size) == 'px', utils.px-to-rem($min-size), $min-size);
+	$max-size: if(unit($max-size) == 'px', utils.px-to-rem($max-size), $max-size);
+
+	// Calculate fluid size using clamp
+	font-size: utils.create-clamp($min-size, $max-size, $min-vw, $max-vw);
+
+	// Ensure accessibility by setting a minimum size in px
+	@if (unit($min-size) == 'rem') {
+		@media screen and (max-width: $min-vw) {
+			font-size: $min-size;
+		}
+	}
+}
+
+/**
+ * Creates a responsive heading style based on heading level
+ * 
+ * @param {Number} $level - Heading level (1-6)
+ * @param {String} $weight - Font weight (default: 'bold')
+ * @param {String} $family - Font family (default: 'heading')
+ * 
+ * @example
+ * .section-title {
+ *   @include responsive-heading(2);
+ * }
+ */
+@mixin responsive-heading($level, $weight: 'bold', $family: 'heading') {
+	$min-size: null;
+	$max-size: null;
+	$line-height: 1.2;
+
+	@if $level == 1 {
+		$min-size: 2rem; // 32px
+		$max-size: 3.5rem; // 56px
+	} @else if $level == 2 {
+		$min-size: 1.5rem; // 24px
+		$max-size: 2.5rem; // 40px
+	} @else if $level == 3 {
+		$min-size: 1.25rem; // 20px
+		$max-size: 1.75rem; // 28px
+	} @else if $level == 4 {
+		$min-size: 1.125rem; // 18px
+		$max-size: 1.5rem; // 24px
+	} @else if $level == 5 {
+		$min-size: 1rem; // 16px
+		$max-size: 1.25rem; // 20px
+	} @else if $level == 6 {
+		$min-size: 0.875rem; // 14px
+		$max-size: 1rem; // 16px
+	} @else {
+		@warn "Invalid heading level: #{$level}. Using level 1 as fallback.";
+		$min-size: 2rem;
+		$max-size: 3.5rem;
+	}
+
+	font-family: map.get(typography.$font-family, $family);
+	@include fluid-typography($min-size, $max-size);
+	font-weight: map.get(typography.$font-weight, $weight);
+	line-height: $line-height;
+	margin-top: 0;
+	margin-bottom: $min-size; // Bottom margin equal to font size
+
+	// Apply appropriate font features for headings
+	font-feature-settings: 'liga', 'kern', 'calt';
+	// Optional: Add letter-spacing adjustments for better readability
+	letter-spacing: -0.01em;
+}
+
+/**
+ * Creates a responsive body text style
+ * 
+ * @param {String} $size - Text size ('xs', 'sm', 'md', 'lg', 'xl')
+ * @param {String} $weight - Font weight (default: 'regular')
+ * @param {String} $family - Font family (default: 'body')
+ * 
+ * @example
+ * .article-text {
+ *   @include responsive-body('md', 'regular');
+ * }
+ */
+@mixin responsive-body($size: 'md', $weight: 'regular', $family: 'body') {
+	$min-size: null;
+	$max-size: null;
+	$line-height: 1.5;
+
+	@if $size == 'xs' {
+		$min-size: 0.75rem; // 12px
+		$max-size: 0.875rem; // 14px
+	} @else if $size == 'sm' {
+		$min-size: 0.875rem; // 14px
+		$max-size: 1rem; // 16px
+	} @else if $size == 'md' {
+		$min-size: 1rem; // 16px
+		$max-size: 1.125rem; // 18px
+	} @else if $size == 'lg' {
+		$min-size: 1.125rem; // 18px
+		$max-size: 1.25rem; // 20px
+	} @else if $size == 'xl' {
+		$min-size: 1.25rem; // 20px
+		$max-size: 1.5rem; // 24px
+	} @else {
+		@warn "Invalid body text size: #{$size}. Using 'md' as fallback.";
+		$min-size: 1rem;
+		$max-size: 1.125rem;
+	}
+
+	font-family: map.get(typography.$font-family, $family);
+	@include fluid-typography($min-size, $max-size);
+	font-weight: map.get(typography.$font-weight, $weight);
+	line-height: $line-height;
+
+	// Optimize for readability
+	font-feature-settings: 'liga', 'kern', 'calt';
+	// For body text, we want normal letter-spacing for legibility
+	letter-spacing: normal;
+}

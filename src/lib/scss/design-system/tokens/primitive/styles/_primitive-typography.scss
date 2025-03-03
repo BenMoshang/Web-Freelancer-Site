@@ -1,0 +1,147 @@
+@use 'sass:math';
+@use 'sass:map';
+
+/* ==========================================================================
+   PRIMITIVE TYPOGRAPHY TOKENS
+   ========================================================================== 
+   Define the raw typography values used throughout the design system.
+   These are the foundation for all typographic styles.
+*/
+
+// ==========================================================================
+// PRIMITIVE TYPOGRAPHY TOKENS
+// ==========================================================================
+
+// Typography System Configuration
+// ----------------------------------
+$_CONFIG: (
+	'base-size': 1rem,
+	// Base font size
+	'scale-ratio': 1.2,
+	// Scale ratio for modular typography
+	'paragraph-widths': (
+			'tight': 50ch,
+			'normal': 65ch,
+			'relaxed': 80ch
+		)
+);
+
+// Font Families
+// ----------------------------------
+$FONT_FAMILY: (
+	'sans':
+		'"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+	'sans-alt':
+		'"Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+	'serif': 'Georgia, "Times New Roman", serif',
+	'mono':
+		'"JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+);
+
+// Font Weights
+// ----------------------------------
+$FONT_WEIGHT: (
+	'thin': 100,
+	'extra-light': 200,
+	'light': 300,
+	'regular': 400,
+	'medium': 500,
+	'semi-bold': 600,
+	'bold': 700,
+	'extra-bold': 800,
+	'black': 900,
+	'variable': (
+		'regular': 450,
+		'semi-bold': 650,
+		'bold': 750
+	)
+);
+
+// Line Heights & Letter Spacing
+// ----------------------------------
+$LINE_HEIGHT: (
+	'none': 1,
+	'tight': 1.25,
+	'snug': 1.375,
+	'normal': 1.5,
+	'relaxed': 1.625,
+	'loose': 2
+);
+
+$LETTER_SPACING: (
+	'tighter': -0.05em,
+	'tight': -0.025em,
+	'normal': 0,
+	'wide': 0.025em,
+	'wider': 0.05em,
+	'widest': 0.1em
+);
+
+// Paragraph Widths
+// ----------------------------------
+$PARAGRAPH_WIDTH: map.get($_CONFIG, 'paragraph-widths');
+
+// ==========================================================================
+// Typography Scale Generator
+// ==========================================================================
+
+/// Calculate font size based on scale step
+/// @param {Number} $step - Step in typographic scale
+/// @return {Length} Calculated font size
+@function _calculate-font-size($step) {
+	$base: map.get($_CONFIG, 'base-size');
+	$ratio: map.get($_CONFIG, 'scale-ratio');
+
+	@if $step < 0 {
+		@return math.div($base, math.pow($ratio, abs($step)));
+	} @else {
+		@return math.pow($ratio, $step) * $base;
+	}
+}
+
+// Generate Font Size Scale
+// ----------------------------------
+$FONT_SIZE: (
+	'2xs': _calculate-font-size(-0.75),
+	// ~14px
+	'xs': _calculate-font-size(-0.5),
+	// ~16px
+	'sm': _calculate-font-size(0),
+	// ~18px
+	'md': _calculate-font-size(1),
+	// ~22px
+	'lg': _calculate-font-size(2),
+	// ~26px
+	'xl': _calculate-font-size(3),
+	// ~31px
+	'2xl': _calculate-font-size(4),
+	// ~37px
+	'3xl': _calculate-font-size(5),
+	// ~45px
+	'4xl': _calculate-font-size(6),
+	// ~54px
+	'5xl': _calculate-font-size(7),
+	// ~64px
+	'6xl': _calculate-font-size(8),
+	// ~77px
+	'7xl': _calculate-font-size(9),
+	// ~93px
+	'8xl': _calculate-font-size(10),
+	// ~111px
+	'9xl': _calculate-font-size(11),
+	// ~134px
+	'10xl': _calculate-font-size(12) // ~160px
+) !default;
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+// These variables maintain backward compatibility with existing code
+
+$PRIMITIVE_FONT_FAMILY_BASE: $FONT_FAMILY;
+$PRIMITIVE_FONT_WEIGHT: $FONT_WEIGHT;
+$PRIMITIVE_LINE_HEIGHT: $LINE_HEIGHT;
+$PRIMITIVE_LETTER_SPACING: $LETTER_SPACING;
+$PRIMITIVE_PARAGRAPH_INLINE_SIZE: $PARAGRAPH_WIDTH;
+$PRIMITIVE_BASE_TYPOGRAPHY_SCALE: $FONT_SIZE;
+$PRIMITIVE_FONT_SIZE: $FONT_SIZE;

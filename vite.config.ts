@@ -9,8 +9,10 @@ export default defineConfig({
 			// Restrict file access outside the project root for better security
 			allow: ['..']
 		},
+		// Using localhost for better compatibility
+		host: 'localhost',
 		//ben desktop
-		host: '192.168.0.167',
+		// host: '192.168.0.167',
 		//ben laptop
 		// host: '192.168.0.85',
 		//work

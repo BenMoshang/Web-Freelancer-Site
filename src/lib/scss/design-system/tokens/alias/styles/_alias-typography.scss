@@ -1,0 +1,236 @@
+// Alias/_typography.scss
+// Define role-based typography variables
+
+// Import tokens if needed
+@use 'sass:map';
+@use '../primitive/_primitive-typography' as p;
+
+// ==========================================================================
+// SEMANTIC TYPOGRAPHY TOKENS
+// ==========================================================================
+
+/**
+ * Semantic typography tokens that map primitive typography values
+ * Organized by text role and purpose
+ */
+
+// Typography configuration
+// ----------------------------------
+$_CONFIG: (
+	'sizes': (
+		'sm',
+		'md',
+		'lg'
+	),
+	'default-size': 'md',
+	'properties': (
+		'font-family',
+		'font-size',
+		'font-weight',
+		'line-height',
+		'letter-spacing'
+	)
+);
+
+// ==========================================================================
+// FONT FAMILY ROLES
+// ==========================================================================
+
+// Font family semantic roles
+// ----------------------------------
+$FONT_FAMILIES: (
+	'display': map.get(p.$FONT_FAMILY, 'sans'),
+	'heading': map.get(p.$FONT_FAMILY, 'sans'),
+	'body': map.get(p.$FONT_FAMILY, 'serif'),
+	'code': map.get(p.$FONT_FAMILY, 'mono')
+) !default;
+
+// ==========================================================================
+// FONT SIZE ROLES
+// ==========================================================================
+
+// Semantic font sizes by role and size
+// ----------------------------------
+$FONT_SIZES: (
+	// Display text (for hero sections, etc.)
+	'display': (
+			'lg': p.size(7),
+			// 7xl
+			'md': p.size(6),
+			// 6xl
+			'sm': p.size(5) // 5xl
+		),
+
+	// Heading
+	'heading': (
+			'lg': p.size(4),
+			// 4xl
+			'md': p.size(3),
+			// 3xl
+			'sm': p.size(2) // 2xl
+		),
+
+	// Body text
+	'body': (
+			'lg': p.size(2),
+			// lg
+			'md': p.size(1),
+			// md
+			'sm': p.size(0) // sm
+		),
+
+	// Labels
+	'label': (
+			'lg': p.size(1),
+			// md
+			'md': p.size(0),
+			// sm
+			'sm': p.size(-0.5) // xs
+		),
+
+	// Buttons
+	'button': (
+			'lg': p.size(1),
+			// md
+			'md': p.size(0),
+			// sm
+			'sm': p.size(-0.5) // xs
+		)
+) !default;
+
+// ==========================================================================
+// FONT WEIGHT ROLES
+// ==========================================================================
+
+// Semantic font weights
+// ----------------------------------
+$FONT_WEIGHTS: (
+	'body': map.get(p.$FONT_WEIGHT, 'regular'),
+	'heading': map.get(p.$FONT_WEIGHT, 'semi-bold'),
+	'display': map.get(p.$FONT_WEIGHT, 'bold')
+) !default;
+
+// ==========================================================================
+// LINE HEIGHT & LETTER SPACING ROLES
+// ==========================================================================
+
+// Semantic line heights
+// ----------------------------------
+$LINE_HEIGHTS: (
+	'tight': map.get(p.$LINE_HEIGHT, 'tight'),
+	'normal': map.get(p.$LINE_HEIGHT, 'normal'),
+	'relaxed': map.get(p.$LINE_HEIGHT, 'relaxed')
+) !default;
+
+// Semantic letter spacing
+// ----------------------------------
+$LETTER_SPACINGS: (
+	'tight': map.get(p.$LETTER_SPACING, 'tight'),
+	'normal': map.get(p.$LETTER_SPACING, 'normal'),
+	'relaxed': map.get(p.$LETTER_SPACING, 'wide')
+) !default;
+
+// ==========================================================================
+// TYPOGRAPHY STYLES
+// ==========================================================================
+
+/**
+ * Create a complete typography style
+ * @param {String} $family - Font family key
+ * @param {String} $size-role - Size role (display, heading, body, etc.)
+ * @param {String} $size - Size variant (sm, md, lg)
+ * @param {String} $weight - Weight key
+ * @param {String} $line-height - Line height key
+ * @param {Number} $min-size-ratio - Responsive min size ratio
+ * @param {String} $letter-spacing - Optional letter spacing key
+ * @return {Map} Complete typography style
+ */
+@function _create-typography-style(
+	$family,
+	$size-role,
+	$size,
+	$weight,
+	$line-height,
+	$min-size-ratio,
+	$letter-spacing: null
+) {
+	$result: (
+		'font-family': map.get($FONT_FAMILIES, $family),
+		'font-size': map.get(map.get($FONT_SIZES, $size-role), $size),
+		'font-weight': map.get($FONT_WEIGHTS, $weight),
+		'line-height': map.get($LINE_HEIGHTS, $line-height),
+		'min-size-ratio': $min-size-ratio
+	);
+
+	@if $letter-spacing {
+		$result: map.merge(
+			$result,
+			(
+				'letter-spacing': map.get($LETTER_SPACINGS, $letter-spacing)
+			)
+		);
+	}
+
+	@return $result;
+}
+
+// Complete typographic styles by role
+// ----------------------------------
+$TYPOGRAPHY: (
+	'display': (
+		'lg': _create-typography-style('display', 'display', 'lg', 'display', 'tight', 0.65),
+		'md': _create-typography-style('display', 'display', 'md', 'display', 'tight', 0.65),
+		'sm': _create-typography-style('display', 'display', 'sm', 'display', 'tight', 0.7)
+	),
+
+	'heading': (
+		'lg': _create-typography-style('heading', 'heading', 'lg', 'heading', 'tight', 0.7),
+		'md': _create-typography-style('heading', 'heading', 'md', 'heading', 'normal', 0.75),
+		'sm': _create-typography-style('heading', 'heading', 'sm', 'heading', 'normal', 0.8)
+	),
+
+	'body': (
+		'lg': _create-typography-style('body', 'body', 'lg', 'body', 'relaxed', 0.85),
+		'md': _create-typography-style('body', 'body', 'md', 'body', 'relaxed', 0.9),
+		'sm': _create-typography-style('body', 'body', 'sm', 'body', 'relaxed', 0.95)
+	),
+
+	'utility': (
+		'caption': _create-typography-style('body', 'label', 'sm', 'body', 'relaxed', 1),
+		'label': _create-typography-style('heading', 'label', 'md', 'heading', 'normal', 0.95),
+		'button': _create-typography-style(
+				'heading',
+				'button',
+				'md',
+				'heading',
+				'normal',
+				0.95,
+				'normal'
+			),
+		'code': _create-typography-style('code', 'body', 'sm', 'body', 'relaxed', 0.95)
+	)
+) !default;
+
+/**
+ * Get a typography style property
+ * @param {String} $role - Typography role (display, heading, etc.)
+ * @param {String} $size - Size variant (sm, md, lg) or utility name
+ * @param {String} $property - Style property to retrieve (font-size, etc.)
+ * @return The typography value
+ */
+@function get-alias-typography($role, $size, $property: null) {
+	$style: map.get(map.get($TYPOGRAPHY, $role), $size);
+
+	@if $property {
+		@return map.get($style, $property);
+	} @else {
+		@return $style;
+	}
+}
+
+$alias-font-family: $FONT_FAMILIES;
+$alias-font-size: $FONT_SIZES;
+$alias-font-weight: $FONT_WEIGHTS;
+$alias-line-height: $LINE_HEIGHTS;
+$alias-letter-spacing: $LETTER_SPACINGS;
+$alias-typography-config: $TYPOGRAPHY;

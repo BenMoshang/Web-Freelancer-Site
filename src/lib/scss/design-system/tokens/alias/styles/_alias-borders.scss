@@ -1,0 +1,131 @@
+// Alias/_borders.scss
+// Define role-based border variables
+
+// Import tokens if needed
+@use '../tokens/borders' as tokens;
+@use 'sass:map';
+@use '../primitive/_primitive-borders' as p;
+
+// ==========================================================================
+// SEMANTIC BORDER TOKENS
+// ==========================================================================
+
+/**
+ * Semantic border tokens that map to primitive borders
+ * Organized by component and context
+ */
+
+// Semantic border tokens
+// ----------------------------------
+$SEMANTIC_BORDERS: (
+	'interactive': (
+		'width': (
+			'default': p.border('width', 'sm'),
+			'hover': p.border('width', 'md'),
+			'focus': p.border('width', 'md')
+		),
+		'radius': (
+			'default': p.border('radius', 'md'),
+			'pill': p.border('radius', 'full'),
+			'small': p.border('radius', 'sm')
+		),
+		'style': (
+			'default': p.border('style', 'solid'),
+			'focus': p.border('style', 'solid')
+		)
+	),
+
+	'container': (
+		'width': (
+			'default': p.border('width', 'xs'),
+			'elevated': p.border('width', 'sm')
+		),
+		'radius': (
+			'default': p.border('radius', 'md'),
+			'small': p.border('radius', 'sm'),
+			'large': p.border('radius', 'lg')
+		),
+		'style': (
+			'default': p.border('style', 'solid')
+		)
+	),
+
+	'decorative': (
+		'width': (
+			'thin': p.border('width', 'xs'),
+			'medium': p.border('width', 'sm'),
+			'thick': p.border('width', 'md')
+		),
+		'radius': (
+			'rounded': p.border('radius', 'lg'),
+			'circular': p.border('radius', 'full')
+		),
+		'style': (
+			'solid': p.border('style', 'solid'),
+			'dashed': p.border('style', 'dashed'),
+			'dotted': p.border('style', 'dotted')
+		)
+	)
+) !default;
+
+/**
+ * Get a semantic border value
+ * @param {String} $context - Context (interactive, container, decorative)
+ * @param {String} $property - Border property (width, radius, style)
+ * @param {String} $variant - Variant name
+ * @return The semantic border value
+ */
+@function semantic-border($context, $property, $variant: 'default') {
+	@return map.get(map.get(map.get($SEMANTIC_BORDERS, $context), $property), $variant);
+}
+
+// ==========================================================================
+// Legacy Compatibility Layer
+// ==========================================================================
+
+$alias-border: $SEMANTIC_BORDERS;
+
+// Border width aliases
+$alias-border-width: (
+	'none': map.get($border-width, 'none'),
+	'thin': map.get($border-width, 'hairline'),
+	'medium': map.get($border-width, 'thin'),
+	'thick': map.get($border-width, 'medium')
+);
+
+// Border radius aliases
+$alias-border-radius: (
+	'none': map.get($border-radius, 'none'),
+	'sm': map.get($border-radius, 'small'),
+	'md': map.get($border-radius, 'medium'),
+	'lg': map.get($border-radius, 'large'),
+	'xl': map.get($border-radius, 'x-large'),
+	'full': map.get($border-radius, 'full')
+);
+
+// Border style aliases
+$alias-border-style: (
+	'solid': map.get($border-style, 'solid'),
+	'dashed': map.get($border-style, 'dashed'),
+	'dotted': map.get($border-style, 'dotted'),
+	'none': map.get($border-style, 'none')
+);
+
+// Component specific border radius
+$alias-component-border-radius: (
+	'button': map.get($border-radius, 'md'),
+	'card': map.get($border-radius, 'md'),
+	'input': map.get($border-radius, 'sm'),
+	'badge': map.get($border-radius, 'full'),
+	'tooltip': map.get($border-radius, 'sm'),
+	'modal': map.get($border-radius, 'lg'),
+	'image': map.get($border-radius, 'md')
+);
+
+// Component specific border width
+$alias-component-border-width: (
+	'button': map.get($border-width, 'thin'),
+	'card': map.get($border-width, 'thin'),
+	'input': map.get($border-width, 'thin'),
+	'divider': map.get($border-width, 'thin')
+);

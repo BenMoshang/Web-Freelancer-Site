@@ -1,0 +1,108 @@
+---
+description: sass rules
+globs: .svelte, .sass, .scss
+alwaysApply: true
+---
+---
+name: sass-best-practices.mdc
+description: Sass coding standards and best practices
+globs: **/*.{scss,sass}
+---
+
+## Sass Syntax & Formatting
+
+- Use the SCSS syntax (rather than the indented syntax) for better CSS compatibility
+- Use 2 spaces for indentation, no tabs
+- Put spaces before `{` in rule declarations
+- Place closing braces `}` of declaration blocks on a new line
+- Include one space after `:` in property declarations
+- End all declarations with a semi-colon, even the last one
+- Separate selector and declaration block by one space
+- Separate each rule by an empty line
+- Use single quotes for strings
+- Don't add units for zero values (use `0` not `0px`)
+- Include leading zeros for decimal values (use `0.5` not `.5`)
+- Keep lines under 80 characters when possible
+
+## Organization & Architecture
+
+- Follow the 7-1 pattern when applicable:
+  - 7 folders (abstracts, vendors, base, layout, components, pages, themes)
+  - 1 main file that imports everything
+- Use partial files prefixed with underscore (`_partial.scss`)
+- Implement a consistent file structure across all stylesheets
+- Group related code together
+- Use meaningful file names related to their function
+- Use a consistent import order (variables, mixins, functions first)
+
+## Variables & Maps
+
+- Use variables for repeated values (colors, font stacks, etc.)
+- Use kebab-case for variable names (`$primary-color`)
+- Group related variables in maps where appropriate
+- Use descriptive naming that indicates the variable's purpose
+- Define global variables in a dedicated file/module
+- Use the `!default` flag for variables that should be configurable
+
+## Mixins & Functions
+
+- Create reusable code with mixins and functions
+- Document mixins and functions with comments
+- Create specific mixins rather than overly generic ones
+- Use mixins to avoid repetition
+- Keep mixins focused on a single responsibility
+- Prefer functions for operations that return values
+- Use appropriate argument defaults when possible
+
+## Nesting
+
+- Avoid nesting selectors more than 3 levels deep
+- Nest selectors that are contextually related
+- Use the parent selector reference (`&`) properly:
+  - For pseudo-classes and pseudo-elements
+  - For responsive variations
+  - For creating BEM modifiers
+- Don't unnecessarily nest selectors that could be written without nesting
+
+## Commenting
+
+- Use SassDoc comments for mixins, functions, and variables (`/// Comment`)
+- Use block comments for documenting sections (`/* Comment */`)
+- Use single-line comments for quick notes (`// Comment`)
+- Document complex code thoroughly
+- Use comment blocks to create visual separation between sections
+- Create a table of contents for large files
+
+## Selector Naming & Structure
+
+- Follow BEM (Block, Element, Modifier) methodology where appropriate
+- Use descriptive class names that reflect purpose/function
+- CONSTS are all caps and snake case: example: `$CIRCLE_RAIDUS: 3;`
+- Avoid deep nesting of selectors
+- Favor composition over inheritance
+- Avoid using IDs for styling
+- Limit reliance on location-dependent styles
+
+## Responsive Design
+
+- Use variables for breakpoints
+- Implement a consistent approach to media queries
+- Consider using a mixin for managing breakpoints
+- Keep media query content concise and focused
+
+## Performance Considerations
+
+- Avoid using `@extend` where possible (prefer mixins)
+- If using `@extend`, only extend placeholder selectors
+- Minimize nesting to avoid generating large CSS files
+- Use CSS shorthand properties appropriately
+- Consider specificity when writing selectors
+- Remove unused CSS
+
+## Tools and Practices
+
+- Use a linter (like scss-lint or stylelint)
+- Implement a consistent code style across the team
+- Consider using automated formatting tools
+- Document project-specific conventions
+- Keep up with Sass updates and best practices

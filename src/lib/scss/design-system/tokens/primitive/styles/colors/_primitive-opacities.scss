@@ -1,0 +1,42 @@
+// Tokens/_primitive-opacities.scss
+// Define opacity values for use throughout the design system
+//
+// Base opacity values as percentages (0% - 100%)
+// The scaling on these keys are based on the Google Material Design system for accessibility
+// For light mode and dark mode are different
+@use 'sass:map';
+
+// ==========================================================================
+// OPACITY TOKENS
+// ==========================================================================
+
+/**
+ * Opacity values based on Material Design accessibility guidelines
+ * Different values for light and dark modes
+ */
+
+// Opacity scale
+// ----------------------------------
+$OPACITY: (
+	'0': 0,
+	'5': 0.05,
+	'10': 0.1,
+	'25': 0.25,
+	'38': 0.38,
+	'60': 0.6,
+	'80': 0.8,
+	'87': 0.87,
+	'100': 1
+) !default;
+
+/**
+ * Get an opacity value
+ * @param {String} $key - The opacity key 
+ * @return {Number} The opacity value
+ */
+@function get-opacity-primitive($key) {
+	@return map.get($OPACITY, $key);
+}
+
+$PRIMITIVE_OPACITY_VALUES: $OPACITY;
+$PRIMITIVE_OPACITY: $OPACITY;
